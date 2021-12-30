@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Maps from "../Maps/Maps.js";
 import GridItem from "components/Grid/GridItem.js";
 // import GridContainer from "components/Grid/GridContainer.js";
@@ -7,8 +7,30 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import avatar from "../../assets/img/new_logo.png";
+import axios from "axios";
 
 const manette = () => {
+  const [manette, setManette] = useState([])
+
+  const getAllManette = () => {
+    axios.get("http://localhost:5000/get/setting/1").then(
+      (data) => {
+        setManette(data.data.manette_list);
+        console.debug(data.data)
+      }
+    )
+
+  }
+  const listManette = manette.map((item) => <li key={item.id}>{item.manette}</li>)
+
+
+
+  useEffect(() => {
+    getAllManette()
+  }, [])
+  
+
+
   return (
     <div>
       <div className="row">
@@ -25,10 +47,7 @@ const manette = () => {
                 <CardBody>
                   <div className="row container-fluid">
                     <ul>
-                      <li>lorem</li>
-                      <li>lorem</li>
-                      <li>lorem</li>
-                      <li>lorem</li>
+                      {listManette}
                     </ul>
                   </div>
                 </CardBody>

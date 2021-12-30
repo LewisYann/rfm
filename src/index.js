@@ -17,19 +17,24 @@
 */
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-
+import { createBrowserHistory } from "history";
+import { BrowserRouter, Route, Router, Switch, Redirect } from "react-router-dom";
+import { useHistory } from "react-router";
 // core components
 import Admin from "layouts/Admin.js";
 import RTL from "layouts/RTL.js";
 import Perso from "layouts/Perso.js";
+import Login from "views/login/login.js"
+import Register from "views/login/register.js"
 
 import "assets/css/material-dashboard-react.css?v=1.10.0";
 
 ReactDOM.render(
-  <BrowserRouter>
+  <BrowserRouter >
     <Switch>
-      <Route path="/" component={Perso} />
+
+      <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
       <Route path="/admin" component={Admin} />
       <Route path="/rtl" component={RTL} />
       <Redirect from="/" to="/admin/dashboard" />
@@ -37,3 +42,4 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById("root")
 );
+

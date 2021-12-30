@@ -9,7 +9,8 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import { Link } from "react-router-dom";
-
+import { useState,useEffect } from "react";
+import axios from "axios"
 const styles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
@@ -44,6 +45,29 @@ const useStyles = makeStyles(styles);
 
 export default function TableList() {
   const classes = useStyles();
+  const [mission, setMission] = useState([])
+
+  const getAllMission = () => {
+    axios.get("http://localhost:5000/get/all/mission/1").then(
+      (data) => {
+        setMission(data.data);
+        console.debug(data.data)
+      }
+    )
+
+  }
+  const listMission = mission.map((item) => <li key={item.id_mission}>{item.manette}</li>)
+
+
+
+  useEffect(() => {
+    getAllMission()
+  }, [])
+
+
+
+
+
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
@@ -64,19 +88,8 @@ export default function TableList() {
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["#", "Nom", "Date-Heure", "Duree (h)", "Actions"]}
-              tableData={[
-                ["1", "Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
-                ["2", "Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"],
-                ["3", "Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["4", "Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["5", "Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["5", "Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["5", "Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["5", "Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["5", "Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["6", "Mason Porter", "Chile", "Gloucester", "$78,615"],
-              ]}
+              tableHead={["#", "Nom", "Description", "Duree (h)", "Date"]}
+              tableData={mission}
             />
           </CardBody>
         </Card>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // react plugin for creating charts
 // import ChartistGraph from "react-chartist";
 // @material-ui/core
@@ -28,7 +28,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
-
+import axios from "axios";
 // import { bugs, website, server } from "variables/general.js";
 
 // import {
@@ -43,13 +43,39 @@ import LastMission from "components/Perso/LastMission";
 
 const useStyles = makeStyles(styles);
 
-const mission = 5;
-const hVol = 8;
-const lastMission = 3;
-
 // const [toggle, setToggle] = useState(false);
 
+
 export default function Dashboard() {
+  const [mission, setMission] = useState(5)
+  const [hVol, setVol] = useState(8)
+  const [lastMission, setlastMission]=useState(3)
+
+  const getHoursVol = () => {
+    axios.get("http://localhost:5000/mission/hours/d30c77c0-bca0-4c0e-8e1d-c5dcf368e9d6").then(
+      (data) => {
+        setMission(data.data); 
+        setVol(data.data); 
+ 
+      }
+    ) 
+
+  }
+  const getMissionTotal = () => {
+    axios.get("http://localhost:5000/mission/nombre/d30c77c0-bca0-4c0e-8e1d-c5dcf368e9d6").then(
+      (data) => {
+        setMission(data.data); 
+        setlastMission(data.data); 
+      }
+    ) 
+
+  }
+ 
+  useEffect(() => {
+    getHoursVol()
+    getMissionTotal()
+  }, [])
+
   const classes = useStyles();
   return (
     <div>

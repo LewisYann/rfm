@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // import InputLabel from "@material-ui/core/InputLabel";
@@ -14,6 +14,7 @@ import CardBody from "components/Card/CardBody.js";
 // import CardFooter from "components/Card/CardFooter.js";
 
 import avatar from "assets/img/faces/marc.jpg";
+import axios from "axios";
 
 const styles = {
   cardCategoryWhite: {
@@ -38,6 +39,25 @@ const useStyles = makeStyles(styles);
 
 export default function UserProfile() {
   const classes = useStyles();
+  const [name, setName] = useState("")
+  const [model, setModel] = useState("")
+  const [description, setDescription] = useState("")
+  const [parcour, setParcours] = useState("")
+  const [surface, setSurface] = useState("")
+  const [hours_vol, setHoursVol] = useState("")
+
+  function createMission() {
+    axios.post("http://localhost:5000/create/mission", {
+      id_people:"3",
+      name:name,
+      model:model,
+      description: description,
+      parcour:parcour,
+      surface :surface,
+      heurs_vol:0
+    })
+  }
+
   return (
     <div>
       <GridContainer>
@@ -54,49 +74,65 @@ export default function UserProfile() {
                     <CustomInput
                       labelText="Nom"
                       id="username"
+                      value={name}
+                      onchange={(e) => setName(e.target.value)}
                       formControlProps={{
                         fullWidth: true,
+
                       }}
+
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={12}>
                     <CustomInput
                       labelText="Description"
                       id="email-address"
+                      value={description}
+                      onchange={(data) => setDescription(data.target.value)}
+
                       formControlProps={{
-                        fullWidth: true,
+                        fullWidth: true
                       }}
                       inputProps={{
                         multiline: true,
                         rows: 5,
+
                       }}
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={12}>
                     <label>Model</label>
-                    <select className="form-control">
-                      <option value="" key="">
+                    <select className="form-control"
+                      onChange={(data) => setModel(data.target.value)}
+
+                    >
+                      <option value="opt1 " key="">
                         opt1
                       </option>
                     </select>
                   </GridItem>
                   <GridItem xs={12} sm={12} md={12}>
                     <label>Parcours</label>
-                    <select className="form-control">
-                      <option value="" key="">
+                    <select className="form-control"
+                      onChange={(data) => setParcours(data.target.value)}
+                    >
+                      <option value="zigzag" key="">
                         zigzag
                       </option>
-                      <option value="" key="">
+                      <option value="diagonal" key="">
                         diagonal
                       </option>
-                      <option value="" key="">
+                      <option value="circlar" key="">
                         circlar
                       </option>
                     </select>
                   </GridItem>
                   <GridItem xs={12} sm={12} md={12}>
                     <label>Surface</label>
-                    <select className="form-control">
+                    <select className="form-control"
+                      onChange={(data) => setSurface(data.target.value)}
+
+                    >
                       <option value="" key="">
                         <img src={avatar} height="100" /> zigzag
                       </option>
@@ -111,7 +147,9 @@ export default function UserProfile() {
                 </GridContainer>
 
                 <GridItem xs={4} sm={4} md={4} className="m-0 p-0">
-                  <Button color="primary">Start</Button>
+                  <Button color="primary"
+                    onClick={()=>createMission()}
+                  >Start</Button>
                 </GridItem>
               </div>
             </CardBody>

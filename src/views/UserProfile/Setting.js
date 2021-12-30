@@ -6,8 +6,33 @@ import CardHeader from "components/Card/CardHeader.js";
 // import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 // import CardFooter from "components/Card/CardFooter.js";
-
+import { useEffect, useState } from "react";
+import axios from 'axios'
 const Setting = () => {
+  const [setting,setSetting]=useState({})
+
+  const getSetting = () => {
+    axios.get("http://localhost:5000/get/setting/1").then(
+      (data) => {
+        setSetting(data.data); 
+        console.log(setting)
+      }
+    ) 
+  }
+ 
+  const liste_wifi=setting.liste_wifi.map(
+    (data)=><li>{data.name}</li>
+  )
+
+  const liste_manette=setting.manette_list.map(
+    (data)=><li>{data.name}</li>
+  )
+
+  useEffect(() => {
+    getSetting()
+  }, [])
+
+
   return (
     <div>
       <GridContainer>
@@ -19,10 +44,7 @@ const Setting = () => {
             <CardBody>
               <div className="row container-fluid">
                 <ul>
-                  <li>lorem</li>
-                  <li>lorem</li>
-                  <li>lorem</li>
-                  <li>lorem</li>
+                 {liste_wifi}
                 </ul>
               </div>
             </CardBody>
@@ -36,10 +58,7 @@ const Setting = () => {
             <CardBody>
               <div className="row container-fluid">
                 <ul>
-                  <li>lorem</li>
-                  <li>lorem</li>
-                  <li>lorem</li>
-                  <li>lorem</li>
+                {liste_manette}
                 </ul>
               </div>
             </CardBody>
@@ -53,10 +72,8 @@ const Setting = () => {
             <CardBody>
               <div className="row container-fluid">
                 <ul>
-                  <li>lorem</li>
-                  <li>lorem</li>
-                  <li>lorem</li>
-                  <li>lorem</li>
+                  <li>{setting.authorization}</li>
+               
                 </ul>
               </div>
             </CardBody>

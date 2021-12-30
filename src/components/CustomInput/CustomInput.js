@@ -25,6 +25,8 @@ export default function CustomInput(props) {
     error,
     success,
     rtlActive,
+    value,
+    onchange
   } = props;
 
   const labelClasses = classNames({
@@ -57,6 +59,7 @@ export default function CustomInput(props) {
           className={classes.labelRoot + labelClasses}
           htmlFor={id}
           {...labelProps}
+
         >
           {labelText}
         </InputLabel>
@@ -67,9 +70,12 @@ export default function CustomInput(props) {
           disabled: classes.disabled,
           underline: underlineClasses,
         }}
+        value={value}
         id={id}
         {...inputProps}
         inputProps={newInputProps}
+        onChange={(e)=>onchange(e)}
+
       />
       {error ? (
         <Clear className={classes.feedback + " " + classes.labelRootError} />
@@ -89,4 +95,5 @@ CustomInput.propTypes = {
   error: PropTypes.bool,
   success: PropTypes.bool,
   rtlActive: PropTypes.bool,
+  onchange: PropTypes.func,
 };

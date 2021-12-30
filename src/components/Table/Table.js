@@ -9,12 +9,24 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 // core components
 import styles from "assets/jss/material-dashboard-react/components/tableStyle.js";
+import { useState,useEffect } from "react";
 
 const useStyles = makeStyles(styles);
 
 export default function CustomTable(props) {
   const classes = useStyles();
   const { tableHead, tableData, tableHeaderColor } = props;
+  const tableContent = tableData.map(
+    (item) =>
+      <TableRow key={item.id_people}>
+        <TableCell className={classes.tableCell} > {item.id_mission} </TableCell>
+        <TableCell className={classes.tableCell} > {item.name} </TableCell>
+        <TableCell className={classes.tableCell} > {item.description} </TableCell>
+        <TableCell className={classes.tableCell} > {item.heurs_vol} h </TableCell>
+        <TableCell className={classes.tableCell} > {item.date} </TableCell>
+      </TableRow>
+  )
+
   return (
     <div className={classes.tableResponsive}>
       <Table className={classes.table}>
@@ -35,19 +47,7 @@ export default function CustomTable(props) {
           </TableHead>
         ) : null}
         <TableBody>
-          {tableData.map((prop, key) => {
-            return (
-              <TableRow key={key} className={classes.tableBodyRow}>
-                {prop.map((prop, key) => {
-                  return (
-                    <TableCell className={classes.tableCell} key={key}>
-                      {prop}
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
-            );
-          })}
+          {tableContent}
         </TableBody>
       </Table>
     </div>
