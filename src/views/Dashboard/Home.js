@@ -38,8 +38,7 @@ import axios from "axios";
 // } from "variables/charts.js";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
-import Maps from "views/Maps/Maps";
-import LastMission from "components/Perso/LastMission";
+ import LastMission from "components/Perso/LastMission";
 
 const useStyles = makeStyles(styles);
 
@@ -157,9 +156,7 @@ export default function Dashboard() {
           </Card>
         </GridItem>
       </GridContainer>
-      <GridContainer>
-        <Maps />
-      </GridContainer>
+      
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card>

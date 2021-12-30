@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Maps from "../Maps/Maps.js";
-import GridItem from "components/Grid/GridItem.js";
+ import GridItem from "components/Grid/GridItem.js";
 // import GridContainer from "components/Grid/GridContainer.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
@@ -35,8 +34,7 @@ const manette = () => {
     <div>
       <div className="row">
         <div className="col-md-8 col-sm-8 col-xs-8">
-          <Maps></Maps>
-        </div>
+         </div>
         <div className="col-md-4 col-sm-4 col-xs-4">
           <div>
             <GridItem xs={12} sm={12} md={12}>
@@ -64,13 +62,7 @@ const manette = () => {
                   <div className="row container-fluid">
                     <ul>
                       <li>lorem</li>
-                      <li>lorem</li>
-                      <li>lorem</li>
-                      <li>lorem</li>
-                      <li>lorem</li>
-                      <li>lorem</li>
-                      <li>lorem</li>
-                      <li>lorem</li>
+                 
                     </ul>
                   </div>
                 </CardBody>
