@@ -46,9 +46,9 @@ const useStyles = makeStyles(styles);
 
 
 export default function Dashboard() {
-  const [mission, setMission] = useState(5)
-  const [hVol, setVol] = useState(8)
-  const [lastMission, setlastMission]=useState(3)
+  const [mission, setMission] = useState(0)
+  const [hVol, setVol] = useState(0)
+  const [lastMission, setlastMission]=useState(0)
 
   const getHoursVol = () => {
     axios.get("http://localhost:5000/mission/hours/d30c77c0-bca0-4c0e-8e1d-c5dcf368e9d6").then(
