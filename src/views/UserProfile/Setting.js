@@ -9,7 +9,11 @@ import CardBody from "components/Card/CardBody.js";
 import { useEffect, useState } from "react";
 import axios from 'axios'
 const Setting = () => {
-  const [setting,setSetting]=useState({})
+  const [setting,setSetting]=useState({
+    liste_wifi:[],
+    manette_list:[]
+
+  })
 
   const getSetting = () => {
     axios.get("http://localhost:5000/get/setting/1").then(
