@@ -18,8 +18,9 @@ import Notifications from "@material-ui/icons/Notifications";
 // core components
 // import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
-
+import Redirect from 'react-dom'
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
+import Link from '@mui/material/Link';
 
 const useStyles = makeStyles(styles);
 
@@ -40,8 +41,10 @@ export default function AdminNavbarLinks() {
   const handleClickProfile = (event) => {
     if (openProfile && openProfile.contains(event.target)) {
       setOpenProfile(null);
+      <Redirect to="/user"/>
     } else {
       setOpenProfile(event.currentTarget);
+      <Redirect to="/user"/>
     }
   };
   const handleCloseProfile = () => {
@@ -193,12 +196,12 @@ export default function AdminNavbarLinks() {
               <Paper>
                 <ClickAwayListener onClickAway={handleCloseProfile}>
                   <MenuList role="menu">
-                    <MenuItem
-                      onClick={handleCloseProfile}
-                      className={classes.dropdownItem}
-                    >
-                      Profile
-                    </MenuItem>
+                   
+                      <Link href="/user"                      className={classes.dropdownItem}
+  variant="body2">
+                                        {"Profile"}
+                         </Link>
+                     
                     <MenuItem
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}
