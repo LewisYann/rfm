@@ -24,8 +24,7 @@ import Admin from "layouts/Admin.js";
 import Login from "views/login/login.js"
 import Register from "views/login/register.js"
 import "assets/css/material-dashboard-react.css?v=1.10.0";
-
-const history=createBrowserHistory()
+import history from "./variables/history"
 
 ReactDOM.render(
   <Router history={history}>

@@ -12,7 +12,8 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios'
-import { createBrowserHistory } from "history";
+import history from "variables/history"
+import { Redirect } from 'react-router-dom'
 
 function Copyright(props) {
   return (
@@ -28,8 +29,7 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
-const history=createBrowserHistory()
-
+ 
 export default function SignInSide() {
   const [setting, setSetting] = React.useState({})
 
@@ -53,8 +53,10 @@ export default function SignInSide() {
           console.log("error")
         } else {
           try {
-            localStorage.setItem('user', JSON.stringify(data.data))
-            history.push('/admin')
+            localStorage.setItem('user', JSON.stringify(data.data))            
+            
+              return <Redirect to="/admin" />
+              
             console.log(data.data)
           }
           catch (e) {
