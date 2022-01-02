@@ -30,12 +30,12 @@ const history=createBrowserHistory()
 ReactDOM.render(
   <Router history={history}>
     <Switch>
-      {
-         localStorage.getItem('user')? <Route   path="/admin"  component={Admin} />:
-         <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
-      }
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
+      {
+         localStorage.getItem('user')? <Route   path="/admin"  component={Admin} />:
+         <Redirect to='/login' />
+      }
      </Switch>
   </Router>,
   document.getElementById("root")

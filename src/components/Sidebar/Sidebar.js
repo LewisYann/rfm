@@ -118,6 +118,7 @@ export default function Sidebar(props) {
           <div className={classes.sidebarWrapper}>
             {props.rtlActive ? <RTLNavbarLinks /> : <AdminNavbarLinks />}
             {links}
+            
           </div>
           {image !== undefined ? (
             <div
@@ -147,7 +148,7 @@ export default function Sidebar(props) {
             />
           ) : null}
         </Drawer>
-      </Hidden>
+       </Hidden>
     </div>
   );
 }

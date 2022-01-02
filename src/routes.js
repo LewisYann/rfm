@@ -28,7 +28,8 @@ import Control from "views/TableList/Control.js";
 import NewMission from "views/UserProfile/NewMission.js";
 import TableList from "views/TableList/TableList.js";
 import Missions from "views/TableList/Missions.js";
- 
+import Logout from "views/login/logout.js"
+
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
 import { AddBox, Gamepad, Settings } from "@material-ui/icons";
@@ -88,6 +89,15 @@ const dashboardRoutes = [
     rtlName: "ملف تعريفي للمستخدم",
     icon: Person,
     component: UserProfile,
+    layout: "/admin",
+  },
+  {
+    path: "/deconnexion",
+    name: "Deconnexion",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: Person,
+    component: Logout,
+
     layout: "/admin",
   },
   

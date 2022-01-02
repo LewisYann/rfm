@@ -12,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios'
+import { createBrowserHistory } from "history";
 
 function Copyright(props) {
   return (
@@ -27,6 +28,7 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
+const history=createBrowserHistory()
 
 export default function SignInSide() {
   const [setting, setSetting] = React.useState({})
