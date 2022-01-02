@@ -80,7 +80,7 @@ export default function TableList() {
                   Here is a subtitle for this table
                 </p>
               </div>
-              <Link to="/admin/newMission" className="btn btn-primary">
+              <Link to="/admin/missions/create" className="btn btn-primary">
                 Nouvelle mission
               </Link>
             </div>

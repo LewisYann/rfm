@@ -56,7 +56,7 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/newMission",
+    path: "/missions/create",
     name: "New Mission",
     rtlName: "لوحة القيادة",
     icon: AddBox,
