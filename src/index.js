@@ -18,27 +18,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
-import { BrowserRouter, Route, Router, Switch, Redirect } from "react-router-dom";
-import { useHistory } from "react-router";
+import { Route, Router, Switch, Redirect } from "react-router-dom";
 // core components
 import Admin from "layouts/Admin.js";
 import RTL from "layouts/RTL.js";
 import Perso from "layouts/Perso.js";
 import Login from "views/login/login.js"
 import Register from "views/login/register.js"
-
+import PrivateRoute from './components/privateRoutes'
 import "assets/css/material-dashboard-react.css?v=1.10.0";
 
-ReactDOM.render(
-  <BrowserRouter >
-    <Switch>
+const history=createBrowserHistory()
 
+ReactDOM.render(
+  <Router history={history} >
+    <Switch >
+      <PrivateRoute exact path="/admin" component={Admin} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
-      <Route path="/admin" component={Admin} />
-       <Redirect from="/" to="/admin/home" />
-    </Switch>
-  </BrowserRouter>,
+     </Switch>
+  </Router>,
   document.getElementById("root")
 );
 
