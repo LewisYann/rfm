@@ -26,11 +26,22 @@ import UserProfile from "views/UserProfile/UserProfile.js";
 import Setting from "views/UserProfile/Setting.js";
 import Control from "views/TableList/Control.js";
 import NewMission from "views/UserProfile/NewMission.js";
+import TableList from "views/TableList/TableList.js";
 import Missions from "views/TableList/Missions.js";
  
+// core components/views for RTL layout
+import RTLPage from "views/RTLPage/RTLPage.js";
 import { AddBox, Gamepad, Settings } from "@material-ui/icons";
 
 const dashboardRoutes = [
+  {
+    path: "/dashboard",
+    name: "Home",
+    rtlName: "لوحة القيادة",
+    icon: Dashboard,
+    component: HomePage,
+    layout: "/admin",
+  },
   {
     path: "/home",
     name: "Home",
@@ -56,7 +67,7 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/missions/create",
+    path: "/newMission",
     name: "New Mission",
     rtlName: "لوحة القيادة",
     icon: AddBox,

@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios'
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -29,37 +29,42 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
-  const [setting,setSetting]=React.useState({})
+  const [setting, setSetting] = React.useState({})
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
     console.log({
-      email: data.get('email'),
+      email: data.get('login'),
       password: data.get('password'),
     });
 
-  
+
     axios.post("http://localhost:5000/login", {
       login: data.get('login'),
       password: data.get('password'),
     }).then(
       (data) => {
-        setSetting(data.data); 
-        if (data.data.statu==404){
+        setSetting(data.data);
+        if (data.data.statu == 404) {
           console.log("error")
-        }else{
-          browserHistory.push('/')
-          console.log(data.data)
+        } else {
+          try {
+            localStorage.setItem('user', JSON.stringify(data.data))
+            history.push('/admin')
+            console.log(data.data)
+          }
+          catch (e) {
+            console.log(e)
+          }
         }
-
       }
-    ).catch((err)=>
+    ).catch((err) =>
       console.log(err)
 
-    ) 
-  
+    )
+
 
 
   };
@@ -95,7 +100,7 @@ export default function SignInSide() {
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             </Avatar>
             <Typography component="h1" variant="h5">
-                Se connecter
+              Se connecter
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
