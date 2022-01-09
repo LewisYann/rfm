@@ -17,26 +17,11 @@
 */
 import React from "react";
 import ReactDOM from "react-dom";
-import { createBrowserHistory } from "history";
-import { Route, Switch, Redirect, Router } from "react-router-dom";
 // core components
-import Admin from "layouts/Admin.js";
-import Login from "views/login/login.js"
-import Register from "views/login/register.js"
+
 import "assets/css/material-dashboard-react.css?v=1.10.0";
-import history from "./variables/history"
+import App from "./App";
 
-ReactDOM.render(
-  <Router history={history}>
-    <Switch>
-      <Route path="/login" component={Login} />
-      <Route path="/register" component={Register} />
-      {
-         localStorage.getItem('user')? <Route   path="/admin"  component={Admin} />:
-         <Redirect to='/login' />
-      }
-     </Switch>
-  </Router>,
-  document.getElementById("root")
-);
 
+
+ReactDOM.render(<App />, document.getElementById("root"));
