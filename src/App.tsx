@@ -3,7 +3,6 @@ import store, {persistor} from "./store";
 import {PersistGate} from "redux-persist/integration/react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import AuthRoute from "./routes";
-import {Redirect} from "react-router";
 import {Provider} from "react-redux";
 import Admin from "./layouts/Admin.js";
 import Login from "./views/login/login.js"
@@ -21,8 +20,7 @@ function App() {
             <Route exact path="/register" component={Register} />
             <AuthRoute exact path="/" component={() => <Redirect to={"/acceuil"} />} />
             <AuthRoute path="/acceuil/" component={Home} />
-            <AuthRoute exact path="/riders/" component={RiderList} />  
-            
+            <AuthRoute exact path="/riders/" component={RiderList} />         
             <Route render={() => <h1>Not found</h1>} />
           </Switch>
         </Router>

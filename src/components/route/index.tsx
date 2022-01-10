@@ -1,7 +1,7 @@
 import React from "react";
-import {Redirect, Route} from "react-router";
-import {useSelector} from "react-redux";
-import {RootState} from "../../store";
+import { Redirect, Route } from "react-router";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 const AuthRoute = (props) => {
   const auth = useSelector((state: RootState) => state.auth);
