@@ -3,13 +3,13 @@ import Person from "@material-ui/icons/Person";
  
 // core components/views for Admin layout
 // import DashboardPage from "views/Dashboard/Dashboard.js";
-import HomePage from "views/Dashboard/Home.js";
-import UserProfile from "views/UserProfile/UserProfile.js";
-import Setting from "views/UserProfile/Setting.js";
-import Control from "views/TableList/Control.js";
-import NewMission from "views/UserProfile/NewMission.js";
- import Missions from "views/TableList/Missions.js";
-import Logout from "views/login/logout.js"
+import HomePage from "./views/Dashboard/Home.js";
+import UserProfile from "./views/UserProfile/UserProfile.js";
+import Setting from "./views/UserProfile/Setting.js";
+import Control from "./views/TableList/Control.js";
+import NewMission from "./views/UserProfile/NewMission.js";
+ import Missions from "./views/TableList/Missions.js";
+import Logout from "./views/login/logout.js"
 
 // core components/views for RTL layout
   //import RTLPage from "views/RTLPage/RTLPage.js";

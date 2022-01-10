@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
- import GridItem from "components/Grid/GridItem.js";
+ import GridItem from "../../components/Grid/GridItem.js";
 // import GridContainer from "components/Grid/GridContainer.js";
-import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardBody from "components/Card/CardBody.js";
-import CardFooter from "components/Card/CardFooter.js";
+import Card from "../../components/Card/Card.js";
+import CardHeader from "../../components/Card/CardHeader.js";
+import CardBody from "../../components/Card/CardBody.js";
+import CardFooter from "../../components/Card/CardFooter.js";
 import avatar from "../../assets/img/new_logo.png";
 import axios from "axios";
 
