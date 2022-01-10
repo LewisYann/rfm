@@ -1,21 +1,3 @@
-/*!
-
-=========================================================
-* Material Dashboard React - v1.10.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-// @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
  
@@ -26,12 +8,11 @@ import UserProfile from "views/UserProfile/UserProfile.js";
 import Setting from "views/UserProfile/Setting.js";
 import Control from "views/TableList/Control.js";
 import NewMission from "views/UserProfile/NewMission.js";
-import TableList from "views/TableList/TableList.js";
-import Missions from "views/TableList/Missions.js";
+ import Missions from "views/TableList/Missions.js";
 import Logout from "views/login/logout.js"
 
 // core components/views for RTL layout
-import RTLPage from "views/RTLPage/RTLPage.js";
+  //import RTLPage from "views/RTLPage/RTLPage.js";
 import { AddBox, Gamepad, Settings } from "@material-ui/icons";
 
 const dashboardRoutes = [

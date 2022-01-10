@@ -5,10 +5,10 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import AuthRoute from "./routes";
 import {Redirect} from "react-router";
 import {Provider} from "react-redux";
-import Admin from "layouts/Admin.js";
-import Login from "views/login/login.js"
-import Register from "views/login/register.js"
-import "assets/css/material-dashboard-react.css?v=1.10.0";
+import Admin from "./layouts/Admin.js";
+import Login from "./views/login/login.js"
+import Register from "./views/login/register.js"
+import "./assets/css/material-dashboard-react.css?v=1.10.0";
 
 
 function App() {

@@ -1,0 +1,20 @@
+<button
+onclick="sending()"
+
+> Clique me </button>
+
+<script>
+    let s=new WebSocket("ws:localhost:5000")
+    function sending(){
+        s.send('sending') 
+    }
+    s.onopen=function(e){
+        console.log("connected")
+
+    }
+    s.onmessage=function(e){
+        console.log(e.data)
+    }
+
+
+</script>

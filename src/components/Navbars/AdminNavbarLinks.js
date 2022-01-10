@@ -17,9 +17,9 @@ import Notifications from "@material-ui/icons/Notifications";
 // import Search from "@material-ui/icons/Search";
 // core components
 // import CustomInput from "components/CustomInput/CustomInput.js";
-import Button from "components/CustomButtons/Button.js";
+import Button from "../CustomButtons/Button.js";
 import Redirect from 'react-dom'
-import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
+import styles from "../../assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 import Link from '@mui/material/Link';
 
 const useStyles = makeStyles(styles);
