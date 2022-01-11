@@ -38,7 +38,7 @@ import Admin from '../../layouts/Admin'
 // } from "variables/charts.js";
 
 import styles from "../../assets/jss/material-dashboard-react/views/dashboardStyle";
- import LastMission from "../../components/Perso/LastMission";
+import LastMission from "../../components/Perso/LastMission";
 
 const useStyles = makeStyles(styles);
 
@@ -48,29 +48,29 @@ const useStyles = makeStyles(styles);
 export default function Dashboard() {
   const [mission, setMission] = useState(0)
   const [hVol, setVol] = useState(0)
-  const [lastMission, setlastMission]=useState(0)
+  const [lastMission, setlastMission] = useState(0)
 
   const getHoursVol = () => {
     axios.get("http://localhost:5000/mission/hours/d30c77c0-bca0-4c0e-8e1d-c5dcf368e9d6").then(
       (data) => {
-        setMission(data.data); 
-        setVol(data.data); 
+        setMission(data.data);
+        setVol(data.data);
         console.log('Test')
- 
+
       }
-    ) 
+    )
 
   }
   const getMissionTotal = () => {
     axios.get("http://localhost:5000/mission/nombre/d30c77c0-bca0-4c0e-8e1d-c5dcf368e9d6").then(
       (data) => {
-        setMission(data.data); 
-        setlastMission(data.data); 
+        setMission(data.data);
+        setlastMission(data.data);
       }
-    ) 
+    )
 
   }
- 
+
   useEffect(() => {
     getHoursVol()
     getMissionTotal()
@@ -101,7 +101,7 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="warning" stats icon>
               <CardIcon color="warning">
-                <Icon>content_copy</Icon>
+                <Store />
               </CardIcon>
               <p className={classes.cardCategory}> Total h de vol </p>
               <h3 className={classes.cardTitle}>
@@ -157,7 +157,7 @@ export default function Dashboard() {
           </Card>
         </GridItem>
       </GridContainer>
-      
+
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card>

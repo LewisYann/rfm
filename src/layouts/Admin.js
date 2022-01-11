@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Navigate, Routes } from "react-router-dom";
+import { Switch, Route, Navigate, Routes,useNavigate } from "react-router-dom";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
@@ -12,18 +12,21 @@ import routes from "../routes";
 import styles from "../assets/jss/material-dashboard-react/layouts/adminStyle";
 import logo from "../assets/img/reactlogo.png";
 import bgImage from "../assets/img/sidebar-2.jpg";
+import { useSelector } from "react-redux";
 
 let ps;
 
 const useStyles = makeStyles(styles);
 
 export default function Admin(props) {
+  const auth = useSelector((state) => state.auth);
   // styles
   const classes = useStyles();
   // ref to help us initialize PerfectScrollbar on windows devices
   const mainPanel = React.createRef();
   const [color, setColor] = React.useState("blue");
   const [image, setImage] = React.useState(bgImage);
+  const navigate = useNavigate();
 
   // states and functions
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -38,43 +41,54 @@ export default function Admin(props) {
   };
   // initialize and destroy the PerfectScrollbar plugin
   React.useEffect(() => {
-    if (navigator.platform.indexOf("Win") > -1) {
-      ps = new PerfectScrollbar(mainPanel.current, {
-        suppressScrollX: true,
-        suppressScrollY: false,
-      });
-      document.body.style.overflow = "hidden";
-    }
-    window.addEventListener("resize", resizeFunction);
-    // Specify how to clean up after this effect:
-    return function cleanup() {
-      if (navigator.platform.indexOf("Win") > -1) {
-        ps.destroy();
-      }
-      window.removeEventListener("resize", resizeFunction);
-    };
-  }, [mainPanel]);
-  return (
-    <div className={classes.wrapper}>
-      <Sidebar
-        routes={routes}
-        logoText={"RFM"}
-        logo={logo}
-        handleDrawerToggle={handleDrawerToggle}
-        open={mobileOpen}
-        color={color}
-        image={image}
+    if (auth.account==null ) {
+      console.log(auth.account==null) 
+      return navigate("/login");
 
-       />
-      <div className={classes.mainPanel} ref={mainPanel}>
-        <Navbar
-          routes={routes}
-          handleDrawerToggle={handleDrawerToggle}
-        />
-        <div className={classes.content}>
-          <div className={classes.container}>{props.children}</div>
-        </div>
+    } else if (!auth.account) {
+      return;
+    } else {
+      return <div>Loading...</div>;
+    }
+
+    if (navigator.platform.indexOf("Win") > -1) {
+    ps = new PerfectScrollbar(mainPanel.current, {
+      suppressScrollX: true,
+      suppressScrollY: false,
+    });
+    document.body.style.overflow = "hidden";
+  }
+  window.addEventListener("resize", resizeFunction);
+  // Specify how to clean up after this effect:
+  return function cleanup() {
+    if (navigator.platform.indexOf("Win") > -1) {
+      ps.destroy();
+    }
+    window.removeEventListener("resize", resizeFunction);
+  };
+}, [mainPanel]);
+
+return (
+  <div className={classes.wrapper}>
+    <Sidebar
+      routes={routes}
+      logoText={"RFM"}
+      logo={logo}
+      handleDrawerToggle={handleDrawerToggle}
+      open={mobileOpen}
+      color={color}
+      image={image}
+
+    />
+    <div className={classes.mainPanel} ref={mainPanel}>
+      <Navbar
+        routes={routes}
+        handleDrawerToggle={handleDrawerToggle}
+      />
+      <div className={classes.content}>
+        <div className={classes.container}>{props.children}</div>
       </div>
     </div>
-  );
+  </div>
+);
 }
