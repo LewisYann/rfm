@@ -4,7 +4,7 @@ import authSlice from "../store/slices/auth";
 import store from "../store";
 
 const axiosService = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL || "https://api.quatroapp.com",
+  baseURL: process.env.REACT_APP_API_BASE_URL || "https://api-rfm.herokuapp.com",
   headers: {
     "Content-Type": "application/json",
   },
@@ -12,7 +12,7 @@ const axiosService = axios.create({
 
 axiosService.interceptors.request.use(async (config:any) => {
   const {token} = store.getState().auth;
-  config.headers["Authorization"] = "Bearer " + token;
+   config.headers["Authorization"] = "Bearer " + token;
   return config;
 });
 

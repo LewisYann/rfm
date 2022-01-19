@@ -13,6 +13,7 @@ import CardHeader from "../../components/Card/CardHeader";
 import CardBody from "../../components/Card/CardBody";
 // import CardFooter from "components/Card/CardFooter.js";
 import Admin from '../../layouts/Admin'
+import axiosService from '../../utils/axios'
 
 import avatar from "../../assets/img/faces/marc.jpg";
 import axios from "axios";
@@ -48,8 +49,7 @@ export default function UserProfile() {
   const [hours_vol, setHoursVol] = useState("")
 
   function createMission() {
-    axios.post("http://localhost:5000/create/mission", {
-      id_people:"3",
+    axiosService.post("/create/mission", {
       name:name,
       model:model,
       description: description,

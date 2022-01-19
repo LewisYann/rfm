@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
- import GridItem from "../../components/Grid/GridItem";
+import GridItem from "../../components/Grid/GridItem";
 // import GridContainer from "components/Grid/GridContainer.js";
 import Card from "../../components/Card/Card";
 import CardHeader from "../../components/Card/CardHeader";
@@ -8,16 +8,22 @@ import CardFooter from "../../components/Card/CardFooter";
 import avatar from "../../assets/img/new_logo.png";
 import axios from "axios";
 import Admin from '../../layouts/Admin'
+import axiosService from '../../utils/axios'
+ import { Helmet } from "react-helmet";
 
 
 const manette = () => {
   const [manette, setManette] = useState([])
 
   const getAllManette = () => {
-    axios.get("http://localhost:5000/get/setting/1").then(
+    axiosService.get("/get/setting").then(
       (data) => {
-        setManette(data.data.manette_list);
-        console.debug(data.data)
+        if (data.data.status == 404) {
+          console.debug(data.data)
+        } else {
+          setManette(data.data.manette_list);
+
+        }
       }
     )
 
@@ -29,14 +35,18 @@ const manette = () => {
   useEffect(() => {
     getAllManette()
   }, [])
-  
+
 
 
   return (
     <Admin>
+      <Helmet>
+        <script src="joy.js" type="text/javascript" />
+        
+      </Helmet>
       <div className="row">
         <div className="col-md-8 col-sm-8 col-xs-8">
-         </div>
+        </div>
         <div className="col-md-4 col-sm-4 col-xs-4">
           <div>
             <GridItem xs={12} sm={12} md={12}>
@@ -64,7 +74,7 @@ const manette = () => {
                   <div className="row container-fluid">
                     <ul>
                       <li>lorem</li>
-                 
+
                     </ul>
                   </div>
                 </CardBody>
@@ -93,6 +103,8 @@ const manette = () => {
                     </center>
                   </div>
                 </div>
+                <div id="joyDiv" className="row">
+                 </div>
               </div>
             </CardBody>
             <CardFooter>

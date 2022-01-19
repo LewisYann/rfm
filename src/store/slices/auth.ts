@@ -18,7 +18,7 @@ const authSlice = createSlice({
     ) {
       state.refreshToken = action.payload.refreshToken;
       state.token = action.payload.token;
-    },
+     },
     setAccount(state: State, action: PayloadAction<{}>) {
       state.account = action.payload;
     },

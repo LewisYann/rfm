@@ -14,6 +14,7 @@ import CardBody from "../../components/Card/CardBody.js";
 import CardFooter from "../../components/Card/CardFooter.js";
 import avatar from "../../assets/img/faces/marc.jpg";
 import Admin from '../../layouts/Admin'
+import axiosService from '../../utils/axios'
 
 const styles = {
   cardCategoryWhite: {
@@ -49,18 +50,7 @@ export default function UserProfile() {
             </CardHeader>
             <CardBody>
               <GridContainer>
-                <GridItem xs={12} sm={12} md={5}>
-                  <CustomInput
-                    labelText="Company (disabled)"
-                    id="company-disabled"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    inputProps={{
-                      disabled: true,
-                    }}
-                  />
-                </GridItem>
+                    
                 <GridItem xs={12} sm={12} md={3}>
                   <CustomInput
                     labelText="Username"
@@ -100,37 +90,7 @@ export default function UserProfile() {
                   />
                 </GridItem>
               </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="City"
-                    id="city"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="Country"
-                    id="country"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="Postal Code"
-                    id="postal-code"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-               
-            </CardBody>
+          </CardBody>
             <CardFooter>
               <Button color="primary">Update Profile</Button>
             </CardFooter>

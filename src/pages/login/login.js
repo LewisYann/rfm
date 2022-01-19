@@ -16,7 +16,7 @@ import notifySlice from "../../store/slices/notify"
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import {toast} from "react-toastify";
-
+import axiosService from '../../utils/axios'
 
 
 
@@ -24,7 +24,7 @@ export default function Login() {
   const [setting, setSetting] = React.useState({})
   const dispatch = useDispatch();
   const navigate = useNavigate()
-
+/* 
   const handleSubmit = (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget);
@@ -48,8 +48,8 @@ export default function Login() {
 
 
 
-  }
-  /* const handleSubmit = (event) => {
+  }*/
+  const handleSubmit = (event) => {
      event.preventDefault();
      const data = new FormData(event.currentTarget);
      // eslint-disable-next-line no-console
@@ -59,22 +59,24 @@ export default function Login() {
      });
  
  
-     axios.post("http://localhost:5000/login", {
+     axiosService.post("/login", {
        login: data.get('login'),
        password: data.get('password'),
      }).then(
        (data) => {
-         setSetting(data.data);
-         if (data.data.statu == 404) {
-           console.log("error")
-         } else {
+
+          if (data.data.statu !=true) {
+           console.log(data.data)
+           console.log("not found")
+         } 
+         else {
            try {
-             localStorage.setItem('user', JSON.stringify(data.data))            
-             
-               return <Navigate to="/admin" />
-               
-             console.log(data.data)
-           }
+            console.log(data.data.token)
+            dispatch(authSlice.actions.setAuthTokens({token: data.data.token, refreshToken:data.data.token}));
+            dispatch(authSlice.actions.setAccount({account:data.data.data}));
+             localStorage.setItem('user', JSON.stringify(data.data))                        
+             return navigate("dashboard")
+            }
            catch (e) {
              console.log(e)
            }
@@ -82,12 +84,8 @@ export default function Login() {
        }
      ).catch((err) =>
        console.log(err)
- 
      )
- 
- 
- 
-   };*/
+   };
 
   return (
     <Grid container component="main" sx={{ height: '100vh' }}>

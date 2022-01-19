@@ -43,7 +43,7 @@ export default function Admin(props) {
   React.useEffect(() => {
     if (auth.account==null ) {
       console.log(auth.account==null) 
-      return navigate("/login");
+      return navigate("/");
 
     } else if (!auth.account) {
       return;

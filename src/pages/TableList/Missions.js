@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { useState,useEffect } from "react";
 import axios from "axios"
 import Admin from '../../layouts/Admin'
+import axiosService from '../../utils/axios'
 
 const styles = {
   cardCategoryWhite: {
@@ -50,13 +51,12 @@ export default function TableList() {
   const [mission, setMission] = useState([])
 
   const getAllMission = () => {
-    axios.get("http://localhost:5000/get/all/mission/1").then(
+    axiosService.get("/get/all/mission").then(
       (data) => {
         setMission(data.data);
         console.debug(data.data)
       }
     )
-
   }
   const listMission = mission.map((item) => <li key={item.id_mission}>{item.manette}</li>)
 
@@ -78,13 +78,13 @@ export default function TableList() {
           <CardHeader color="primary">
             <div className="row">
               <div className="offset-1 col-md-9">
-                <h4 className={classes.cardTitleWhite}>Liste des missions</h4>
+                <h4 className={classes.cardTitleWhite}>Mission list</h4>
                 <p className={classes.cardCategoryWhite}>
                   Here is a subtitle for this table
                 </p>
               </div>
-              <Link to="/admin/missions/create" className="btn btn-primary">
-                Nouvelle mission
+              <Link to="/create/mission" className="btn btn-primary col-md-2">
+                New mission
               </Link>
             </div>
           </CardHeader>

@@ -58,15 +58,15 @@ const dashboardRoutes = [
   },
   {
     path: "/profil",
-    name: "Profile",
+    name: "Profil",
     rtlName: "ملف تعريفي للمستخدم",
     icon: Person,
     component: UserProfile,
     layout: "",
   },
   {
-    path: "/deconnexion",
-    name: "Deconnexion",
+    path: "/",
+    name: "Logout",
     rtlName: "ملف تعريفي للمستخدم",
     icon: Person,
     component: Logout,

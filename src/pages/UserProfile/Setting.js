@@ -9,29 +9,32 @@ import CardBody from "../../components/Card/CardBody";
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import Admin from '../../layouts/Admin'
+import axiosService from '../../utils/axios'
 
 const Setting = () => {
-  const [setting,setSetting]=useState({
-    liste_wifi:[],
-    manette_list:[]
-    
+  const [setting, setSetting] = useState({
+    liste_wifi: [],
+    manette_list: []
+
   })
 
   const getSetting = () => {
-    axios.get("http://localhost:5000/get/setting/1").then(
+    axiosService.get("/get/setting").then(
       (data) => {
-        setSetting(data.data); 
-        console.log(setting)
-      }
-    ) 
+        if (data.data.status == 404) {
+          console.debug(data.data)
+        } else {
+          setSetting(data.data);
+        }
+      })
   }
- 
-  const liste_wifi=setting.liste_wifi.map(
-    (data)=><li>{data.name}</li>
+
+  const liste_wifi = setting.liste_wifi.map(
+    (data) => <li>{data.name}</li>
   )
 
-  const liste_manette=setting.manette_list.map(
-    (data)=><li>{data.name}</li>
+  const liste_manette = setting.manette_list.map(
+    (data) => <li>{data.name}</li>
   )
 
   useEffect(() => {
@@ -50,7 +53,7 @@ const Setting = () => {
             <CardBody>
               <div className="row container-fluid">
                 <ul>
-                 {liste_wifi}
+                  {liste_wifi}
                 </ul>
               </div>
             </CardBody>
@@ -64,7 +67,7 @@ const Setting = () => {
             <CardBody>
               <div className="row container-fluid">
                 <ul>
-                {liste_manette}
+                  {liste_manette}
                 </ul>
               </div>
             </CardBody>
@@ -79,7 +82,7 @@ const Setting = () => {
               <div className="row container-fluid">
                 <ul>
                   <li>{setting.authorization}</li>
-               
+
                 </ul>
               </div>
             </CardBody>

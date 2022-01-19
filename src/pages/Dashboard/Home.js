@@ -39,6 +39,7 @@ import Admin from '../../layouts/Admin'
 
 import styles from "../../assets/jss/material-dashboard-react/views/dashboardStyle";
 import LastMission from "../../components/Perso/LastMission";
+import axiosService from '../../utils/axios'
 
 const useStyles = makeStyles(styles);
 
@@ -49,20 +50,19 @@ export default function Dashboard() {
   const [mission, setMission] = useState(0)
   const [hVol, setVol] = useState(0)
   const [lastMission, setlastMission] = useState(0)
+  const [listMission, setlistMission] = useState([])
 
   const getHoursVol = () => {
-    axios.get("http://localhost:5000/mission/hours/d30c77c0-bca0-4c0e-8e1d-c5dcf368e9d6").then(
+    axiosService.get("/mission/hours").then(
       (data) => {
         setMission(data.data);
         setVol(data.data);
-        console.log('Test')
-
       }
     )
 
   }
   const getMissionTotal = () => {
-    axios.get("http://localhost:5000/mission/nombre/d30c77c0-bca0-4c0e-8e1d-c5dcf368e9d6").then(
+    axiosService.get("/mission/nombre").then(
       (data) => {
         setMission(data.data);
         setlastMission(data.data);
@@ -70,10 +70,32 @@ export default function Dashboard() {
     )
 
   }
+  const getAllMission = () => {
+    axiosService.get("/get/all/mission").then(
+      (data) => {
+        setlistMission(data.data);
+        console.debug(data)
+      }
+    )
+    return listMission.map((item) => {
+      return (
+        <>
+          <LastMission
+            nomMission={item.name}
+            depart="18/04/2015"
+            localisation={item.parcour}
+            date={item.date}
+          />
+          <hr />
+        </>)
+    })
+  }
+
 
   useEffect(() => {
     getHoursVol()
     getMissionTotal()
+    getAllMission()
   }, [])
 
   const classes = useStyles();
@@ -89,12 +111,7 @@ export default function Dashboard() {
               <p className={classes.cardCategory}>Missions</p>
               <h3 className={classes.cardTitle}> {mission} </h3>
             </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <DateRange />
-                Last 24 Hours
-              </div>
-            </CardFooter>
+           
           </Card>
         </GridItem>
         <GridItem xs={12} sm={6} md={4}>
@@ -105,19 +122,10 @@ export default function Dashboard() {
               </CardIcon>
               <p className={classes.cardCategory}> Total h de vol </p>
               <h3 className={classes.cardTitle}>
-                {hVol} <small>h</small>
+                {hVol} 
               </h3>
             </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <Danger>
-                  <Warning />
-                </Danger>
-                <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                  Get more space
-                </a>
-              </div>
-            </CardFooter>
+           
           </Card>
         </GridItem>
         {/* <GridItem xs={12} sm={6} md={4}>
@@ -145,15 +153,10 @@ export default function Dashboard() {
               </CardIcon>
               <p className={classes.cardCategory}> Durée last mission </p>
               <h3 className={classes.cardTitle}>
-                {lastMission} <small>h</small>
+                {lastMission}  
               </h3>
             </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <Update />
-                Just Updated
-              </div>
-            </CardFooter>
+            
           </Card>
         </GridItem>
       </GridContainer>
@@ -167,26 +170,7 @@ export default function Dashboard() {
             </CardHeader>
             <CardBody>
               <div className="mt-5">
-                <LastMission
-                  nomMission="Tokpa"
-                  depart="18/04/2015"
-                  localisation="15226-528584"
-                  date="Tokpa"
-                />
-                <hr />
-                <LastMission
-                  nomMission="Agla"
-                  depart="18/04/2012"
-                  localisation="15226-528584"
-                  date="Agla"
-                />
-                <hr />
-                <LastMission
-                  nomMission="Parakou"
-                  depart="08/11/2019"
-                  localisation="15226-528584"
-                  date="Parakou"
-                />
+                {getAllMission()}
               </div>
             </CardBody>
           </Card>
