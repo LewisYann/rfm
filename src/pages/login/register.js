@@ -12,7 +12,9 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import axios from 'axios'
 import axiosService from '../../utils/axios';
-
+import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Register() {
     const [setting, setSetting] = React.useState({})
@@ -21,8 +23,7 @@ export default function Register() {
         const data = new FormData(event.currentTarget);
         // eslint-disable-next-line no-console
 
-        console.log(data.get('name') + data.get('surname'));
-
+ 
 
         axiosService.post("/create/user", {
             login: data.get('login'),
@@ -41,11 +42,10 @@ export default function Register() {
             (data) => {
 
                 console.log(data);
-                return navigate("/")
-
+                toast.error("Inscription reussi")
+                return navigate("")
             }
-        ).catch((err) =>
-            console.log(err)
+        ).catch((err) =>toast.error("Une erreur s'est produite")
         )
 
 
@@ -54,6 +54,7 @@ export default function Register() {
 
     return (
         <Grid container component="main" sx={{ height: '100vh' }}>
+            <ToastContainer/>
             <CssBaseline />
             <Grid
                 item

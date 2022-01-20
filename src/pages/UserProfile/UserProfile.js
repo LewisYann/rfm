@@ -62,7 +62,9 @@ export default function UserProfile() {
       dispatch(authSlice.actions.setAccount({ account: data.data.data }));
       localStorage.removeItem("user")
       localStorage.setItem('user', JSON.stringify(data.data))
-    })
+      toast.success("Modification reussi")
+    }) 
+    .catch((err)=>toast.error("Erreur lors de la modification des informations"))
   }
 
   const classes = useStyles();

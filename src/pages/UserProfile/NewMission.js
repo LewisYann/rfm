@@ -17,10 +17,10 @@ import axiosService from '../../utils/axios'
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import avatar from "../../assets/img/faces/marc.jpg";
-import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate, Navigate } from "react-router";
 
 const styles = {
   cardCategoryWhite: {
@@ -51,7 +51,7 @@ export default function UserProfile() {
   const [parcour, setParcours] = useState("")
   const [surface, setSurface] = useState("")
   const [hours_vol, setHoursVol] = useState("")
-
+  const navigate=useNavigate()
   function createMission() {
     axiosService.post("/create/mission", {
       name: name,
@@ -61,12 +61,20 @@ export default function UserProfile() {
       surface: surface,
       heurs_vol: 0
     })
+    .then((data)=>{   
+      toast.success("Creaction de la mission reussi")
+      
+    })
+    .catch((err)=>toast.error("Erreur lors de la creaction de la mission"));
+    
+    return <Navigate replace to="/control" />;
   }
 
   return (
     <Admin>
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
+        <ToastContainer/>
           <Card>
             <CardHeader color="primary">
               <h4 className={classes.cardTitleWhite}>Nouvelle Mission</h4>

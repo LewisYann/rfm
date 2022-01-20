@@ -60,7 +60,7 @@ export default function Login() {
     });
 
 
-    axios.post("http://localhost:5002/login", {
+    axios.post("https://api-rfm.herokuapp.com/login", {
       login: data.get('login'),
       password: data.get('password'),
     }).then(
@@ -69,7 +69,7 @@ export default function Login() {
 
         if (data.data.statu != true) {
           console.log("not found")
-          toast.error("Erreur de connexion")
+          toast.error("Erreur de connexion, vérifier vos identifiant")
         }
         else {
           try {
@@ -80,6 +80,8 @@ export default function Login() {
             return navigate("dashboard")
           }
           catch (e) {
+            console.log("not found")
+            toast.error("Erreur de connexion. Reesayer ulterieurement")
             console.log(e)
           }
         }

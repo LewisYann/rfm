@@ -2,7 +2,7 @@ import axios from "axios";
  
 
 const axiosService = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL || "http://localhost:5002"
+  baseURL: process.env.REACT_APP_API_BASE_URL || "https://api-rfm.herokuapp.com"
 });
 
 axiosService.interceptors.request.use(function (config) {
