@@ -30,7 +30,9 @@ export default function Register() {
             people: [
                 {
                     name: data.get('name'),
-                    surname: data.get('surname')
+                    surname: data.get('surname'),
+                    email: data.get('email'),
+                    username:data.get('login')
                 }
             ],
             is_active: false,
@@ -82,7 +84,7 @@ export default function Register() {
                     <Typography component="h1" variant="h5">
                         S'inscrire
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form"   onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
@@ -90,7 +92,6 @@ export default function Register() {
                             name="name"
                             label="Nom"
                             id="name"
-                            autoComplete="current-password"
                         />
                         <TextField
                             margin="normal"
@@ -99,7 +100,14 @@ export default function Register() {
                             name="surname"
                             label="Prenom"
                             id="surname"
-                            autoComplete="current-password"
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="email"
+                            label="E-mail"
+                            id="email"
                         />
 
                         <TextField
@@ -110,8 +118,8 @@ export default function Register() {
                             label="Login"
                             name="login"
                             autoComplete="login"
-                            autoFocus
                         />
+
                         <TextField
                             margin="normal"
                             required
@@ -120,7 +128,6 @@ export default function Register() {
                             label="Mot de passe"
                             type="password"
                             id="password"
-                            autoComplete="current-password"
                         />
 
 

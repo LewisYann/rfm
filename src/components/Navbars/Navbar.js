@@ -27,13 +27,13 @@ export default function Header(props) {
   const appBarClasses = classNames({
     [" " + classes[color]]: color,
   });
-  console.log(store.getState())
+  const account =store.getState().auth.account.account
   return (
     <AppBar className={classes.appBar + appBarClasses}>
       <Toolbar className={classes.container}>
-        <div className={classes.flex}>
-          {}
-          
+        <div className={classes.flex} style={{fontSize:16}}>
+          {account.people[0].name+" "+account.people[0].surname}
+
         </div>
         <Hidden smDown implementation="css">
           {props.rtlActive ? <RTLNavbarLinks /> : <AdminNavbarLinks />}

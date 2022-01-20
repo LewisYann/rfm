@@ -15,7 +15,7 @@ import Icon from "@material-ui/core/Icon";
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.js";
 
 import styles from "../../assets/jss/material-dashboard-react/components/sidebarStyle.js";
-
+import { logout } from "../../store/slices/auth";
 const useStyles = makeStyles(styles);
 
 export default function Sidebar(props) {
@@ -78,6 +78,19 @@ export default function Sidebar(props) {
           </NavLink>
         );
       })}
+        <NavLink
+        to='/'
+        onClick={()=> logout() }
+        >
+          <ListItem button className={classes.itemLink }>
+             
+              <ListItemText
+                primary={"Logout"}
+                className={classNames(classes.itemText   )}
+                disableTypography={true}
+              />
+            </ListItem>
+          </NavLink>
     </List>
   );
   var brand = (

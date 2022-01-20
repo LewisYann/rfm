@@ -15,7 +15,8 @@ import authSlice from "../../store/slices/auth"
 import notifySlice from "../../store/slices/notify"
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
-import {toast} from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axiosService from '../../utils/axios'
 
 
@@ -24,71 +25,75 @@ export default function Login() {
   const [setting, setSetting] = React.useState({})
   const dispatch = useDispatch();
   const navigate = useNavigate()
-/* 
+  /* 
+    const handleSubmit = (event) => {
+      event.preventDefault()
+      const data = new FormData(event.currentTarget);
+      if (data.get('login') == "test" && data.get('password') == "test") {
+        dispatch(notifySlice.actions.notifySuccess("Identifiant valide"));
+        dispatch(authSlice.actions.setAccount({ nom: "LEWIS" }));
+        toast.success('Succes');
+  
+        localStorage.setItem(
+          Storage.Auth,
+          JSON.stringify({ token: "data.token", refreshToken: "data.refresh" })
+        );
+        return navigate("dashboard")
+      }
+      else {
+        console.log("error")
+        toast.error('Identifiant invalide');
+  
+  
+      }
+  
+  
+  
+    }*/
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     const data = new FormData(event.currentTarget);
-    if (data.get('login') == "test" && data.get('password') == "test") {
-      dispatch(notifySlice.actions.notifySuccess("Identifiant valide"));
-      dispatch(authSlice.actions.setAccount({ nom: "LEWIS" }));
-      toast.success('Succes');
-
-      localStorage.setItem(
-        Storage.Auth,
-        JSON.stringify({ token: "data.token", refreshToken: "data.refresh" })
-      );
-      return navigate("dashboard")
-    }
-    else {
-      console.log("error")
-      toast.error('Identifiant invalide');
+    // eslint-disable-next-line no-console
+    console.log({
+      email: data.get('login'),
+      password: data.get('password'),
+    });
 
 
-    }
+    axios.post("http://localhost:5002/login", {
+      login: data.get('login'),
+      password: data.get('password'),
+    }).then(
+      (data) => {
+        console.log(data )
 
-
-
-  }*/
-  const handleSubmit = (event) => {
-     event.preventDefault();
-     const data = new FormData(event.currentTarget);
-     // eslint-disable-next-line no-console
-     console.log({
-       email: data.get('login'),
-       password: data.get('password'),
-     });
- 
- 
-     axiosService.post("/login", {
-       login: data.get('login'),
-       password: data.get('password'),
-     }).then(
-       (data) => {
-
-          if (data.data.statu !=true) {
-           console.log(data.data)
-           console.log("not found")
-         } 
-         else {
-           try {
+        if (data.data.statu != true) {
+          console.log("not found")
+          toast.error("Erreur de connexion")
+        }
+        else {
+          try {
             console.log(data.data.token)
-            dispatch(authSlice.actions.setAuthTokens({token: data.data.token, refreshToken:data.data.token}));
-            dispatch(authSlice.actions.setAccount({account:data.data.data}));
-             localStorage.setItem('user', JSON.stringify(data.data))                        
-             return navigate("dashboard")
-            }
-           catch (e) {
-             console.log(e)
-           }
-         }
-       }
-     ).catch((err) =>
-       console.log(err)
-     )
-   };
+            dispatch(authSlice.actions.setAuthTokens({ token: data.data.token, refreshToken: data.data.token }));
+            dispatch(authSlice.actions.setAccount({ account: data.data.data }));
+            localStorage.setItem('user', JSON.stringify(data.data))
+            return navigate("dashboard")
+          }
+          catch (e) {
+            console.log(e)
+          }
+        }
+      }
+    ).catch((err) =>
+      console.log(err)
+    )
+  };
 
   return (
+
     <Grid container component="main" sx={{ height: '100vh' }}>
+              <ToastContainer />
+
       <CssBaseline />
       <Grid
         item

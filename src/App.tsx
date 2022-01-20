@@ -11,7 +11,6 @@ import Setting from "./pages/UserProfile/Setting";
 import Control from "./pages/TableList/Control";
 import NewMission from "./pages/UserProfile/NewMission";
 import Missions from "./pages/TableList/Missions";
-import Logout from "./pages/login/logout"
 import {PersistGate} from "redux-persist/integration/react";
 import store, {persistor} from "./store";
 import {Provider} from "react-redux";

@@ -40,7 +40,7 @@ import Admin from '../../layouts/Admin'
 import styles from "../../assets/jss/material-dashboard-react/views/dashboardStyle";
 import LastMission from "../../components/Perso/LastMission";
 import axiosService from '../../utils/axios'
-
+ 
 const useStyles = makeStyles(styles);
 
 // const [toggle, setToggle] = useState(false);
@@ -55,6 +55,7 @@ export default function Dashboard() {
   const getHoursVol = () => {
     axiosService.get("/mission/hours").then(
       (data) => {
+        
         setMission(data.data);
         setVol(data.data);
       }
@@ -64,38 +65,43 @@ export default function Dashboard() {
   const getMissionTotal = () => {
     axiosService.get("/mission/nombre").then(
       (data) => {
+        console.log(data)
         setMission(data.data);
         setlastMission(data.data);
       }
     )
 
   }
-  const getAllMission = () => {
+  function getAllMission(){
     axiosService.get("/get/all/mission").then(
       (data) => {
-        setlistMission(data.data);
-        console.debug(data)
-      }
-    )
-    return listMission.map((item) => {
-      return (
-        <>
-          <LastMission
-            nomMission={item.name}
-            depart="18/04/2015"
-            localisation={item.parcour}
-            date={item.date}
-          />
-          <hr />
-        </>)
-    })
+        if (data.data.error!="acces denied")
+        {
+          setlistMission(data.data);
+        }
+       }
+    ).catch((err)=>console.log(err))
+    console.log(listMission)
   }
 
+  const detailsListeMission=listMission.map((item) => {
+    return (
+      <>
+        <LastMission
+          nomMission={item.name}
+          depart="18/04/2015"
+          localisation={item.parcour}
+          date={item.date}
+        />
+        <hr />
+      </>)
+  })
 
   useEffect(() => {
     getHoursVol()
     getMissionTotal()
     getAllMission()
+   
   }, [])
 
   const classes = useStyles();
@@ -170,7 +176,7 @@ export default function Dashboard() {
             </CardHeader>
             <CardBody>
               <div className="mt-5">
-                {getAllMission()}
+                {detailsListeMission}
               </div>
             </CardBody>
           </Card>

@@ -15,6 +15,11 @@ import CardFooter from "../../components/Card/CardFooter.js";
 import avatar from "../../assets/img/faces/marc.jpg";
 import Admin from '../../layouts/Admin'
 import axiosService from '../../utils/axios'
+import store from "../../store/index";
+import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import authSlice from "../../store/slices/auth";
 
 const styles = {
   cardCategoryWhite: {
@@ -38,6 +43,28 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 export default function UserProfile() {
+  const dispatch = useDispatch()
+  const account = store.getState().auth
+  console.log(account)
+  const [username, setUsername] = React.useState(account.account.account.people[0].username)
+  const [name, setName] = React.useState(account.account.account.people[0].name)
+  const [surname, setSurname] = React.useState(account.account.account.people[0].surname)
+  const [email, setEmail] = React.useState(account.account.account.people[0].email)
+
+
+  function updateUser() {
+    axiosService.post("/update/user", [{
+      name: name,
+      username: username,
+      surname: surname,
+      email: email
+    }]).then((data) => {
+      dispatch(authSlice.actions.setAccount({ account: data.data.data }));
+      localStorage.removeItem("user")
+      localStorage.setItem('user', JSON.stringify(data.data))
+    })
+  }
+
   const classes = useStyles();
   return (
     <Admin>
@@ -50,25 +77,30 @@ export default function UserProfile() {
             </CardHeader>
             <CardBody>
               <GridContainer>
-                    
-                <GridItem xs={12} sm={12} md={3}>
+
+                <GridItem xs={12} sm={12} md={6}>
                   <CustomInput
                     labelText="Username"
                     id="username"
                     formControlProps={{
                       fullWidth: true,
                     }}
+                    value={username}
+                    onchange={(e) => setUsername(e.target.value)}
                   />
                 </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
+                <GridItem xs={12} sm={12} md={6}>
                   <CustomInput
-                    labelText="Email address"
-                    id="email-address"
+                    labelText="E-mail"
+                    id="mail"
                     formControlProps={{
                       fullWidth: true,
                     }}
+                    value={email}
+                    onchange={(e) => setEmail(e.target.value)}
                   />
                 </GridItem>
+
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
@@ -78,6 +110,8 @@ export default function UserProfile() {
                     formControlProps={{
                       fullWidth: true,
                     }}
+                    value={name}
+                    onchange={(e) => setName(e.target.value)}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
@@ -87,12 +121,17 @@ export default function UserProfile() {
                     formControlProps={{
                       fullWidth: true,
                     }}
+                    value={surname}
+                    onchange={(e) => setSurname(e.target.value)}
+
                   />
                 </GridItem>
               </GridContainer>
-          </CardBody>
+            </CardBody>
             <CardFooter>
-              <Button color="primary">Update Profile</Button>
+              <Button
+                onClick={() => updateUser()}
+                color="primary">Update Profile</Button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -103,7 +142,7 @@ export default function UserProfile() {
                 <img src={avatar} alt="..." />
               </a>
             </CardAvatar>
-             
+
           </Card>
         </GridItem>
       </GridContainer>

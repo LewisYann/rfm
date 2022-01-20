@@ -14,7 +14,11 @@ import CardBody from "../../components/Card/CardBody";
 // import CardFooter from "components/Card/CardFooter.js";
 import Admin from '../../layouts/Admin'
 import axiosService from '../../utils/axios'
-
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import avatar from "../../assets/img/faces/marc.jpg";
 import axios from "axios";
 
@@ -50,12 +54,12 @@ export default function UserProfile() {
 
   function createMission() {
     axiosService.post("/create/mission", {
-      name:name,
-      model:model,
+      name: name,
+      model: model,
       description: description,
-      parcour:parcour,
-      surface :surface,
-      heurs_vol:0
+      parcour: parcour,
+      surface: surface,
+      heurs_vol: 0
     })
   }
 
@@ -69,8 +73,8 @@ export default function UserProfile() {
               <p className={classes.cardCategoryWhite}>Nouvelle Mission</p>
             </CardHeader>
             <CardBody>
-              <div className="row container-fluid">
-                <GridContainer xs={8} sm={8} md={8}>
+              <div className="container-fluid">
+                <GridContainer xs={8} sm={8} md={12}>
                   <GridItem xs={12} sm={12} md={12}>
                     <CustomInput
                       labelText="Nom"
@@ -113,21 +117,37 @@ export default function UserProfile() {
                     </select>
                   </GridItem>
                   <GridItem xs={12} sm={12} md={12}>
-                    <label>Parcours</label>
-                    <select className="form-control"
+                  <label>Parcours</label>
+
+                    <RadioGroup
+                      row
+                      aria-labelledby="demo-form-control-label-placement"
+                      name="position"
                       onChange={(data) => setParcours(data.target.value)}
-                    >
-                      <option value="zigzag" key="">
-                        zigzag
-                      </option>
-                      <option value="diagonal" key="">
-                        diagonal
-                      </option>
-                      <option value="circlar" key="">
-                        circlar
-                      </option>
-                    </select>
+                     >
+                      <FormControlLabel
+                        value="zigzag"
+                        control={<Radio />}
+                        label="zigzag"
+                        labelPlacement="bottom"
+                      />
+                       <FormControlLabel
+                        value="diagonal"
+                        control={<Radio />}
+                        label="diagonal"
+                        labelPlacement="bottom"
+                      />
+                       <FormControlLabel
+                        value="circlar"
+                        control={<Radio />}
+                        label="circlar"
+                        labelPlacement="bottom"
+                      />
+                       
+                      
+                     </RadioGroup>
                   </GridItem>
+                 
                   <GridItem xs={12} sm={12} md={12}>
                     <label>Surface</label>
                     <select className="form-control"
@@ -147,9 +167,11 @@ export default function UserProfile() {
                   </GridItem>
                 </GridContainer>
 
-                <GridItem xs={4} sm={4} md={4} className="m-0 p-0">
-                  <Button color="primary"
-                    onClick={()=>createMission()}
+                <GridItem xs={4} sm={4} md={12} className="m-0 p-0 text-center">
+                  <br/> 
+                  <Button color="primary" md={12}
+                  className="col-md-12"
+                    onClick={() => createMission()}
                   >Start</Button>
                 </GridItem>
               </div>

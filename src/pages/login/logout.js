@@ -1,23 +1,10 @@
-import * as React from 'react';
-import { createBrowserHistory } from "history";
+import authSlice from "../../store/slices/auth";
 
 
-const history = createBrowserHistory()
-
-export default function Logout() {
-
-    function logout() {
-        localStorage.removeItem('user')
-
-        return (
-            history.push('/login'))
-    }
-
-
-
-
-    return logout()
-        
-
-    
-}
+export const logout = () => async (dispatch) => {
+  try {
+    return dispatch(authSlice.actions.setLogout());
+  } catch (e) {
+    return console.error(e.message);
+  }
+};
