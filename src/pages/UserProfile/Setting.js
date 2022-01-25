@@ -48,7 +48,7 @@ const Setting = () => {
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">
-              <h4>Wiffi</h4>
+              <h4>Wifi</h4>
             </CardHeader>
             <CardBody>
               <div className="row container-fluid">

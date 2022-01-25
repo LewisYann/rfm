@@ -157,7 +157,7 @@ export default function Login() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Connection
+              Connexion
             </Button>
             <Grid container>
               <Grid item xs>

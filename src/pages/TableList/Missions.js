@@ -80,9 +80,7 @@ export default function TableList() {
             <div className="row">
               <div className="offset-1 col-md-9">
                 <h4 className={classes.cardTitleWhite}>Mission list</h4>
-                <p className={classes.cardCategoryWhite}>
-                  Here is a subtitle for this table
-                </p>
+                
               </div>
               <Link to="/create/mission" className="btn btn-primary col-md-2">
                 New mission

@@ -9,7 +9,25 @@ import avatar from "../../assets/img/new_logo.png";
 import axios from "axios";
 import Admin from '../../layouts/Admin'
 import axiosService from '../../utils/axios'
- import { Helmet } from "react-helmet";
+import Joystick from 'react-joystick'
+
+const joyOptions = {
+  mode: 'semi',
+  catchDistance: 150,
+  color: 'white'
+}
+
+const containerStyle = {
+  position: 'relative',
+  height: '200px',
+  width: '90%',
+  background: 'linear-gradient(to right, #E684AE, #79CBCA, #77A1D3)',
+  alignSelf:"center",
+  borderStyle:"solid",
+  borderRadius: 8
+
+  
+}
 
 
 const manette = () => {
@@ -28,6 +46,14 @@ const manette = () => {
     )
 
   }
+  function managerListener(manager) {
+    manager.on('move', (e, stick) => {
+      console.log('I moved!')
+    })
+    manager.on('end', () => {
+      console.log('I ended!')
+    })
+  }
   const listManette = manette.map((item) => <li key={item.id}>{item.manette}</li>)
 
 
@@ -40,10 +66,6 @@ const manette = () => {
 
   return (
     <Admin>
-      <Helmet>
-        <script src="joy.js" type="text/javascript" />
-        
-      </Helmet>
       <div className="row">
         <div className="col-md-8 col-sm-8 col-xs-8">
         </div>
@@ -104,7 +126,8 @@ const manette = () => {
                   </div>
                 </div>
                 <div id="joyDiv" className="row">
-                 </div>
+                  <Joystick options={joyOptions} containerStyle={containerStyle} managerListener={managerListener} />
+                </div>
               </div>
             </CardBody>
             <CardFooter>

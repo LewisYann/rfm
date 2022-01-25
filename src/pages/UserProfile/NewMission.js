@@ -63,11 +63,16 @@ export default function UserProfile() {
     })
     .then((data)=>{   
       toast.success("Creaction de la mission reussi")
+      return <Navigate to="/control" replace  />;
+
       
     })
-    .catch((err)=>toast.error("Erreur lors de la creaction de la mission"));
+    .catch((err)=>{
+      toast.error("Erreur lors de la creaction de la mission")
+      return <Navigate to="/control" replace  />;
+
+    });
     
-    return <Navigate replace to="/control" />;
   }
 
   return (
