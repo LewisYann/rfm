@@ -10,6 +10,7 @@ import axios from "axios";
 import Admin from '../../layouts/Admin'
 import axiosService from '../../utils/axios'
 import Joystick from 'react-joystick'
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 
 const joyOptions = {
   mode: 'semi',
@@ -22,11 +23,10 @@ const containerStyle = {
   height: '200px',
   width: '90%',
   background: 'linear-gradient(to right, #E684AE, #79CBCA, #77A1D3)',
-  alignSelf:"center",
-  borderStyle:"solid",
+  alignSelf: "center",
+  borderStyle: "solid",
   borderRadius: 8
 
-  
 }
 
 
@@ -68,6 +68,7 @@ const manette = () => {
     <Admin>
       <div className="row">
         <div className="col-md-8 col-sm-8 col-xs-8">
+          
         </div>
         <div className="col-md-4 col-sm-4 col-xs-4">
           <div>

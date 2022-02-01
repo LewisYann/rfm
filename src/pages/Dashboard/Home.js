@@ -89,7 +89,6 @@ export default function Dashboard() {
       <>
         <LastMission
           nomMission={item.name}
-          depart="18/04/2015"
           localisation={item.parcour}
           date={item.date}
         />

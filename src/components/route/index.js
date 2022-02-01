@@ -1,19 +1,17 @@
 import React from "react";
-import {  Route } from "react-router-dom";
-import { Navigate} from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+ 
+import store from "../../store"
+import { Navigate } from "react-router-dom";
 
-const AuthRoute = (props) => {
-  const auth = useSelector((state) => state.auth);
-console.log("test")
-  if (auth.account) {
-    return <Route {...props} />;
-  } else if (!auth.account) {
-    return <Navigate to={"/login"} />;
-  } else {
-    return <div>Loading...</div>;
-  }
-};
-
-export default AuthRoute;
+export default function AuthRoute({ children }) {
+    const token = store.getState().auth.token;
+    console.log(token)
+    if (!token) {
+        // Redirect them to the /login page, but save the current location they were
+        // trying to go to when they were redirected. This allows us to send them
+        // along to that page after they login, which is a nicer user experience
+        // than dropping them off on the home page.
+        return <Navigate to="/" replace />;
+    };
+    return children
+}

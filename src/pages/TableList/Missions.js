@@ -55,8 +55,7 @@ export default function TableList() {
     axiosService.get("/get/all/mission").then(
       (data) => {
         setMission(data.data);
-        console.debug(data)
-      }
+       }
     )
   }
   const listMission = mission.map((item) => <li key={item.id_mission}>{item.manette}</li>)

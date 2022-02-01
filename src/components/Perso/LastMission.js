@@ -12,9 +12,7 @@ const LastMission = ({ nomMission, depart, localisation, date }) => {
           <span> Date : {date} </span>
         </div>
 
-        <div className="col-sm-5 col-xs-5 col-md-5 col-lg-5">
-          <span>Départ : {depart} </span>
-        </div>
+      
         <div className="col-sm-5 col-xs-5 col-md-5 col-lg-5">
           {/* <span> xxx </span> */}
         </div>

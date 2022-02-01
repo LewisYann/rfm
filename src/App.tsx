@@ -11,10 +11,10 @@ import Setting from "./pages/UserProfile/Setting";
 import Control from "./pages/TableList/Control";
 import NewMission from "./pages/UserProfile/NewMission";
 import Missions from "./pages/TableList/Missions";
-import {PersistGate} from "redux-persist/integration/react";
-import store, {persistor} from "./store";
-import {Provider} from "react-redux";
-
+import { PersistGate } from "redux-persist/integration/react";
+import store, { persistor } from "./store";
+import { Provider } from "react-redux";
+ 
 import { BrowserRouter as Router, Routes, Navigate, Route } from "react-router-dom";
 
 function App() {
@@ -25,13 +25,41 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/home/*" element={<Home />} />
+            <Route path="/home/*" element={
+              <AuthRoute>
+                <Home />
+              </AuthRoute>
+            } />
             <Route path="/dashboard/*" element={<Home />} />
-            <Route path="/control" element={<Control />} />
-            <Route path="/missions" element={<Missions />} />
-            <Route path="create/mission" element={<NewMission />} />
-            <Route path="/settings" element={<Setting />} />
-            <Route path="/profil" element={<UserProfile />} />
+            <Route path="/control" element={
+              <AuthRoute>
+                <Control />
+              </AuthRoute>
+
+            } />
+            <Route path="/missions" element={
+              <AuthRoute>
+                <Missions />
+              </AuthRoute>
+
+            } />
+            <Route path="create/mission" element={
+              <AuthRoute>
+                <NewMission />
+              </AuthRoute>
+            } />
+            <Route path="/settings" element={
+              <AuthRoute>
+                <Setting />
+              </AuthRoute>
+
+
+            } />
+            <Route path="/profil" element={
+              <AuthRoute>
+                <UserProfile />
+              </AuthRoute>
+            } />
           </Routes>
         </Router>
       </PersistGate>

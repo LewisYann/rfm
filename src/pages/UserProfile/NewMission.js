@@ -22,6 +22,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate, Navigate } from "react-router";
 
+
+
 const styles = {
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",
@@ -50,9 +52,11 @@ export default function UserProfile() {
   const [description, setDescription] = useState("")
   const [parcour, setParcours] = useState("")
   const [surface, setSurface] = useState("")
+  const [isReady, setReady]=useState(false)
   const [hours_vol, setHoursVol] = useState("")
   const navigate=useNavigate()
   function createMission() {
+    setReady(true)
     axiosService.post("/create/mission", {
       name: name,
       model: model,
@@ -63,14 +67,15 @@ export default function UserProfile() {
     })
     .then((data)=>{   
       toast.success("Creaction de la mission reussi")
-      return <Navigate to="/control" replace  />;
+      setReady(false)
 
-      
+      return <Navigate to="/control" replace  />;
+     
     })
     .catch((err)=>{
       toast.error("Erreur lors de la creaction de la mission")
+      setReady(false)
       return <Navigate to="/control" replace  />;
-
     });
     
   }
@@ -184,7 +189,8 @@ export default function UserProfile() {
                   <br/> 
                   <Button color="primary" md={12}
                   className="col-md-12"
-                    onClick={() => createMission()}
+                  loading={isReady}
+                  onClick={() => createMission()}
                   >Start</Button>
                 </GridItem>
               </div>

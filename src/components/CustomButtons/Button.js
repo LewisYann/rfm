@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 // material-ui components
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+import Button from "react-bootstrap-button-loader";
 
 import styles from "../../assets/jss/material-dashboard-react/components/buttonStyle.js";
 
@@ -16,6 +16,7 @@ export default function RegularButton(props) {
   const classes = useStyles();
   const {
     color,
+    loading,
     round,
     children,
     disabled,
@@ -41,7 +42,7 @@ export default function RegularButton(props) {
     [className]: className,
   });
   return (
-    <Button {...rest} classes={muiClasses} className={btnClasses}>
+    <Button {...rest} classes={muiClasses} loading={loading} className={btnClasses}>
       {children}
     </Button>
   );

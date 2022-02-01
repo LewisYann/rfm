@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import Button from "../../components/CustomButtons/Button";
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -23,6 +23,7 @@ import axiosService from '../../utils/axios'
 
 export default function Login() {
   const [setting, setSetting] = React.useState({})
+  const [isReady, setReady] = React.useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate()
   /* 
@@ -58,7 +59,7 @@ export default function Login() {
       email: data.get('login'),
       password: data.get('password'),
     });
-
+    setReady(true)
 
     axios.post("https://api-rfm.herokuapp.com/login", {
       login: data.get('login'),
@@ -66,6 +67,7 @@ export default function Login() {
     }).then(
       (data) => {
         console.log(data )
+        setReady(false)
 
         if (data.data.statu != true) {
           console.log("not found")
@@ -87,7 +89,10 @@ export default function Login() {
         }
       }
     ).catch((err) =>
-      console.log(err)
+      {
+        console.log(err)
+        setReady(false)
+      }
     )
   };
 
@@ -151,11 +156,13 @@ export default function Login() {
               control={<Checkbox value="remember" color="primary" />}
               label="Se rappeler de moi"
             />
+            <br/>
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              loading={isReady}
             >
               Connexion
             </Button>

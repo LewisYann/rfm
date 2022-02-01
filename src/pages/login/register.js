@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import Button from "../../components/CustomButtons/Button";
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -10,21 +10,23 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import axios from 'axios'
 import axiosService from '../../utils/axios';
-import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
     const [setting, setSetting] = React.useState({})
+    const [isReady, setReady] = React.useState(false)
+    let navigation = useNavigate();
 
     const handleSubmit = (event) => {
+        event.preventDefault();
+
+        console.log(event)
         const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-
- 
-
+        console.log(data);
+        setReady(true)
         axiosService.post("/create/user", {
             login: data.get('login'),
             password: data.get('password'),
@@ -33,19 +35,23 @@ export default function Register() {
                     name: data.get('name'),
                     surname: data.get('surname'),
                     email: data.get('email'),
-                    username:data.get('login')
+                    username: data.get('login')
                 }
             ],
             is_active: false,
             authorization: 0
         }).then(
             (data) => {
-
+                setReady(false)
                 console.log(data);
                 toast.error("Inscription reussi")
-                return navigate("")
+                return navigation("/")
             }
-        ).catch((err) =>toast.error("Une erreur s'est produite")
+        ).catch((err) => {
+            toast.error("Une erreur s'est produite")
+            setReady(false)
+
+        }
         )
 
 
@@ -54,7 +60,7 @@ export default function Register() {
 
     return (
         <Grid container component="main" sx={{ height: '100vh' }}>
-            <ToastContainer/>
+            <ToastContainer />
             <CssBaseline />
             <Grid
                 item
@@ -85,7 +91,7 @@ export default function Register() {
                     <Typography component="h1" variant="h5">
                         S'inscrire
                     </Typography>
-                    <Box component="form"   onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
@@ -138,11 +144,13 @@ export default function Register() {
                             control={<Checkbox value="remember" color="primary" />}
                             label="Se rappeler de moi"
                         />
+                        <br />
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
+                            loading={isReady}
                         >
                             Inscription
                         </Button>

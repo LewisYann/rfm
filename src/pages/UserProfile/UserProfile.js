@@ -50,9 +50,11 @@ export default function UserProfile() {
   const [name, setName] = React.useState(account.account.account.people[0].name)
   const [surname, setSurname] = React.useState(account.account.account.people[0].surname)
   const [email, setEmail] = React.useState(account.account.account.people[0].email)
+  const [isReady, setReady]=React.useState(false)
 
 
   function updateUser() {
+    setReady(true)
     axiosService.post("/update/user", [{
       name: name,
       username: username,
@@ -62,14 +64,20 @@ export default function UserProfile() {
       dispatch(authSlice.actions.setAccount({ account: data.data.data }));
       localStorage.removeItem("user")
       localStorage.setItem('user', JSON.stringify(data.data))
+      setReady(false)
       toast.success("Modification reussi")
+
     }) 
-    .catch((err)=>toast.error("Erreur lors de la modification des informations"))
+    .catch((err)=>{
+      setReady(false)
+      toast.error("Erreur lors de la modification des informations")
+    })
   }
 
   const classes = useStyles();
   return (
     <Admin>
+       <ToastContainer/>
       <GridContainer>
         <GridItem xs={12} sm={12} md={8}>
           <Card>
@@ -133,6 +141,7 @@ export default function UserProfile() {
             <CardFooter>
               <Button
                 onClick={() => updateUser()}
+                loading={isReady}
                 color="primary">Update Profile</Button>
             </CardFooter>
           </Card>
