@@ -11,6 +11,8 @@ import Admin from '../../layouts/Admin'
 import axiosService from '../../utils/axios'
 import Joystick from 'react-joystick'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { useTranslation } from "react-i18next";
+import "../../translations/i18n";
 
 const joyOptions = {
   mode: 'semi',
@@ -31,6 +33,8 @@ const containerStyle = {
 
 
 const manette = () => {
+  const { t } = useTranslation();
+
   const [manette, setManette] = useState([])
 
   const getAllManette = () => {
@@ -75,7 +79,7 @@ const manette = () => {
             <GridItem xs={12} sm={12} md={12}>
               <Card>
                 <CardHeader color="primary">
-                  <h4>Manette</h4>
+                  <h4>{t("controlController")}</h4>
                 </CardHeader>
                 <CardBody>
                   <div className="row container-fluid">
@@ -91,14 +95,11 @@ const manette = () => {
             <GridItem xs={12} sm={12} md={12}>
               <Card>
                 <CardHeader color="success">
-                  <h4>Cam</h4>
+                  <h4>{t("controlCam")}</h4>
                 </CardHeader>
                 <CardBody>
                   <div className="row container-fluid">
-                    <ul>
-                      <li>lorem</li>
-
-                    </ul>
+                    
                   </div>
                 </CardBody>
               </Card>
@@ -110,7 +111,7 @@ const manette = () => {
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="info">
-              <h4>Cam</h4>
+              <h4>{t("controlCam")}</h4>
             </CardHeader>
             <CardBody>
               <div className="col-md-8 offset-md-2 col-sm-8 offset-sm-2 col-xs-8 offset-xs-2">
@@ -134,12 +135,12 @@ const manette = () => {
             <CardFooter>
               <div className="col-md-2 col-sm-2 col-xs-2">
                 <center>
-                  <button className="btn btn-primary">Arret</button>
+                  <button className="btn btn-primary">{t("controlStop")}</button>
                 </center>
               </div>
               <div className="offset-md-8 col-md-2 offset-sm-8 col-sm-2 offset-xs-8 col-xs-2">
                 <center>
-                  <button className="btn btn-danger">Retour</button>
+                  <button className="btn btn-danger">{t("controlBack")}</button>
                 </center>
               </div>
             </CardFooter>

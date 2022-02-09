@@ -9,12 +9,11 @@ import Card from "../../components/Card/Card";
 import CardHeader from "../../components/Card/CardHeader";
 import CardBody from "../../components/Card/CardBody";
 import { Link } from "react-router-dom";
-import { useState,useEffect } from "react";
-import axios from "axios"
+import { useState, useEffect } from "react";
 import Admin from '../../layouts/Admin'
 import axiosService from '../../utils/axios'
-import { useRadioGroup } from '@mui/material/RadioGroup';
-
+import { useTranslation } from "react-i18next";
+import "../../translations/i18n";
 const styles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
@@ -50,12 +49,13 @@ const useStyles = makeStyles(styles);
 export default function TableList() {
   const classes = useStyles();
   const [mission, setMission] = useState([])
+  const { t } = useTranslation();
 
   const getAllMission = () => {
     axiosService.get("/get/all/mission").then(
       (data) => {
         setMission(data.data);
-       }
+      }
     )
   }
   const listMission = mission.map((item) => <li key={item.id_mission}>{item.manette}</li>)
@@ -71,31 +71,31 @@ export default function TableList() {
 
 
   return (
-<Admin>
-    <GridContainer>
-      <GridItem xs={12} sm={12} md={12}>
-        <Card>
-          <CardHeader color="primary">
-            <div className="row">
-              <div className="offset-1 col-md-9">
-                <h4 className={classes.cardTitleWhite}>Mission list</h4>
-                
+    <Admin>
+      <GridContainer>
+        <GridItem xs={12} sm={12} md={12}>
+          <Card>
+            <CardHeader color="primary">
+              <div className="row">
+                <div className="offset-1 col-md-9">
+                  <h4 className={classes.cardTitleWhite}>{t("missionsList")}</h4>
+
+                </div>
+                <Link to="/create/mission" className="btn btn-primary col-md-2">
+                  {t("missionsbtnNew")}
+                </Link>
               </div>
-              <Link to="/create/mission" className="btn btn-primary col-md-2">
-                New mission
-              </Link>
-            </div>
-          </CardHeader>
-          <CardBody>
-            <Table
-              tableHeaderColor="primary"
-              tableHead={["#", "Nom", "Description", "Duree (h)", "Date"]}
-              tableData={mission}
-            />
-          </CardBody>
-        </Card>
-      </GridItem>
-    </GridContainer>
+            </CardHeader>
+            <CardBody>
+              <Table
+                tableHeaderColor="primary"
+                tableHead={["#", "Nom", "Description", "Duree (h)", "Date"]}
+                tableData={mission}
+              />
+            </CardBody>
+          </Card>
+        </GridItem>
+      </GridContainer>
     </Admin>
   );
 }

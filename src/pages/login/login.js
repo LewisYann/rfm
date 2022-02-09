@@ -18,14 +18,16 @@ import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axiosService from '../../utils/axios'
-
+import { useTranslation } from "react-i18next";
+import "../../translations/i18n";
 
 
 export default function Login() {
   const [setting, setSetting] = React.useState({})
   const [isReady, setReady] = React.useState(false)
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   /* 
     const handleSubmit = (event) => {
       event.preventDefault()
@@ -129,7 +131,7 @@ export default function Login() {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           </Avatar>
           <Typography component="h1" variant="h5">
-            Se connecter
+          {t("connect")}
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -152,10 +154,7 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Se rappeler de moi"
-            />
+          
             <br/>
             <Button
               type="submit"
@@ -164,17 +163,17 @@ export default function Login() {
               sx={{ mt: 3, mb: 2 }}
               loading={isReady}
             >
-              Connexion
+               {t("connect")}
             </Button>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
-                  Mot de passe oublié ?
+                {t("forgotpassword")}
                 </Link>
               </Grid>
               <Grid item>
                 <Link href="/register" variant="body2">
-                  {"Vous n'anez pas de compte ? Inscrivez vous !"}
+                {t("register")}
                 </Link>
               </Grid>
             </Grid>
