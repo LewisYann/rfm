@@ -48,12 +48,13 @@ const Setting = () => {
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">
-              <h4>Wifi</h4>
+              <h4>Point d'acces</h4>
             </CardHeader>
             <CardBody>
               <div className="row container-fluid">
                 <ul>
                   {liste_wifi}
+                  #TODO: Ajouter deux inputs (SSID et mot de passe)
                 </ul>
               </div>
             </CardBody>
@@ -62,12 +63,12 @@ const Setting = () => {
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="info">
-              <h4>Manette</h4>
+              <h4>Controls</h4>
             </CardHeader>
             <CardBody>
               <div className="row container-fluid">
                 <ul>
-                  {liste_manette}
+                  #TODO: Ajouter deux inputs number (vitesse et sensibilité)
                 </ul>
               </div>
             </CardBody>

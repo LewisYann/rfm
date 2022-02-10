@@ -66,14 +66,14 @@ export default function UserProfile() {
       heurs_vol: 0
     })
     .then((data)=>{   
-      toast.success("Creaction de la mission reussi")
+      toast.success("Creation de la mission reussie")
       setReady(false)
 
       return <Navigate to="/control" replace  />;
      
     })
     .catch((err)=>{
-      toast.error("Erreur lors de la creaction de la mission")
+      toast.error("Erreur lors de la creation de la mission")
       setReady(false)
       return <Navigate to="/control" replace  />;
     });
@@ -144,25 +144,17 @@ export default function UserProfile() {
                       onChange={(data) => setParcours(data.target.value)}
                      >
                       <FormControlLabel
-                        value="zigzag"
+                        value="auto"
                         control={<Radio />}
-                        label="zigzag"
+                        label="auto"
                         labelPlacement="bottom"
                       />
                        <FormControlLabel
-                        value="diagonal"
+                        value="manuel"
                         control={<Radio />}
-                        label="diagonal"
+                        label="manuel"
                         labelPlacement="bottom"
                       />
-                       <FormControlLabel
-                        value="circlar"
-                        control={<Radio />}
-                        label="circlar"
-                        labelPlacement="bottom"
-                      />
-                       
-                      
                      </RadioGroup>
                   </GridItem>
                  

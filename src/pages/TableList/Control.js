@@ -75,12 +75,16 @@ const manette = () => {
             <GridItem xs={12} sm={12} md={12}>
               <Card>
                 <CardHeader color="primary">
-                  <h4>Manette</h4>
+                  <h4>Détails</h4>
                 </CardHeader>
                 <CardBody>
                   <div className="row container-fluid">
                     <ul>
                       {listManette}
+                      <li>GPS: value</li>
+                      <li>Hauteur: value</li>
+                      <li>Batterie: value</li>
+                      <li>Vitesse: value</li>
                     </ul>
                   </div>
                 </CardBody>
