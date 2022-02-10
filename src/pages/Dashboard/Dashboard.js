@@ -27,7 +27,8 @@ import CardHeader from "../../components/Card/CardHeader.js";
 import CardIcon from "../../components/Card/CardIcon.js";
 import CardBody from "../../components/Card/CardBody.js";
 import CardFooter from "../../components/Card/CardFooter.js";
-
+import { useTranslation } from "react-i18next";
+import "../../translations/i18n";
  
  
 
@@ -36,6 +37,7 @@ import styles from "../../assets/jss/material-dashboard-react/views/dashboardSty
 const useStyles = makeStyles(styles);
 
 export default function Dashboard() {
+  const { t } = useTranslation();
   const classes = useStyles();
   return (
     <div>

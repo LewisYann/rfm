@@ -20,7 +20,8 @@ import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import authSlice from "../../store/slices/auth";
-
+import { useTranslation } from "react-i18next";
+import "../../translations/i18n";
 const styles = {
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",
@@ -51,7 +52,7 @@ export default function UserProfile() {
   const [surname, setSurname] = React.useState(account.account.account.people[0].surname)
   const [email, setEmail] = React.useState(account.account.account.people[0].email)
   const [isReady, setReady]=React.useState(false)
-
+  const { t } = useTranslation();
 
   function updateUser() {
     setReady(true)
@@ -82,9 +83,8 @@ export default function UserProfile() {
         <GridItem xs={12} sm={12} md={8}>
           <Card>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Edit Profile</h4>
-              <p className={classes.cardCategoryWhite}>Complete your profile</p>
-            </CardHeader>
+              <h4 className={classes.cardTitleWhite}>{t("profilEdit")}</h4>
+             </CardHeader>
             <CardBody>
               <GridContainer>
 
@@ -142,7 +142,7 @@ export default function UserProfile() {
               <Button
                 onClick={() => updateUser()}
                 loading={isReady}
-                color="primary">Update Profile</Button>
+                color="primary">{t("profilbtnUpdate")}</Button>
             </CardFooter>
           </Card>
         </GridItem>

@@ -78,19 +78,19 @@ export default function Sidebar(props) {
           </NavLink>
         );
       })}
-        <NavLink
+      <NavLink
         to='/'
-        onClick={()=> logout() }
-        >
-          <ListItem button className={classes.itemLink }>
-             
-              <ListItemText
-                primary={"Logout"}
-                className={classNames(classes.itemText   )}
-                disableTypography={true}
-              />
-            </ListItem>
-          </NavLink>
+        onClick={() => logout()}
+      >
+        <ListItem button className={classes.itemLink}>
+
+          <ListItemText
+            primary={"Logout"}
+            className={classNames(classes.itemText)}
+            disableTypography={true}
+          />
+        </ListItem>
+      </NavLink>
     </List>
   );
   var brand = (
@@ -128,9 +128,9 @@ export default function Sidebar(props) {
         >
           {brand}
           <div className={classes.sidebarWrapper}>
-             <AdminNavbarLinks />
+            <AdminNavbarLinks />
             {links}
-            
+
           </div>
           {image !== undefined ? (
             <div
@@ -160,7 +160,7 @@ export default function Sidebar(props) {
             />
           ) : null}
         </Drawer>
-       </Hidden>
+      </Hidden>
     </div>
   );
 }

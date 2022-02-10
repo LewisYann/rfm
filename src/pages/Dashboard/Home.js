@@ -40,7 +40,10 @@ import Admin from '../../layouts/Admin'
 import styles from "../../assets/jss/material-dashboard-react/views/dashboardStyle";
 import LastMission from "../../components/Perso/LastMission";
 import axiosService from '../../utils/axios'
- 
+import { useTranslation } from "react-i18next";
+import "../../translations/i18n";
+
+
 const useStyles = makeStyles(styles);
 
 // const [toggle, setToggle] = useState(false);
@@ -51,11 +54,13 @@ export default function Dashboard() {
   const [hVol, setVol] = useState(0)
   const [lastMission, setlastMission] = useState(0)
   const [listMission, setlistMission] = useState([])
+  const { t } = useTranslation();
+
 
   const getHoursVol = () => {
     axiosService.get("/mission/hours").then(
       (data) => {
-        
+
         setMission(data.data);
         setVol(data.data);
       }
@@ -72,19 +77,18 @@ export default function Dashboard() {
     )
 
   }
-  function getAllMission(){
+  function getAllMission() {
     axiosService.get("/get/all/mission").then(
       (data) => {
-        if (data.data.error!="acces denied")
-        {
+        if (data.data.error != "acces denied") {
           setlistMission(data.data);
         }
-       }
-    ).catch((err)=>console.log(err))
+      }
+    ).catch((err) => console.log(err))
     console.log(listMission)
   }
 
-  const detailsListeMission=listMission.map((item) => {
+  const detailsListeMission = listMission.map((item) => {
     return (
       <>
         <LastMission
@@ -100,7 +104,7 @@ export default function Dashboard() {
     getHoursVol()
     getMissionTotal()
     getAllMission()
-   
+
   }, [])
 
   const classes = useStyles();
@@ -113,10 +117,10 @@ export default function Dashboard() {
               <CardIcon color="success">
                 <Store />
               </CardIcon>
-              <p className={classes.cardCategory}>Missions</p>
+              <p className={classes.cardCategory}>{t("dashbordMissions")}</p>
               <h3 className={classes.cardTitle}> {mission} </h3>
             </CardHeader>
-           
+
           </Card>
         </GridItem>
         <GridItem xs={12} sm={6} md={4}>
@@ -125,12 +129,12 @@ export default function Dashboard() {
               <CardIcon color="warning">
                 <Store />
               </CardIcon>
-              <p className={classes.cardCategory}> Total h de vol </p>
+              <p className={classes.cardCategory}>{t("dashbordTotalHours")}</p>
               <h3 className={classes.cardTitle}>
-                {hVol} 
+                {hVol}
               </h3>
             </CardHeader>
-           
+
           </Card>
         </GridItem>
         {/* <GridItem xs={12} sm={6} md={4}>
@@ -156,12 +160,12 @@ export default function Dashboard() {
               <CardIcon color="info">
                 <Accessibility />
               </CardIcon>
-              <p className={classes.cardCategory}> Durée last mission </p>
+              <p className={classes.cardCategory}> {t("dashbordTimeLastMission")}</p>
               <h3 className={classes.cardTitle}>
-                {lastMission}  
+                {lastMission}
               </h3>
             </CardHeader>
-            
+
           </Card>
         </GridItem>
       </GridContainer>
@@ -170,9 +174,8 @@ export default function Dashboard() {
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Last Mission</h4>
-              <p className={classes.cardCategoryWhite}>3 last missions</p>
-            </CardHeader>
+              <h4 className={classes.cardTitleWhite}>{t("dashbordLastMission")}</h4>
+             </CardHeader>
             <CardBody>
               <div className="mt-5">
                 {detailsListeMission}

@@ -9,10 +9,11 @@ import Setting from "./pages/UserProfile/Setting";
 import Control from "./pages/TableList/Control";
 import NewMission from "./pages/UserProfile/NewMission";
 import Missions from "./pages/TableList/Missions";
- 
+
 // core components/views for RTL layout
   //import RTLPage from "views/RTLPage/RTLPage ";
 import { AddBox, Gamepad, Settings } from "@material-ui/icons";
+
 
 const dashboardRoutes = [
   {

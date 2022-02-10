@@ -21,7 +21,8 @@ import avatar from "../../assets/img/faces/marc.jpg";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate, Navigate } from "react-router";
-
+import { useTranslation } from "react-i18next";
+import "../../translations/i18n";
 
 
 const styles = {
@@ -46,6 +47,8 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 export default function UserProfile() {
+  const { t } = useTranslation();
+
   const classes = useStyles();
   const [name, setName] = useState("")
   const [model, setModel] = useState("")
@@ -87,8 +90,7 @@ export default function UserProfile() {
         <ToastContainer/>
           <Card>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Nouvelle Mission</h4>
-              <p className={classes.cardCategoryWhite}>Nouvelle Mission</p>
+              <h4 className={classes.cardTitleWhite}>{t("newMissionCreate")}</h4>
             </CardHeader>
             <CardBody>
               <div className="container-fluid">
@@ -183,7 +185,7 @@ export default function UserProfile() {
                   className="col-md-12"
                   loading={isReady}
                   onClick={() => createMission()}
-                  >Start</Button>
+                  >{t("newMissionbtnStart")}</Button>
                 </GridItem>
               </div>
             </CardBody>
