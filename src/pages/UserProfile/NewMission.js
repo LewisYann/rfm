@@ -24,7 +24,6 @@ import { useNavigate, Navigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import "../../translations/i18n";
 
-
 const styles = {
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",
@@ -55,9 +54,9 @@ export default function UserProfile() {
   const [description, setDescription] = useState("")
   const [parcour, setParcours] = useState("")
   const [surface, setSurface] = useState("")
-  const [isReady, setReady]=useState(false)
+  const [isReady, setReady] = useState(false)
   const [hours_vol, setHoursVol] = useState("")
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   function createMission() {
     setReady(true)
     axiosService.post("/create/mission", {
@@ -68,26 +67,26 @@ export default function UserProfile() {
       surface: surface,
       heurs_vol: 0
     })
-    .then((data)=>{   
-      toast.success("Creaction de la mission reussi")
-      setReady(false)
+      .then((data) => {
+        toast.success("Creaction de la mission reussi")
+        setReady(false)
 
-      return <Navigate to="/control" replace  />;
-     
-    })
-    .catch((err)=>{
-      toast.error("Erreur lors de la creaction de la mission")
-      setReady(false)
-      return <Navigate to="/control" replace  />;
-    });
-    
+        return navigate("/control", { replace: true })
+      })
+      .catch((err) => {
+        toast.error("Erreur lors de la creaction de la mission")
+        setReady(false)
+        return <Navigate to="/control" replace />;
+      });
+
   }
 
   return (
     <Admin>
+
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
-        <ToastContainer/>
+          <ToastContainer />
           <Card>
             <CardHeader color="primary">
               <h4 className={classes.cardTitleWhite}>{t("newMissionCreate")}</h4>
@@ -137,37 +136,37 @@ export default function UserProfile() {
                     </select>
                   </GridItem>
                   <GridItem xs={12} sm={12} md={12}>
-                  <label>Parcours</label>
+                    <label>Parcours</label>
 
                     <RadioGroup
                       row
                       aria-labelledby="demo-form-control-label-placement"
                       name="position"
                       onChange={(data) => setParcours(data.target.value)}
-                     >
+                    >
                       <FormControlLabel
                         value="zigzag"
                         control={<Radio />}
                         label="zigzag"
                         labelPlacement="bottom"
                       />
-                       <FormControlLabel
+                      <FormControlLabel
                         value="diagonal"
                         control={<Radio />}
                         label="diagonal"
                         labelPlacement="bottom"
                       />
-                       <FormControlLabel
+                      <FormControlLabel
                         value="circlar"
                         control={<Radio />}
                         label="circlar"
                         labelPlacement="bottom"
                       />
-                       
-                      
-                     </RadioGroup>
+
+
+                    </RadioGroup>
                   </GridItem>
-                 
+
                   <GridItem xs={12} sm={12} md={12}>
                     <label>Surface</label>
                     <select className="form-control"
@@ -188,11 +187,11 @@ export default function UserProfile() {
                 </GridContainer>
 
                 <GridItem xs={4} sm={4} md={12} className="m-0 p-0 text-center">
-                  <br/> 
+                  <br />
                   <Button color="primary" md={12}
-                  className="col-md-12"
-                  loading={isReady}
-                  onClick={() => createMission()}
+                    className="col-md-12"
+                    loading={isReady}
+                    onClick={() => createMission()}
                   >{t("newMissionbtnStart")}</Button>
                 </GridItem>
               </div>

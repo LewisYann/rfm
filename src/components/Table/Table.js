@@ -9,13 +9,14 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 // core components
 import styles from "../../assets/jss/material-dashboard-react/components/tableStyle.js";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const useStyles = makeStyles(styles);
 
 export default function CustomTable(props) {
   const classes = useStyles();
-  const { tableHead, tableData, tableHeaderColor } = props;
+  const { tableHead, tableData, tableHeaderColor, setDetails, setOpen } = props;
+
   const tableContent = tableData.map(
     (item) =>
       <TableRow key={item.id_people}>
@@ -24,6 +25,15 @@ export default function CustomTable(props) {
         <TableCell className={classes.tableCell} > {item.description} </TableCell>
         <TableCell className={classes.tableCell} > {item.heurs_vol} h </TableCell>
         <TableCell className={classes.tableCell} > {item.date} </TableCell>
+        <TableCell className={classes.tableCell} > <button className="btn btn-warning"
+          onClick={(e) => {
+            e.preventDefault()
+            setDetails(item)
+            setOpen(true)
+          }} > Details
+        </button>
+        </TableCell>
+
       </TableRow>
   )
 
@@ -58,16 +68,3 @@ CustomTable.defaultProps = {
   tableHeaderColor: "gray",
 };
 
-CustomTable.propTypes = {
-  tableHeaderColor: PropTypes.oneOf([
-    "warning",
-    "primary",
-    "danger",
-    "success",
-    "info",
-    "rose",
-    "gray",
-  ]),
-  tableHead: PropTypes.arrayOf(PropTypes.string),
-  tableData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
-};

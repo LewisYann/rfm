@@ -13,7 +13,7 @@ import axiosService from '../../utils/axios'
 import { useTranslation } from "react-i18next";
 import "../../translations/i18n";
 const Setting = () => {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
   const [setting, setSetting] = useState({
     liste_wifi: [],
@@ -25,19 +25,27 @@ const Setting = () => {
     axiosService.get("/get/setting").then(
       (data) => {
         if (data.data.status == 404) {
-          console.debug(data.data)
+          console.debug(data.data[0])
         } else {
-          setSetting(data.data);
+          console.debug("data",data.data)
+          setSetting(
+            {
+              liste_wifi: data.data.liste_wifi,
+              manette_list: data.data.manette_list,
+              authorization: data.data.authorization,
+            }
+          );
         }
       })
   }
 
+
   const liste_wifi = setting.liste_wifi.map(
-    (data) => <li>{data.name}</li>
+    (data) => <tr><td>{data.ssid}</td> <td>{data.password}</td></tr>
   )
 
   const liste_manette = setting.manette_list.map(
-    (data) => <li>{data.name}</li>
+    (data) => <tr><td>{data.sensibility}</td> <td>{data.speed}</td></tr>
   )
 
   useEffect(() => {
@@ -55,9 +63,18 @@ const Setting = () => {
             </CardHeader>
             <CardBody>
               <div className="row container-fluid">
-                <ul>
-                  {liste_wifi}
-                </ul>
+                <table>
+
+                  <thead>
+                    <tr>
+                      <td>SSID</td>
+                      <td>Password</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {liste_wifi}
+                  </tbody>
+                </table>
               </div>
             </CardBody>
           </Card>
@@ -69,9 +86,17 @@ const Setting = () => {
             </CardHeader>
             <CardBody>
               <div className="row container-fluid">
-                <ul>
-                  {liste_manette}
-                </ul>
+                <table>
+                <thead>
+                    <tr>
+                      <td>SENSIBILITY</td>
+                      <td>SPEED</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {liste_manette}
+                  </tbody>
+                </table>
               </div>
             </CardBody>
           </Card>
@@ -84,7 +109,7 @@ const Setting = () => {
             <CardBody>
               <div className="row container-fluid">
                 <ul>
-                  <li>{setting.authorization}</li>
+                  <li>Level {setting.authorization}</li>
 
                 </ul>
               </div>

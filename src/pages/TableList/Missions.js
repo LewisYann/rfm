@@ -14,6 +14,8 @@ import Admin from '../../layouts/Admin'
 import axiosService from '../../utils/axios'
 import { useTranslation } from "react-i18next";
 import "../../translations/i18n";
+import Drawer from '@mui/material/Drawer';
+
 const styles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
@@ -49,6 +51,8 @@ const useStyles = makeStyles(styles);
 export default function TableList() {
   const classes = useStyles();
   const [mission, setMission] = useState([])
+  const [details, setDetails] = useState({})
+  const [open, setOpen] = useState(false)
   const { t } = useTranslation();
 
   const getAllMission = () => {
@@ -60,7 +64,12 @@ export default function TableList() {
   }
   const listMission = mission.map((item) => <li key={item.id_mission}>{item.manette}</li>)
 
-
+  const toggleDrawer = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setOpen(open);
+  };
 
   useEffect(() => {
     getAllMission()
@@ -72,6 +81,18 @@ export default function TableList() {
 
   return (
     <Admin>
+
+      <Drawer
+        anchor={"right"}
+        open={open}
+        onClose={toggleDrawer(false)}
+      >
+        {details.id_mission}<br />
+        {details.name} <br />
+        {details.description} <br />
+        {details.heurs_vol} h<br />
+        {details.date} <br />
+      </Drawer>
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
@@ -91,6 +112,9 @@ export default function TableList() {
                 tableHeaderColor="primary"
                 tableHead={["#", "Nom", "Description", "Duree (h)", "Date"]}
                 tableData={mission}
+                setDetails={setDetails}
+                open={open}
+                setOpen={setOpen}
               />
             </CardBody>
           </Card>
