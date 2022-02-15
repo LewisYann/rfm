@@ -1,18 +1,18 @@
 export const TRANSLATIONS_EN = {
-    connect: "Connection",
+    connect: "Connexion",
     forgotpassword:"Do you forget your password ?",
-    isRegister:"Register now",
+    isRegister:"Register",
     sideBarHome:"Home",
     sideBarControl:"Home",
     sideBarNewMission:"New mission",
     sideBarMission:"Missions",
-    sideBarSetting:"Setting",
+    sideBarSetting:"Settings",
     sideBarProfil:"Profil",
     sideBarLogout:"Logout",
-    dashbordMissions:"Mission",
+    dashbordMissions:"Missions",
     dashbordTotalHours:"Total Hours",
     dashbordLastMission:"Last mission",
-    dashbordTimeLastMission:"Last missions time",
+    dashbordTimeLastMission:"Last mission time",
     controlController:"Controller",
     controlCam:"Cam",
     controlStop:"Stop",
@@ -24,11 +24,6 @@ export const TRANSLATIONS_EN = {
     settingAutho:"Authorisation",
     settingWifi:"Wifi",
     settingController:"Controller",
-    profilEdit:"Edit Profil",
+    profilEdit:"Edit profil",
     profilbtnUpdate:"Update profil",
-
-
-
-
-
 };
