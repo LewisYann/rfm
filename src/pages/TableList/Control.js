@@ -85,6 +85,10 @@ const manette = () => {
                   <div className="row container-fluid">
                     <ul>
                       {listManette}
+                      <li>GPS: value</li>
+                      <li>Hauteur: value</li>
+                      <li>Batterie: value</li>
+                      <li>Vitesse: value</li>
                     </ul>
                   </div>
                 </CardBody>

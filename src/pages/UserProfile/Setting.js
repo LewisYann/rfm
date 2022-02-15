@@ -27,7 +27,7 @@ const Setting = () => {
         if (data.data.status == 404) {
           console.debug(data.data[0])
         } else {
-          console.debug("data",data.data)
+          console.debug("data", data.data)
           setSetting(
             {
               liste_wifi: data.data.liste_wifi,
@@ -63,29 +63,29 @@ const Setting = () => {
             </CardHeader>
             <CardBody>
               <div className="row container-fluid">
-                <table>
+  <table>
 
-                  <thead>
-                    <tr>
-                      <td>SSID</td>
-                      <td>Password</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {liste_wifi}
-                  </tbody>
-                </table>
-              </div>
-            </CardBody>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={12}>
-          <Card>
-            <CardHeader color="info">
-              <h4>{t("settingController")}</h4>
-            </CardHeader>
-            <CardBody>
-              <div className="row container-fluid">
+    <thead>
+      <tr>
+        <td>SSID</td>
+        <td>Password</td>
+      </tr>
+    </thead>
+    <tbody>
+      {liste_wifi}
+    </tbody>
+  </table>
+              </div >
+            </CardBody >
+          </Card >
+        </GridItem >
+  <GridItem xs={12} sm={12} md={12}>
+    <Card>
+      <CardHeader color="info">
+        <h4>{t("settingController")}</h4>
+      </CardHeader>
+      <CardBody>
+        <div className="row container-fluid">
                 <table>
                 <thead>
                     <tr>
@@ -97,27 +97,28 @@ const Setting = () => {
                     {liste_manette}
                   </tbody>
                 </table>
-              </div>
-            </CardBody>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={12}>
-          <Card>
-            <CardHeader color="success">
-              <h4>{t("settingAutho")}</h4>
-            </CardHeader>
-            <CardBody>
-              <div className="row container-fluid">
-                <ul>
-                  <li>Level {setting.authorization}</li>
+              
+              </div >
+            </CardBody >
+          </Card >
+        </GridItem >
+  <GridItem xs={12} sm={12} md={12}>
+    <Card>
+      <CardHeader color="success">
+        <h4>{t("settingAutho")}</h4>
+      </CardHeader>
+      <CardBody>
+        <div className="row container-fluid">
+          <ul>
+            <li>Level {setting.authorization}</li>
 
-                </ul>
-              </div>
-            </CardBody>
-          </Card>
-        </GridItem>
-      </GridContainer>
-    </Admin>
+          </ul>
+        </div>
+      </CardBody>
+    </Card>
+  </GridItem>
+      </GridContainer >
+    </Admin >
   );
 };
 

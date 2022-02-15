@@ -145,15 +145,15 @@ export default function UserProfile() {
                       onChange={(data) => setParcours(data.target.value)}
                     >
                       <FormControlLabel
-                        value="zigzag"
+                        value="auto"
                         control={<Radio />}
-                        label="zigzag"
+                        label="auto"
                         labelPlacement="bottom"
                       />
-                      <FormControlLabel
-                        value="diagonal"
+                       <FormControlLabel
+                        value="manuel"
                         control={<Radio />}
-                        label="diagonal"
+                        label="manuel"
                         labelPlacement="bottom"
                       />
                       <FormControlLabel
