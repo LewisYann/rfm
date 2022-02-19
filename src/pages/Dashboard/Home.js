@@ -60,9 +60,7 @@ export default function Dashboard() {
   const getHoursVol = () => {
     axiosService.get("/mission/hours").then(
       (data) => {
-
-        setMission(data.data);
-        setVol(data.data);
+         setVol(data.data);
       }
     )
 
