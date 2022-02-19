@@ -41,11 +41,11 @@ const Setting = () => {
 
 
   const liste_wifi = setting.liste_wifi.map(
-    (data) => <tr><td>{data.ssid}</td> <td>{data.password}</td></tr>
+    (data) => <tr><td><input type="text" value={data.ssid} className="form-control col-md-8"/></td> <td><input type="text" value={data.password} className="form-control col-md-8"/></td></tr>
   )
 
   const liste_manette = setting.manette_list.map(
-    (data) => <tr><td>{data.sensibility}</td> <td>{data.speed}</td></tr>
+    (data) => <tr><td><input type="number" value={data.sensibility} className="form-control col-md-8"/></td> <td><input type="number" value={data.speed} className="form-control col-md-8"/></td></tr>
   )
 
   useEffect(() => {

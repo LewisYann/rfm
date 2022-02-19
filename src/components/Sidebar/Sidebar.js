@@ -81,13 +81,24 @@ export default function Sidebar(props) {
       <NavLink
         to='/'
         onClick={() => logout()}
-      >
-        <ListItem button className={classes.itemLink}>
+        className={classes.item}
+        activeClassName="active"
 
+      >
+        <ListItem button
+          className={classes.itemLink}
+          style={{
+            textAlign: 'center',
+            backgroundColor: "red"
+          }}
+        >
           <ListItemText
             primary={"Logout"}
             className={classNames(classes.itemText)}
             disableTypography={true}
+            className={classNames(classes.itemText, classes.whiteFont)}
+            disableTypography={true}
+
           />
         </ListItem>
       </NavLink>

@@ -41,10 +41,10 @@ export default function AdminNavbarLinks() {
   const handleClickProfile = (event) => {
     if (openProfile && openProfile.contains(event.target)) {
       setOpenProfile(null);
-      <Redirect to="/user"/>
+      <Redirect to="/user" />
     } else {
       setOpenProfile(event.currentTarget);
-      <Redirect to="/user"/>
+      <Redirect to="/user" />
     }
   };
   const handleCloseProfile = () => {
@@ -178,27 +178,29 @@ export default function AdminNavbarLinks() {
               <Paper>
                 <ClickAwayListener onClickAway={handleCloseProfile}>
                   <MenuList role="menu">
-                   
-                      <Link href="/user"                      className={classes.dropdownItem}
-  variant="body2">
-                                        {"Profile"}
-                         </Link>
-                     
+
+                    <Link href="/profil" className={classes.dropdownItem}
+                      variant="body2">
+                      {"Profile"}
+                    </Link>
+
                     <MenuItem
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}
                     >
-                      Settings
+                       <Link href="/settings" variant="body2">
+                        {"Settings"}
+                      </Link>
+                      
                     </MenuItem>
                     <Divider light />
                     <MenuItem
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}
                     >
-                      <Link href="/"                      className={classes.dropdownItem}
-  variant="body2">
-                                        {"Logout"}
-                         </Link>
+                      <Link href="/" variant="body2">
+                        {"Logout"}
+                      </Link>
                     </MenuItem>
                   </MenuList>
                 </ClickAwayListener>
