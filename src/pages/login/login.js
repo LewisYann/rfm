@@ -14,13 +14,14 @@ import axios from 'axios'
 import authSlice from "../../store/slices/auth"
 import notifySlice from "../../store/slices/notify"
 import { Navigate, useNavigate } from 'react-router-dom'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axiosService from '../../utils/axios'
 import { useTranslation } from "react-i18next";
 import "../../translations/i18n";
-
+import { useLoginMutation } from '../../services/api';
+import { Navigation } from '@material-ui/icons';
 
 export default function Login() {
   const [setting, setSetting] = React.useState({})
@@ -28,6 +29,8 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const account = useSelector(state => state)
+  const [postLogin, { isLoading, isError, error }] = useLoginMutation()
   /* 
     const handleSubmit = (event) => {
       event.preventDefault()
@@ -53,7 +56,8 @@ export default function Login() {
   
   
     }*/
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
@@ -62,46 +66,42 @@ export default function Login() {
       password: data.get('password'),
     });
     setReady(true)
+    try {
+      await postLogin({
+        login: data.get('login'),
+        password: data.get('password'),
+      }).unwrap()
+        .then(
+          (data) => {
+            console.log(data)
+            if (data.statu == 404 && isError) {
+              toast.error("Erreur de connexion , verifer vos identifiant")
+            }
+            else {
+              console.log(data)
+              dispatch(authSlice.actions.setAuthTokens({ token: data.token, refreshToken: data.token }));
+              dispatch(authSlice.actions.setAccount({ account: data.account }));
+              localStorage.setItem('user', JSON.stringify(data.data))
+              
+              return navigate("dashboard")
 
-    axios.post("https://api-rfm.herokuapp.com/login", {
-      login: data.get('login'),
-      password: data.get('password'),
-    }).then(
-      (data) => {
-        console.log(data )
-        setReady(false)
+            }
+          }
+        )
 
-        if (data.data.statu != true) {
-          console.log("not found")
-          toast.error("Erreur de connexion, vérifier vos identifiant")
-        }
-        else {
-          try {
-            console.log(data.data.token)
-            dispatch(authSlice.actions.setAuthTokens({ token: data.data.token, refreshToken: data.data.token }));
-            dispatch(authSlice.actions.setAccount({ account: data.data.data }));
-            localStorage.setItem('user', JSON.stringify(data.data))
-            return navigate("dashboard")
-          }
-          catch (e) {
-            console.log("not found")
-            toast.error("Erreur de connexion. Reesayer ulterieurement")
-            console.log(e)
-          }
-        }
-      }
-    ).catch((err) =>
-      {
-        console.log(err)
-        setReady(false)
-      }
-    )
+
+
+    } catch (err) {
+      toast.error("Erreur de connexion , verifer vos identifiant")
+      console.error('Failed to save the post: ', err)
+    }
+
   };
 
   return (
 
     <Grid container component="main" sx={{ height: '100vh' }}>
-              <ToastContainer />
+      <ToastContainer />
 
       <CssBaseline />
       <Grid
@@ -131,7 +131,7 @@ export default function Login() {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           </Avatar>
           <Typography component="h1" variant="h5">
-          {t("connect")}
+            {t("connect")}
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -154,26 +154,26 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
             />
-          
-            <br/>
+
+            <br />
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              loading={isReady}
+              loading={isLoading}
             >
-               {t("connect")}
+              {t("connect")}
             </Button>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
-                {t("forgotpassword")}
+                  {t("forgotpassword")}
                 </Link>
               </Grid>
               <Grid item>
                 <Link href="/register" variant="body2">
-                {t("register")}
+                  {t("register")}
                 </Link>
               </Grid>
             </Grid>

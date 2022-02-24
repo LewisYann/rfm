@@ -23,6 +23,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate, Navigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import "../../translations/i18n";
+import { useCreateMissionMutation } from '../../services/api';
 
 const styles = {
   cardCategoryWhite: {
@@ -56,26 +57,30 @@ export default function UserProfile() {
   const [surface, setSurface] = useState("")
   const [isReady, setReady] = useState(false)
   const [hours_vol, setHoursVol] = useState("")
+  const [postMission, { isLoading, isError, error }] = useCreateMissionMutation()
+
   const navigate = useNavigate()
   function createMission() {
     setReady(true)
-    axiosService.post("/create/mission", {
-      name: name,
-      model: model,
-      description: description,
-      parcour: parcour,
-      surface: surface,
-      heurs_vol: 0
-    })
-      .then((data) => {
+    postMission(
+      {
+        name: name,
+        model: model,
+        description: description,
+        parcour: parcour,
+        surface: surface,
+        heurs_vol: 0
+      }
+    ).then((data) => {
         toast.success("Creaction de la mission reussi")
         setReady(false)
-
+      console.log(data)
         return navigate("/control", { replace: true })
       })
       .catch((err) => {
         toast.error("Erreur lors de la creaction de la mission")
         setReady(false)
+        console.log(err)
         return <Navigate to="/control" replace />;
       });
 
@@ -150,7 +155,7 @@ export default function UserProfile() {
                         label="auto"
                         labelPlacement="bottom"
                       />
-                       <FormControlLabel
+                      <FormControlLabel
                         value="manuel"
                         control={<Radio />}
                         label="manuel"

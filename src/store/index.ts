@@ -1,5 +1,5 @@
-import {configureStore, getDefaultMiddleware} from "@reduxjs/toolkit";
-import {combineReducers} from "redux";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
 import {
   FLUSH,
   PAUSE,
@@ -10,34 +10,49 @@ import {
   REGISTER,
   REHYDRATE,
 } from "redux-persist";
+import { setupListeners } from "@reduxjs/toolkit/query";
 import authSlice from "./slices/auth";
 import notifySlice from "./slices/notify";
 import storage from "redux-persist/lib/storage";
+import { missionApi, userApi, settingApi } from "../services/api";
 
 const rootReducer = combineReducers({
   auth: authSlice.reducer,
   notify: notifySlice.reducer,
+  [missionApi.reducerPath]: missionApi.reducer,
+  [userApi.reducerPath]: userApi.reducer,
+  [settingApi.reducerPath]: settingApi.reducer,
 });
+const persistConfig = {
+  key: "roots",
+  storage: storage,
+};
 
-const persistedReducer = persistReducer(
-  {
-    key: "root",
-    version: 1,
-    storage: storage,
-  },
-  rootReducer
-);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const middlewareHandler = (getDefaultMiddleware: any) => {
+  const middlewareList = [
+    ...getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ["persist/PERSIST"],
+      },
+    }),
+    missionApi.middleware,
+    userApi.middleware,
+    settingApi.middleware,
+  ];
+  return middlewareList;
+};
+
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
-  }),
+  middleware: (getDefaultMiddleware) => middlewareHandler(getDefaultMiddleware),
 });
 
 export const persistor = persistStore(store);
-export type RootState = ReturnType<typeof rootReducer>;
 
-export default store;
+
+export type persistState = ReturnType<typeof rootReducer>;
+
+export default store

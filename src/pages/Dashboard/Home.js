@@ -36,12 +36,13 @@ import Admin from '../../layouts/Admin'
 //   emailsSubscriptionChart,
 //   completedTasksChart,
 // } from "variables/charts.js";
-
+import { Spinner } from "react-bootstrap";
 import styles from "../../assets/jss/material-dashboard-react/views/dashboardStyle";
 import LastMission from "../../components/Perso/LastMission";
 import axiosService from '../../utils/axios'
 import { useTranslation } from "react-i18next";
 import "../../translations/i18n";
+import { useGetMissionQuery, useGetMissionsQuery, useGetMissionsHoursQuery, useGetMissionsNombreQuery } from '../../services/api';
 
 
 const useStyles = makeStyles(styles);
@@ -55,12 +56,16 @@ export default function Dashboard() {
   const [lastMission, setlastMission] = useState(0)
   const [listMission, setlistMission] = useState([])
   const { t } = useTranslation();
+  //const { data: dataHours, isLoading, isFetching, isError, isSuccess } = useGetMissionsHoursQuery()
+  const { data: dataNumber, isLoading, isFetching, isError, isSuccess } = useGetMissionsNombreQuery()
+  const { data: dataAssign, isFetching3, isError3, isSuccess3 } = useGetMissionsQuery()
+  console.log(dataNumber)
 
 
   const getHoursVol = () => {
     axiosService.get("/mission/hours").then(
       (data) => {
-         setVol(data.data);
+        setVol(data.data);
       }
     )
 
@@ -86,7 +91,7 @@ export default function Dashboard() {
     console.log(listMission)
   }
 
-  const detailsListeMission = listMission.map((item) => {
+  const detailsListeMission = dataAssign.map((item) => {
     return (
       <>
         <LastMission
@@ -97,11 +102,11 @@ export default function Dashboard() {
         <hr />
       </>)
   })
+  let content
 
   useEffect(() => {
-    getHoursVol()
-    getMissionTotal()
-    getAllMission()
+
+
 
   }, [])
 
@@ -116,7 +121,7 @@ export default function Dashboard() {
                 <Store />
               </CardIcon>
               <p className={classes.cardCategory}>{t("dashbordMissions")}</p>
-              <h3 className={classes.cardTitle}> {mission} </h3>
+              <h3 className={classes.cardTitle}> {dataNumber} </h3>
             </CardHeader>
 
           </Card>
@@ -129,7 +134,7 @@ export default function Dashboard() {
               </CardIcon>
               <p className={classes.cardCategory}>{t("dashbordTotalHours")}</p>
               <h3 className={classes.cardTitle}>
-                {hVol}
+                {dataNumber}
               </h3>
             </CardHeader>
 
@@ -173,7 +178,7 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="primary">
               <h4 className={classes.cardTitleWhite}>{t("dashbordLastMission")}</h4>
-             </CardHeader>
+            </CardHeader>
             <CardBody>
               <div className="mt-5">
                 {detailsListeMission}

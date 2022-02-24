@@ -15,6 +15,7 @@ import axiosService from '../../utils/axios'
 import { useTranslation } from "react-i18next";
 import "../../translations/i18n";
 import Drawer from '@mui/material/Drawer';
+import { useGetMissionsQuery } from "../../services/api";
 
 const styles = {
   cardCategoryWhite: {
@@ -54,6 +55,7 @@ export default function TableList() {
   const [details, setDetails] = useState({})
   const [open, setOpen] = useState(false)
   const { t } = useTranslation();
+  const { data: dataAssign, isFetching3, isError3, isSuccess3 } = useGetMissionsQuery()
 
   const getAllMission = () => {
     axiosService.get("/get/all/mission").then(
@@ -62,8 +64,7 @@ export default function TableList() {
       }
     )
   }
-  const listMission = mission.map((item) => <li key={item.id_mission}>{item.manette}</li>)
-
+  const listMission = dataAssign.map((item) => <li key={item.id_mission}>{item.manette}</li>)
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -111,7 +112,7 @@ export default function TableList() {
               <Table
                 tableHeaderColor="primary"
                 tableHead={["#", "Nom", "Description", "Duree (h)", "Date"]}
-                tableData={mission}
+                tableData={dataAssign}
                 setDetails={setDetails}
                 open={open}
                 setOpen={setOpen}

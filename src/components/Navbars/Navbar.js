@@ -14,7 +14,6 @@ import AdminNavbarLinks from "./AdminNavbarLinks.js";
 import Button from "../CustomButtons/Button.js";
 import store from "../../store"
 //hooks
-import { useRouteName } from "../../hooks";
 
 import styles from "../../assets/jss/material-dashboard-react/components/headerStyle.js";
 
@@ -22,17 +21,17 @@ const useStyles = makeStyles(styles);
 
 export default function Header(props) {
   const classes = useStyles();
-  const routeName = useRouteName();
   const { color } = props;
   const appBarClasses = classNames({
     [" " + classes[color]]: color,
   });
-  const account =store.getState().auth.account.account
+  console.log(store.getState())
+  const account = store.getState().auth.account.account
   return (
     <AppBar className={classes.appBar + appBarClasses}>
       <Toolbar className={classes.container}>
-        <div className={classes.flex} style={{fontSize:16}}>
-          {account.people[0].name+" "+account.people[0].surname}
+        <div className={classes.flex} style={{ fontSize: 16 }}>
+          {account.people[0].name + " " + account.people[0].surname}
 
         </div>
         <Hidden smDown implementation="css">
