@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 // @material-ui/core components
@@ -13,6 +13,8 @@ import Menu from "@material-ui/icons/Menu";
 import AdminNavbarLinks from "./AdminNavbarLinks.js";
 import Button from "../CustomButtons/Button.js";
 import store from "../../store"
+import Drawer from '@mui/material/Drawer';
+
 //hooks
 
 import styles from "../../assets/jss/material-dashboard-react/components/headerStyle.js";
@@ -27,6 +29,13 @@ export default function Header(props) {
   });
   console.log(store.getState())
   const account = store.getState().auth.account.account
+  const toggleDrawer = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setOpen(open);
+  };
+  const [open, setOpen] = useState(false)
   return (
     <AppBar className={classes.appBar + appBarClasses}>
       <Toolbar className={classes.container}>
@@ -37,6 +46,9 @@ export default function Header(props) {
         <Hidden smDown implementation="css">
           {props.rtlActive ? <RTLNavbarLinks /> : <AdminNavbarLinks />}
         </Hidden>
+        <Button
+        onClick={()=>setOpen(true)}
+        >Toggle drawer </Button>
         <Hidden mdUp implementation="css">
           <IconButton
             color="inherit"
@@ -47,6 +59,15 @@ export default function Header(props) {
           </IconButton>
         </Hidden>
       </Toolbar>
+      <Drawer
+        anchor={"right"}
+        open={open}
+        onClose={toggleDrawer(false)}
+      >
+        Test 
+
+      </Drawer>
+      
     </AppBar>
   );
 }

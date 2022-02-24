@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import "../../translations/i18n";
 import Drawer from '@mui/material/Drawer';
 import { useGetMissionsQuery } from "../../services/api";
+import { Modal } from "react-bootstrap";
 
 const styles = {
   cardCategoryWhite: {
@@ -83,17 +84,20 @@ export default function TableList() {
   return (
     <Admin>
 
-      <Drawer
-        anchor={"right"}
-        open={open}
-        onClose={toggleDrawer(false)}
-      >
-        {details.id_mission}<br />
-        {details.name} <br />
-        {details.description} <br />
-        {details.heurs_vol} h<br />
-        {details.date} <br />
-      </Drawer>
+    
+      <Modal show={open} fullscreen={true} onHide={() => setOpen(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Mission  {details.name}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {details.id_mission}<br />
+          {details.name} <br />
+          {details.description} <br />
+          {details.heurs_vol} h<br />
+          {details.date} <br />
+        </Modal.Body>
+      </Modal>
+
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
