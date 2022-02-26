@@ -65,7 +65,7 @@ export default function TableList() {
       }
     )
   }
-  const listMission = dataAssign.map((item) => <li key={item.id_mission}>{item.manette}</li>)
+  const listMission = dataAssign?.map((item) => <li key={item.id_mission}>{item.manette}</li>)
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
