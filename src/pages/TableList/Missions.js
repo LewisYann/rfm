@@ -87,14 +87,14 @@ export default function TableList() {
     
       <Modal show={open} fullscreen={true} onHide={() => setOpen(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Mission  {details.name}</Modal.Title>
+          <Modal.Title>Mission  {details.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {details.id_mission}<br />
-          {details.name} <br />
+          {details.title} <br />
           {details.description} <br />
           {details.heurs_vol} h<br />
-          {details.date} <br />
+          {details.created_at} <br />
         </Modal.Body>
       </Modal>
 
