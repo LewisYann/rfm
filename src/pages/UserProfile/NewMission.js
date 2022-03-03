@@ -64,8 +64,8 @@ export default function UserProfile() {
     setReady(true)
     postMission(
       {
-        name: name,
-        model: model,
+        title: name,
+        mode: model,
         description: description,
         parcour: parcour,
         surface: surface,
