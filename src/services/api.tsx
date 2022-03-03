@@ -112,8 +112,7 @@ export const settingApi = createApi({
         method: "POST",
         // Include the entire post object as the body of the request
         body: initialPost,
-        credentials: "include",
-      }),
+       }),
       invalidatesTags: ["Setting"],
     }),
     createSetting: builder.mutation({
@@ -122,8 +121,7 @@ export const settingApi = createApi({
         method: "POST",
         // Include the entire post object as the body of the request
         body: initialPost,
-        credentials: "include",
-      }),
+       }),
       invalidatesTags: ["Setting"],
     }),
     getSetting: builder.query<any[], void>({
