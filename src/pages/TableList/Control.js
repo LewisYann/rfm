@@ -50,14 +50,7 @@ const manette = () => {
     )
 
   }
-  function managerListener(manager) {
-    manager.on('move', (e, stick) => {
-      console.log('I moved!')
-    })
-    manager.on('end', () => {
-      console.log('I ended!')
-    })
-  }
+
   const listManette = manette.map((item) => <li key={item.id}>{item.manette}</li>)
 
 
@@ -131,9 +124,7 @@ const manette = () => {
                     </center>
                   </div>
                 </div>
-                <div id="joyDiv" className="row">
-                  <Joystick options={joyOptions} containerStyle={containerStyle} managerListener={managerListener} />
-                </div>
+            
               </div>
             </CardBody>
             <CardFooter>
