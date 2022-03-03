@@ -33,9 +33,9 @@ export default function Dashboard() {
     return (
       <>
         <LastMission
-          nomMission={item.name}
+          nomMission={item.title}
           localisation={item.parcour}
-          date={item.date}
+          date={item.created_at}
         />
         <hr />
       </>)

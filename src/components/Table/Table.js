@@ -21,10 +21,10 @@ export default function CustomTable(props) {
     (item) =>
       <TableRow key={item.id_people}>
         <TableCell className={classes.tableCell} > {item.id_mission} </TableCell>
-        <TableCell className={classes.tableCell} > {item.name} </TableCell>
+        <TableCell className={classes.tableCell} > {item.title} </TableCell>
         <TableCell className={classes.tableCell} > {item.description} </TableCell>
         <TableCell className={classes.tableCell} > {item.heurs_vol} h </TableCell>
-        <TableCell className={classes.tableCell} > {item.date} </TableCell>
+        <TableCell className={classes.tableCell} > {item.created_at} </TableCell>
         <TableCell className={classes.tableCell} > <button className="btn btn-warning"
           onClick={(e) => {
             e.preventDefault()
