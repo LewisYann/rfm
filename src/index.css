@@ -12,8 +12,7 @@ code {
     monospace;
 }
 
-.leaflet-container {
-  width: 90%;
-  height: 100vh;
-  z-index: 1;
+.leaflet-container{
+  width: 50%;
+  height: 150px;
 }

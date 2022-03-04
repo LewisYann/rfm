@@ -1,13 +1,21 @@
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 
-const position = [51.505, -0.09]
+const position = [6.505, 2.4109]
+const config = {
+    TOKEN: "sk.eyJ1IjoibGV3aXNhbGQiLCJhIjoiY2t6NWgzODN2MGx0ejJ4cWZ2cnY1YnoxayJ9.rO4bEYggFGDoZT_ymPAM7A",
+    ACCOUNT: "lewisald"
 
-export default function Maps(){
+}
+
+const url = `https://api.mapbox.com/styles/v1/${config.ACCOUNT}/ckz5gtvsh000m15lcoumls96r/tiles/256/{z}/{x}/{y}@2x?access_token=${config.TOKEN}`
+
+export default function Maps() {
     return (
-        <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
+        <MapContainer
+            center={position}
+            zoom={12}>
             <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution="Map data &copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors, <a href=&quot;https://creativecommons.org/licenses/by-sa/2.0/&quot;>CC-BY-SA</a>, Imagery &copy; <a href=&quot;https://www.mapbox.com/&quot;>Mapbox</a>" url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <Marker position={position}>
                 <Popup>
