@@ -13,12 +13,8 @@ import Joystick from 'react-joystick'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { useTranslation } from "react-i18next";
 import "../../translations/i18n";
+import Maps from "./map"
 
-const joyOptions = {
-  mode: 'semi',
-  catchDistance: 150,
-  color: 'white'
-}
 
 const containerStyle = {
   position: 'relative',
@@ -65,7 +61,7 @@ const manette = () => {
     <Admin>
       <div className="row">
         <div className="col-md-8 col-sm-8 col-xs-8">
-          
+          <Maps />
         </div>
         <div className="col-md-4 col-sm-4 col-xs-4">
           <div>
@@ -96,7 +92,7 @@ const manette = () => {
                 </CardHeader>
                 <CardBody>
                   <div className="row container-fluid">
-                    
+
                   </div>
                 </CardBody>
               </Card>
@@ -124,7 +120,7 @@ const manette = () => {
                     </center>
                   </div>
                 </div>
-            
+
               </div>
             </CardBody>
             <CardFooter>
