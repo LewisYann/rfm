@@ -40,7 +40,7 @@ export default function Header(props) {
     <AppBar className={classes.appBar + appBarClasses}>
       <Toolbar className={classes.container}>
         <div className={classes.flex} style={{ fontSize: 16 }}>
-          {account.people[0].name + " " + account.people[0].surname}
+          {account.people[0]?.name + " " + account.people[0]?.surname}
 
         </div>
         <Hidden smDown implementation="css">
