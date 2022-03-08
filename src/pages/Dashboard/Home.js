@@ -15,12 +15,17 @@ import { useTranslation } from "react-i18next";
 import "../../translations/i18n";
 import { Spinner } from "react-bootstrap";
 import { useGetMissionQuery, useGetMissionsQuery, useGetMissionsHoursQuery, useGetMissionsNombreQuery } from '../../services/api';
+import Table from "../../components/Table/Table";
+import { Modal } from "react-bootstrap";
 
 
 const useStyles = makeStyles(styles);
 export default function Dashboard() {
   const [mission, setMission] = useState(0)
   const [hVol, setVol] = useState(0)
+  const [open, setOpen] = useState(false)
+  const [details, setDetails] = useState({})
+
   const [lastMission, setlastMission] = useState(0)
   const [listMission, setlistMission] = useState([])
   const { t } = useTranslation();
@@ -115,11 +120,31 @@ export default function Dashboard() {
                   </CardHeader>
                   <CardBody>
                     <div className="mt-5">
-                      {detailsListeMission}
+                      <Table
+                        tableHeaderColor="primary"
+                        tableHead={["#", "Nom", "Description", "Duree (h)", "Date"]}
+                        tableData={dataAssign}
+                        setDetails={setDetails}
+                        open={open}
+                        setOpen={setOpen}
+                      />
                     </div>
                   </CardBody>
                 </Card>
               </GridItem>
+              <Modal show={open} fullscreen={true} onHide={() => setOpen(false)}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Mission  {details.title}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  {details.id_mission}<br />
+                  {details.title} <br />
+                  {details.description} <br />
+                  {details.heurs_vol} h<br />
+                  {details.created_at} <br />
+                </Modal.Body>
+              </Modal>
+
             </GridContainer>
 
 

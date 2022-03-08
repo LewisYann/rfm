@@ -74,7 +74,7 @@ export default function Login() {
         .then(
           (data) => {
             console.log(data)
-            if (data.statu == 404 && isError) {
+            if (data.statu === 404 || isError) {
               toast.error("Erreur de connexion , verifer vos identifiant")
             }
             else {

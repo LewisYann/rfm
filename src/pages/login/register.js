@@ -28,7 +28,7 @@ export default function Register() {
         console.log(data);
         setReady(true)
         axiosService.post("/create/user", {
-            login: data.get('login'),
+            login: data.get('email'),
             password: data.get('password'),
             people: [
                 {
@@ -43,9 +43,14 @@ export default function Register() {
         }).then(
             (data) => {
                 setReady(false)
-                console.log(data);
-                toast.error("Inscription reussi")
-                return navigation("/")
+                if (data.data?.statu === 400) {
+                    toast.error("Essayer avec une autre adress mail identifiant")
+                }
+                else {
+                    console.log(data);
+                    toast.error("Inscription reussi")
+                    return navigation("/")
+                }
             }
         ).catch((err) => {
             toast.error("Une erreur s'est produite")
@@ -117,15 +122,7 @@ export default function Register() {
                             id="email"
                         />
 
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="login"
-                            label="Login"
-                            name="login"
-                            autoComplete="login"
-                        />
+    
 
                         <TextField
                             margin="normal"

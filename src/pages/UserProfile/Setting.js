@@ -15,6 +15,7 @@ import { useGetSettingQuery, useCreateSettingMutation, useUpdateSettingMutation 
 import { Modal } from "react-bootstrap";
 import "../../translations/i18n";
 import { ToastContainer, toast } from 'react-toastify';
+import Button from "../../components/CustomButtons/Button";
 
 const Setting = () => {
   const { t } = useTranslation();
@@ -23,15 +24,14 @@ const Setting = () => {
   const [password, setPassword] = useState("")
   const [sensibility, setSensibility] = useState("")
   const [speed, setSpeed] = useState("")
-  const [postSetting, { isLoading, isError, error, }] = useCreateSettingMutation()
+  const [postSetting, { isLoading, isError, error, }] = useUpdateSettingMutation()
 
   const [setting, setSetting] = useState({
     liste_wifi: [],
     manette_list: []
-
   })
 
-  function createSetting() {
+  function updateSetting() {
     postSetting(
       {
         liste_wifi: [{
@@ -43,9 +43,10 @@ const Setting = () => {
             sensibility: sensibility,
             speed: speed
           }],
-        authorization: 1
+        authorization: setting.authorization
       }
     ).then((data) => {
+      getSetting()
       toast.success("Configuration reussi")
       console.log(data)
     })
@@ -53,7 +54,7 @@ const Setting = () => {
         toast.error("Erreur lors de la configuration")
         console.log(err)
       });
-    getSetting()
+    
   }
 
   const getSetting = () => {
@@ -70,17 +71,27 @@ const Setting = () => {
               authorization: data.data.authorization,
             }
           );
+          setSsid(data.data.liste_wifi[0].ssid)
+          setPassword(data.data.liste_wifi[0].password)
+          setSensibility(data.data.manette_list[0].sensibility)
+          setSpeed(data.data.manette_list[0].speed)
         }
       })
   }
 
 
   const liste_wifi = setting.liste_wifi.map(
-    (data) => <tr><td><input type="text" value={data.ssid} className="form-control col-md-8" /></td> <td><input type="text" value={data.password} className="form-control col-md-8" /></td><td><button className="btn form-control btn-primary">Configurer</button></td></tr>
+    (data) => {
+      return <tr><td><input type="text" value={ssid} onChange={(e) => setSsid(e.target.value)} className="form-control col-md-8" /></td> <td><input type="text" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control col-md-8" /></td></tr>
+    }
   )
 
   const liste_manette = setting.manette_list.map(
-    (data) => <tr><td><input type="number" value={data.sensibility} className="form-control col-md-8" /></td> <td><input type="number" value={data.speed} className="form-control col-md-8" /></td></tr>
+
+    (data) => {
+
+      return <tr><td><input type="number" value={sensibility} onChange={(e) => setSensibility(e.target.value)} className="form-control col-md-8" /></td> <td><input type="number" value={speed} onChange={(e) => setSpeed(e.target.value)} className="form-control col-md-8" /></td></tr>
+    }
   )
 
   useEffect(() => {
@@ -91,24 +102,6 @@ const Setting = () => {
   return (
     <Admin>
       <ToastContainer />
-      <Modal show={open} onHide={() => setOpen(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Configuration</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <h2>Wifi</h2>
-          <label> Ssid</label>
-          <input type="text" value={ssid} onChange={(e) => setSsid(e.target.value)} className="form-control col-md-8" /><br />
-          <label> Password</label>
-          <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control col-md-8" /> <br />
-          <h2>Control</h2>
-          <label> Sensibily</label>
-          <input type="text" value={sensibility} onChange={(e) => setSensibility(e.target.value)} className="form-control col-md-8" /> <br />
-          <label>Speed</label>
-          <input type="text" value={speed} onChange={(e) => setSpeed(e.target.value)} className="form-control col-md-8" /> <br />
-          <button className="btn btn-primary" onClick={() => createSetting()}>Configure</button>
-        </Modal.Body>
-      </Modal>
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
@@ -126,7 +119,7 @@ const Setting = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {liste_wifi.length == 0 ? <button className="btn btn-success form-control" onClick={() => setOpen(true)}>Ajout un wifi</button> : liste_wifi}
+                    {liste_wifi}
                   </tbody>
                 </table>
               </div >
@@ -169,6 +162,23 @@ const Setting = () => {
                 </ul>
               </div>
             </CardBody>
+          </Card>
+        </GridItem>
+        <GridItem xs={12} sm={12} md={12}>
+          <Card>
+            <CardHeader color="success">
+              <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                loading={isLoading}
+                onClick={() => updateSetting()}
+              >
+                Save
+              </Button>
+            </CardHeader>
+
           </Card>
         </GridItem>
       </GridContainer >

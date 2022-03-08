@@ -74,6 +74,7 @@ export default function CustomInput(props) {
         {...inputProps}
         inputProps={newInputProps}
         onChange={(e)=>onchange(e)}
+        required
 
       />
       {error ? (

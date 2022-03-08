@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 // @material-ui/core components
@@ -14,7 +14,10 @@ import AdminNavbarLinks from "./AdminNavbarLinks.js";
 import Button from "../CustomButtons/Button.js";
 import store from "../../store"
 import Drawer from '@mui/material/Drawer';
-
+import { useTranslation, withTranslation, Trans } from "react-i18next";
+import { useDispatch,useSelector } from "react-redux";
+import { persistState } from "../../store";
+import languageSlice from "../../store/slices/language"
 //hooks
 
 import styles from "../../assets/jss/material-dashboard-react/components/headerStyle.js";
@@ -22,6 +25,10 @@ import styles from "../../assets/jss/material-dashboard-react/components/headerS
 const useStyles = makeStyles(styles);
 
 export default function Header(props) {
+  const { t, i18n } = useTranslation();
+  const [lng,setLng]=React.useState("en")
+  const dispatch=useDispatch()
+  const language=useSelector((state:persistState)=>state.language.language)
   const classes = useStyles();
   const { color } = props;
   const appBarClasses = classNames({
@@ -41,13 +48,27 @@ export default function Header(props) {
       <Toolbar className={classes.container}>
         <div className={classes.flex} style={{ fontSize: 16 }}>
           {account.people[0]?.name + " " + account.people[0]?.surname}
-
         </div>
         <Hidden smDown implementation="css">
-          {props.rtlActive ? <RTLNavbarLinks /> : <AdminNavbarLinks />}
+          <AdminNavbarLinks />
         </Hidden>
+        <select
+          onChange={(e) => {
+            dispatch(languageSlice.actions.setLanguage({language:e.target.value}))              
+            i18n.changeLanguage(language)
+          }}
+          value={language}
+          className="form-control col-md-1"
+          style={{
+            width:"10%"
+          }}
+        >
+          <option value="en">English</option>
+          <option value="fr">Francais</option>
+        </select>
+        
         <Button
-        onClick={()=>setOpen(true)}
+          onClick={() => setOpen(true)}
         >Toggle drawer </Button>
         <Hidden mdUp implementation="css">
           <IconButton
@@ -64,10 +85,10 @@ export default function Header(props) {
         open={open}
         onClose={toggleDrawer(false)}
       >
-        Test 
+        Test
 
       </Drawer>
-      
+
     </AppBar>
   );
 }

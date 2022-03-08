@@ -72,11 +72,11 @@ export default function UserProfile() {
         heurs_vol: 0
       }
     ).then((data) => {
-        toast.success("Creaction de la mission reussi")
-        setReady(false)
+      toast.success("Creaction de la mission reussi")
+      setReady(false)
       console.log(data)
-        return navigate("/control", { replace: true })
-      })
+      return navigate("/control", { replace: true })
+    })
       .catch((err) => {
         toast.error("Erreur lors de la creaction de la mission")
         setReady(false)
@@ -97,17 +97,20 @@ export default function UserProfile() {
               <h4 className={classes.cardTitleWhite}>{t("newMissionCreate")}</h4>
             </CardHeader>
             <CardBody>
-              <div className="container-fluid">
+              <form method="post" onSubmit={(e) => {
+                e.preventDefault()
+                createMission()
+              }} className="container-fluid">
                 <GridContainer xs={8} sm={8} md={12}>
                   <GridItem xs={12} sm={12} md={12}>
                     <CustomInput
                       labelText="Nom"
                       id="username"
+
                       value={name}
                       onchange={(e) => setName(e.target.value)}
                       formControlProps={{
                         fullWidth: true,
-
                       }}
 
                     />
@@ -122,6 +125,7 @@ export default function UserProfile() {
                       formControlProps={{
                         fullWidth: true
                       }}
+                      required
                       inputProps={{
                         multiline: true,
                         rows: 5,
@@ -133,7 +137,7 @@ export default function UserProfile() {
                     <label>Model</label>
                     <select className="form-control"
                       onChange={(data) => setModel(data.target.value)}
-
+                      required
                     >
                       <option value="opt1 " key="">
                         opt1
@@ -147,7 +151,9 @@ export default function UserProfile() {
                       row
                       aria-labelledby="demo-form-control-label-placement"
                       name="position"
-                      onChange={(data) => setParcours(data.target.value)}
+                      onChange={(data) => setParcours(data.target.value)
+                      }
+                      required
                     >
                       <FormControlLabel
                         value="auto"
@@ -176,7 +182,7 @@ export default function UserProfile() {
                     <label>Surface</label>
                     <select className="form-control"
                       onChange={(data) => setSurface(data.target.value)}
-
+                      required
                     >
                       <option value="" key="">
                         <img src={avatar} height="100" /> zigzag
@@ -196,10 +202,11 @@ export default function UserProfile() {
                   <Button color="primary" md={12}
                     className="col-md-12"
                     loading={isReady}
-                    onClick={() => createMission()}
+                    type="submit"
+                  //  onClick={() => createMission()}
                   >{t("newMissionbtnStart")}</Button>
                 </GridItem>
-              </div>
+              </form>
             </CardBody>
             {/* <CardFooter>
                 <Button color="primary">Update Profile</Button>
