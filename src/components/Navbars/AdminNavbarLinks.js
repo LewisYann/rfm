@@ -21,6 +21,8 @@ import Button from "../CustomButtons/Button.js";
 import Redirect from 'react-dom'
 import styles from "../../assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 import Link from '@mui/material/Link';
+import socket from "../../store/socketState";
+import store from "../../store";
 
 const useStyles = makeStyles(styles);
 
@@ -28,10 +30,23 @@ export default function AdminNavbarLinks() {
   const classes = useStyles();
   const [openNotification, setOpenNotification] = React.useState(null);
   const [openProfile, setOpenProfile] = React.useState(null);
+  const [notification, setNotification] = React.useState([])
+
+  React.useEffect(
+    () => {
+      socket.emit("get/notification", { idUser: store.getState().auth.account.account.idUser });
+      socket.on("notification", (data) => setNotification(data.notification))
+      console.log(notification)
+    }, []
+  )
+
   const handleClickNotification = (event) => {
+    socket.emit("put/notification", { idUser: store.getState().auth.account.account.idUser });
+    socket.on("notification", (data) => setNotification(data.notification))
     if (openNotification && openNotification.contains(event.target)) {
       setOpenNotification(null);
-    } else {
+    }
+    else {
       setOpenNotification(event.currentTarget);
     }
   };
@@ -120,19 +135,18 @@ export default function AdminNavbarLinks() {
             >
               <Paper>
                 <ClickAwayListener onClickAway={handleCloseNotification}>
+              
                   <MenuList role="menu">
-                    <MenuItem
-                      onClick={handleCloseNotification}
-                      className={classes.dropdownItem}
-                    >
+                  {
+                    notification.map((data) => {
+                      <MenuItem
+                        onClick={handleCloseNotification}
+                        className={classes.dropdownItem}
+                      >
                       Mike John responded to your email
                     </MenuItem>
-                    <MenuItem
-                      onClick={handleCloseNotification}
-                      className={classes.dropdownItem}
-                    >
-                      Another One
-                    </MenuItem>
+                    })
+                  }
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
@@ -188,10 +202,10 @@ export default function AdminNavbarLinks() {
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}
                     >
-                       <Link href="/settings" variant="body2">
+                      <Link href="/settings" variant="body2">
                         {"Settings"}
                       </Link>
-                      
+
                     </MenuItem>
                     <Divider light />
                     <MenuItem

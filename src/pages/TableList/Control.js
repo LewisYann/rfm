@@ -14,7 +14,8 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { useTranslation } from "react-i18next";
 import "../../translations/i18n";
 import Maps from "./map"
-
+import Logger from "../../components/logger";
+import socket from "../../store/socketState";
 
 const containerStyle = {
   position: 'relative',
@@ -32,6 +33,10 @@ const manette = () => {
   const { t } = useTranslation();
 
   const [manette, setManette] = useState([])
+  const [mission, setMission] = useState([])
+  axiosService.get("/mission/current").then(
+    (data) => setCurrent(data)
+  )
 
   const getAllManette = () => {
     axiosService.get("/get/setting").then(
@@ -46,15 +51,17 @@ const manette = () => {
     )
 
   }
+  function handleStart() {
+    socket.emit('logger/start_mission', { data: 'I\'m connected!' });
+  }
+  function handleStop() {
+    socket.emit('logger/stop_mission', { data: 'I\'m connected!' });
+  }
 
   const listManette = manette.map((item) => <li key={item.id}>{item.manette}</li>)
-
-
-
   useEffect(() => {
     getAllManette()
   }, [])
-
 
 
   return (
@@ -120,18 +127,20 @@ const manette = () => {
                     </center>
                   </div>
                 </div>
-
+              </div>
+              <div>
+                <Logger />
               </div>
             </CardBody>
             <CardFooter>
               <div className="col-md-2 col-sm-2 col-xs-2">
                 <center>
-                  <button className="btn btn-primary">{t("controlStop")}</button>
+                  <button className="btn btn-primary" onClick={() => handleStart()}>{t("controlStop")}</button>
                 </center>
               </div>
               <div className="offset-md-8 col-md-2 offset-sm-8 col-sm-2 offset-xs-8 col-xs-2">
                 <center>
-                  <button className="btn btn-danger">{t("controlBack")}</button>
+                  <button className="btn btn-danger" onClick={() => handleStop()} >{t("controlBack")}</button>
                 </center>
               </div>
             </CardFooter>

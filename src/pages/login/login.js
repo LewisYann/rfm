@@ -22,6 +22,7 @@ import { useTranslation } from "react-i18next";
 import "../../translations/i18n";
 import { useLoginMutation } from '../../services/api';
 import { Navigation } from '@material-ui/icons';
+import socket from '../../store/socketState';
 
 export default function Login() {
   const [setting, setSetting] = React.useState({})
@@ -31,6 +32,7 @@ export default function Login() {
   const { t } = useTranslation();
   const account = useSelector(state => state)
   const [postLogin, { isLoading, isError, error }] = useLoginMutation()
+
   /* 
     const handleSubmit = (event) => {
       event.preventDefault()
@@ -56,6 +58,7 @@ export default function Login() {
   
   
     }*/
+    
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -82,7 +85,7 @@ export default function Login() {
               dispatch(authSlice.actions.setAuthTokens({ token: data.token, refreshToken: data.token }));
               dispatch(authSlice.actions.setAccount({ account: data.account }));
               localStorage.setItem('user', JSON.stringify(data.data))
-              
+
               return navigate("dashboard")
 
             }
