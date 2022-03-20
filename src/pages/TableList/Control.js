@@ -99,7 +99,7 @@ const manette = () => {
                 </CardHeader>
                 <CardBody>
                   <div className="row container-fluid">
-
+                    <img src={'http://localhost:5002/stream'} className="streaming" alt="stream" />
                   </div>
                 </CardBody>
               </Card>
