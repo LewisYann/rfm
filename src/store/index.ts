@@ -13,6 +13,7 @@ import {
 import { setupListeners } from "@reduxjs/toolkit/query";
 import authSlice from "./slices/auth";
 import notifySlice from "./slices/notify";
+import missionSlice from "./slices/mission";
 import storage from "redux-persist/lib/storage";
 import { missionApi, userApi, settingApi } from "../services/api";
 import languageSlice from "./slices/language";
@@ -21,12 +22,13 @@ const rootReducer = combineReducers({
   auth: authSlice.reducer,
   notify: notifySlice.reducer,
   language:languageSlice.reducer,
+  mission:missionSlice.reducer,
   [missionApi.reducerPath]: missionApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [settingApi.reducerPath]: settingApi.reducer,
 });
 const persistConfig = {
-  key: "roots",
+  key: "rootspersist",
   storage: storage,
 };
 

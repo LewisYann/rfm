@@ -123,7 +123,7 @@ export default function Dashboard() {
                       <Table
                         tableHeaderColor="primary"
                         tableHead={["#", "Nom", "Description", "Duree (h)", "Date"]}
-                        tableData={dataAssign}
+                        tableData={dataAssign.slice(10)}
                         setDetails={setDetails}
                         open={open}
                         setOpen={setOpen}

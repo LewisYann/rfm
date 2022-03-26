@@ -189,17 +189,7 @@ export const missionApi = createApi({
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5002",
-    prepareHeaders: (headers, { getState }) => {
-      const {
-        auth: { token: token },
-      } = getState() as persistState;
-      if (token) {
-        console.log(token);
-        headers.set("authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
+    baseUrl: "http://localhost:5002"
   }),
   refetchOnReconnect: true,
   refetchOnMountOrArgChange: true,

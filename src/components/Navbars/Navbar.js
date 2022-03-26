@@ -28,13 +28,12 @@ export default function Header(props) {
   const { t, i18n } = useTranslation();
   const [lng,setLng]=React.useState("en")
   const dispatch=useDispatch()
-  const language=useSelector((state:persistState)=>state.language.language)
+  const language=useSelector((state)=>state.language.language)
   const classes = useStyles();
   const { color } = props;
   const appBarClasses = classNames({
     [" " + classes[color]]: color,
   });
-  console.log(store.getState())
   const account = store.getState().auth.account.account
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {

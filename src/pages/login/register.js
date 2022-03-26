@@ -14,6 +14,7 @@ import axiosService from '../../utils/axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
+import axios from "axios"
 
 export default function Register() {
     const [setting, setSetting] = React.useState({})
@@ -27,7 +28,7 @@ export default function Register() {
         const data = new FormData(event.currentTarget);
         console.log(data);
         setReady(true)
-        axiosService.post("/create/user", {
+        axios.post("http://localhost:5002/create/user", {
             login: data.get('email'),
             password: data.get('password'),
             people: [
@@ -53,6 +54,7 @@ export default function Register() {
                 }
             }
         ).catch((err) => {
+            console.log(err)
             toast.error("Une erreur s'est produite")
             setReady(false)
 
