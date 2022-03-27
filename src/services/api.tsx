@@ -7,6 +7,7 @@ export const Api = createApi({
     baseUrl: "http://localhost:5002",
   }),
   tagTypes: ["Post", "User"],
+  refetchOnReconnect: true,
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (initialPost) => ({
@@ -89,7 +90,6 @@ export const Api = createApi({
 
 export const settingApi = createApi({
   reducerPath: "settingApi",
-  keepUnusedDataFor: 360,
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5002",
     prepareHeaders: (headers, { getState }) => {
@@ -147,10 +147,7 @@ export const missionApi = createApi({
     },
     
   }),
-  refetchOnReconnect: true,
   tagTypes: ["Mission"],
-  refetchOnMountOrArgChange: 2,
-
   endpoints: (builder) => ({
     getMission: builder.query<any[], void>({
       query: (id) => "/get/mission/" + id,
@@ -192,7 +189,6 @@ export const userApi = createApi({
     baseUrl: "http://localhost:5002"
   }),
   refetchOnReconnect: true,
-  refetchOnMountOrArgChange: true,
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (initialPost) => ({

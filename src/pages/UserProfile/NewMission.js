@@ -85,6 +85,7 @@ export default function UserProfile() {
                 toast.error("Erreur lors de la creaction de la mission")
                 setReady(false)
                 console.log(err)
+
                 return <Navigate to="/control" replace/>;
             });
 

@@ -145,7 +145,7 @@ const manette = () => {
                             <div className="col-md-2 col-sm-2 col-xs-2">
                                 <center>
                                     <button className="btn btn-primary"
-                                            disabled={statusMission.status==="pending"?false:true}
+                                           disabled={statusMission.status==="pending"?false:true}
                                             onClick={() => handleStart()}>{t("controlStop")}</button>
                                 </center>
                             </div>

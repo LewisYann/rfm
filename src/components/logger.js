@@ -22,7 +22,7 @@ export default function Logger() {
             backgroundColor: "grey",
             padding: 20,
             height: 350,
-            overflow:"auto"
+            overflow: "auto"
         }}
         >
             {
@@ -33,3 +33,31 @@ export default function Logger() {
         </div>
     )
 }
+
+export function LoggerReplay(props) {
+    const [log, setLog] = React.useState([])
+    const currentMission = useSelector((state) => state.mission)
+    const dipatch = useDispatch()
+    console.log(currentMission?.loggerReplay)
+    console.log(props)
+    socket.on("log/replay/" + props.details?.id_mission, (data) => {
+        dipatch(missionSlice.actions.fillLoggerReplay({data: data}))
+    })
+
+    return (
+        <div style={{
+            backgroundColor: "grey",
+            padding: 20,
+            height: 350,
+            overflow: "auto"
+        }}
+        >
+            {
+                currentMission.loggerReplay?.map(
+                    (row) => <div className="row">{row?.date}: {row?.info} <br/></div>
+                )
+            }
+        </div>
+    )
+}
+

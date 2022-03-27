@@ -3,11 +3,13 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 type State = {
     mission: object | null;
     status: string;
+    statusReplay: string;
     listMission: any;
     logger: any;
+    loggerReplay: any;
 };
 
-const initialState: State = {mission: {}, listMission: [], logger: [], status: "pending"};
+const initialState: State = {mission: {}, listMission: [], logger: [], status: "pending",statusReplay:"pending", loggerReplay:[]};
 
 const missionSlice = createSlice({
     name: "mission",
@@ -24,6 +26,10 @@ const missionSlice = createSlice({
         startMission(state: State) {
             state.status = "start";
             state.logger=[]
+        },
+        startMissionReplay(state: State) {
+            state.loggerReplay=[]
+            state.status = "progress";
         },
         stopMission(state: State) {
             state.status = "stop";
@@ -42,8 +48,12 @@ const missionSlice = createSlice({
         ) {
             state.logger.push(action.payload.data);
         },
-
-
+        fillLoggerReplay(
+            state: State,
+            action: PayloadAction<{ data: any }>
+        ) {
+            state.loggerReplay.push(action.payload.data);
+        },
         setReset(state: State) {
             state.mission = {};
         },

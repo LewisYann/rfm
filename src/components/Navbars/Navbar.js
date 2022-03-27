@@ -68,7 +68,7 @@ export default function Header(props) {
         
         <Button
           onClick={() => setOpen(true)}
-        >Toggle drawer </Button>
+        >DRONE <span className="badge rounded-pill bg-warning">95%</span></Button>
         <Hidden mdUp implementation="css">
           <IconButton
             color="inherit"

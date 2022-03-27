@@ -123,7 +123,7 @@ export default function Dashboard() {
                       <Table
                         tableHeaderColor="primary"
                         tableHead={["#", "Nom", "Description", "Duree (h)", "Date"]}
-                        tableData={dataAssign.slice(10)}
+                        tableData={dataAssign?.slice(10)}
                         setDetails={setDetails}
                         open={open}
                         setOpen={setOpen}
@@ -134,14 +134,14 @@ export default function Dashboard() {
               </GridItem>
               <Modal show={open} fullscreen={true} onHide={() => setOpen(false)}>
                 <Modal.Header closeButton>
-                  <Modal.Title>Mission  {details.title}</Modal.Title>
+                  <Modal.Title>Mission  {details?.title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  {details.id_mission}<br />
-                  {details.title} <br />
-                  {details.description} <br />
-                  {details.heurs_vol} h<br />
-                  {details.created_at} <br />
+                  {details?.id_mission}<br />
+                  {details?.title} <br />
+                  {details?.description} <br />
+                  {details?.heurs_vol} h<br />
+                  {details?.created_at} <br />
                 </Modal.Body>
               </Modal>
 
