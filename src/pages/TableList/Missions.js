@@ -62,7 +62,7 @@ export default function TableList() {
     const [open, setOpen] = useState(false)
     const dispatch = useDispatch()
     const {t} = useTranslation();
-    const {data: dataAssign, isFetching3, isError3, isSuccess3} = useGetMissionsQuery()
+    const {data: dataAssign, isFetching3, isError3, isSuccess3, refetch} = useGetMissionsQuery()
 
     const getAllMission = () => {
         axiosService.get("/get/all/mission").then(
@@ -87,6 +87,10 @@ export default function TableList() {
         dispatch(missionSlice.actions.startMissionReplay())
         console.log("emission")
         socket.emit('logger/replay_log', details);
+    }
+    function handleRefetch() {
+        console.log("refetch")
+        refetch()
     }
 
     return (
@@ -182,7 +186,10 @@ export default function TableList() {
                     <Card>
                         <CardHeader color="primary">
                             <div className="row">
-                                <div className="offset-1 col-md-9">
+                                <div classNma="col-md-1">
+                                    <button onClick={()=>handleRefetch()} className="btn btn-secondary"> Reload</button>
+                                </div>
+                                <div className="col-md-9">
                                     <h4 className={classes.cardTitleWhite}>{t("missionsList")}</h4>
 
                                 </div>

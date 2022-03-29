@@ -5,8 +5,6 @@ import {useDispatch, useSelector} from "react-redux";
 import missionSlice from "../store/slices/mission";
 
 export default function Logger() {
-
-
     const [log, setLog] = React.useState([])
     const currentMission = useSelector((state) => state.mission)
     const dipatch = useDispatch()
@@ -38,10 +36,11 @@ export function LoggerReplay(props) {
     const [log, setLog] = React.useState([])
     const currentMission = useSelector((state) => state.mission)
     const dipatch = useDispatch()
+    let details = ""
     console.log(currentMission?.loggerReplay)
-    console.log(props)
     socket.on("log/replay/" + props.details?.id_mission, (data) => {
         dipatch(missionSlice.actions.fillLoggerReplay({data: data}))
+        console.log(data)
     })
 
     return (

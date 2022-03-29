@@ -9,7 +9,14 @@ type State = {
     loggerReplay: any;
 };
 
-const initialState: State = {mission: {}, listMission: [], logger: [], status: "pending",statusReplay:"pending", loggerReplay:[]};
+const initialState: State = {
+    mission: {},
+    listMission: [],
+    logger: [],
+    status: "pending",
+    statusReplay: "pending",
+    loggerReplay: []
+};
 
 const missionSlice = createSlice({
     name: "mission",
@@ -20,21 +27,21 @@ const missionSlice = createSlice({
             action: PayloadAction<{ mission: any }>
         ) {
             console.log(action.payload.mission)
-            state.status="pending"
+            state.status = "pending"
             state.mission = action.payload.mission;
         },
         startMission(state: State) {
             state.status = "start";
-            state.logger=[]
+            state.logger = []
         },
         startMissionReplay(state: State) {
-            state.loggerReplay=[]
+            state.loggerReplay = []
             state.status = "progress";
         },
         stopMission(state: State) {
             state.status = "stop";
-            state.logger=[]
-            state.mission={}
+            state.logger = []
+            state.mission = {}
         }
         , fillMission(
             state: State,
@@ -46,13 +53,24 @@ const missionSlice = createSlice({
             state: State,
             action: PayloadAction<{ data: any }>
         ) {
-            state.logger.push(action.payload.data);
+            if(state.logger.filter((data:any)=>data.info===action.payload.data.info).length>0){
+                console.log("duplicated")
+            }
+            else{
+                state.logger.push(action.payload.data)
+            }
         },
         fillLoggerReplay(
             state: State,
             action: PayloadAction<{ data: any }>
         ) {
-            state.loggerReplay.push(action.payload.data);
+            if(state.loggerReplay.filter((data:any)=>data.info===action.payload.data.info).length>0){
+                console.log("duplicated")
+            }
+            else{
+                state.loggerReplay.push(action.payload.data)
+            }
+
         },
         setReset(state: State) {
             state.mission = {};

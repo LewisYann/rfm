@@ -18,6 +18,7 @@ import Logger from "../../components/logger";
 import socket from "../../store/socketState";
 import {useDispatch, useSelector} from "react-redux";
 import missionSlice from "../../store/slices/mission";
+import {useGetMissionsQuery} from "../../services/api";
 
 const containerStyle = {
     position: 'relative',
@@ -38,6 +39,8 @@ const manette = () => {
     const [manette, setManette] = useState([])
     const [mission, setMission] = useState([])
     const dispatch=useDispatch()
+    const {data: dataAssign, isFetching3, isError3, isSuccess3,refetch} = useGetMissionsQuery()
+
     console.log(currentMission.mission)
 
     const getAllManette = () => {
@@ -58,12 +61,14 @@ const manette = () => {
         dispatch(missionSlice.actions.fillMission(currentMission.mission))
         dispatch(missionSlice.actions.startMission())
         console.log("emission")
+        refetch()
         socket.emit('logger/start_mission', currentMission.mission);
     }
 
     function handleStop() {
         dispatch(missionSlice.actions.stopMission())
         console.log("emission")
+        refetch()
         socket.emit('logger/stop_mission', currentMission.mission);
     }
 

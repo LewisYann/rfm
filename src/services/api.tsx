@@ -148,6 +148,8 @@ export const missionApi = createApi({
     
   }),
   tagTypes: ["Mission"],
+  refetchOnFocus:true,
+
   endpoints: (builder) => ({
     getMission: builder.query<any[], void>({
       query: (id) => "/get/mission/" + id,
