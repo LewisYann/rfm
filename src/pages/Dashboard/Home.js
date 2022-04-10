@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Store from "@material-ui/icons/Store";
 import Accessibility from "@material-ui/icons/Accessibility";
 import GridItem from "../../components/Grid/GridItem";
@@ -11,9 +11,9 @@ import CardBody from "../../components/Card/CardBody";
 import styles from "../../assets/jss/material-dashboard-react/views/dashboardStyle";
 import LastMission from "../../components/Perso/LastMission";
 import Admin from "../../layouts/Admin";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import "../../translations/i18n";
-import {Spinner} from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import {
     useGetMissionQuery,
     useGetMissionsQuery,
@@ -21,52 +21,44 @@ import {
     useGetMissionsNombreQuery
 } from '../../services/api';
 import Table from "../../components/Table/Table";
-import {Modal} from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
 
 const useStyles = makeStyles(styles);
 export default function Dashboard() {
-    const [mission, setMission] = useState(0)
-    const [hVol, setVol] = useState(0)
-    const [open, setOpen] = useState(false)
-    const [details, setDetails] = useState({})
-
-    const [lastMission, setlastMission] = useState(0)
-    const [listMission, setlistMission] = useState([])
-    const {t} = useTranslation();
+    const [open, setOpen] = useState(false);
+    const [details, setDetails] = useState({});
+    const [lastMission, setlastMission] = useState(0);
+    const [listMission, setlistMission] = useState([]);
+    const { t } = useTranslation();
     //const { data: dataHours, isLoading, isFetching, isError, isSuccess } = useGetMissionsHoursQuery()
-    const {data: dataNumber, isLoading, isFetching, isError, isSuccess} = useGetMissionsNombreQuery()
-    const {data: dataAssign, isFetching3, isError3, isSuccess3,refetch} = useGetMissionsQuery()
-    const detailsListeMission = dataAssign?.map((item) => {
-        return (
-            <>
-                <LastMission
-                    nomMission={item.title}
-                    localisation={item.parcour}
-                    date={item.created_at}
-                />
-                <hr/>
-            </>)
-    })
+    const { data: dataAssign,isLoading, isFetching, isError, isSuccess, refetch } = useGetMissionsQuery()
 
+
+   // if (isLoading || isFetching) return <Spinner />;
+
+    const nbreHeure = dataAssign?.reduce((p, c) => p + parseFloat(c.heurs_vol), 0).toFixed(3);
+    const nbreMission = dataAssign?.length;
+    const lastMissionTime = parseFloat(dataAssign[nbreMission-1].heurs_vol).toFixed(3);
     const classes = useStyles();
-    useEffect(()=>{
+    useEffect(() => {
         refetch()
-    },[])
+    }, [])
+
     return (
         <Admin>
             {
-                isLoading && isFetching ? <Spinner/> :
+                isFetching ? <Spinner /> :
                     <>
                         <GridContainer>
                             <GridItem xs={12} sm={6} md={4}>
                                 <Card>
                                     <CardHeader color="success" stats icon>
                                         <CardIcon color="success">
-                                            <Store/>
+                                            <Store />
                                         </CardIcon>
                                         <p className={classes.cardCategory}>{t("dashbordMissions")}</p>
-                                        <h3 className={classes.cardTitle}> {dataNumber} </h3>
+                                        <h3 className={classes.cardTitle}> {nbreMission} </h3>
                                     </CardHeader>
 
                                 </Card>
@@ -75,11 +67,11 @@ export default function Dashboard() {
                                 <Card>
                                     <CardHeader color="warning" stats icon>
                                         <CardIcon color="warning">
-                                            <Store/>
+                                            <Store />
                                         </CardIcon>
                                         <p className={classes.cardCategory}>{t("dashbordTotalHours")}</p>
                                         <h3 className={classes.cardTitle}>
-                                            {dataNumber}
+                                            {nbreHeure}
                                         </h3>
                                     </CardHeader>
 
@@ -106,11 +98,11 @@ export default function Dashboard() {
                                 <Card>
                                     <CardHeader color="info" stats icon>
                                         <CardIcon color="info">
-                                            <Accessibility/>
+                                            <Accessibility />
                                         </CardIcon>
                                         <p className={classes.cardCategory}> {t("dashbordTimeLastMission")}</p>
                                         <h3 className={classes.cardTitle}>
-                                            {lastMission}
+                                            {lastMissionTime}
                                         </h3>
                                     </CardHeader>
 
@@ -143,11 +135,11 @@ export default function Dashboard() {
                                     <Modal.Title>Mission {details?.title}</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
-                                    {details?.id_mission}<br/>
-                                    {details?.title} <br/>
-                                    {details?.description} <br/>
-                                    {details?.heurs_vol} h<br/>
-                                    {details?.created_at} <br/>
+                                    {details?.id_mission}<br />
+                                    {details?.title} <br />
+                                    {details?.description} <br />
+                                    {details?.heurs_vol} h<br />
+                                    {details?.created_at} <br />
                                 </Modal.Body>
                             </Modal>
 
