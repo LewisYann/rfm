@@ -109,9 +109,7 @@ export const settingApi = createApi({
       return headers;
     },
   }),
-  refetchOnReconnect: true,
   keepUnusedDataFor:30,
-
   tagTypes: ["Setting"],
   endpoints: (builder) => ({
     updateSetting: builder.mutation({
@@ -161,7 +159,6 @@ export const missionApi = createApi({
     
   }),
   tagTypes: ["Mission"],
-  refetchOnFocus:true,
   keepUnusedDataFor:10,
   endpoints: (builder) => ({
     getMission: builder.query<any[], void>({

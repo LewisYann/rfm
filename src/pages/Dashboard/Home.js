@@ -37,8 +37,6 @@ export default function Dashboard() {
     //const { data: dataHours, isLoading, isFetching, isError, isSuccess } = useGetMissionsHoursQuery()
     const {data: dataNumber, isLoading, isFetching, isError, isSuccess} = useGetMissionsNombreQuery()
     const {data: dataAssign, isFetching3, isError3, isSuccess3,refetch} = useGetMissionsQuery()
-    console.log(dataNumber)
-
     const detailsListeMission = dataAssign?.map((item) => {
         return (
             <>
