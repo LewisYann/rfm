@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { persistState } from "../store";
+import { REHYDRATE } from 'redux-persist'
 
 export const Api = createApi({
   reducerPath: "missionsApi",
@@ -90,6 +91,11 @@ export const Api = createApi({
 
 export const settingApi = createApi({
   reducerPath: "settingApi",
+  extractRehydrationInfo(action, { reducerPath }) {
+    if (action.type === REHYDRATE) {
+      return action.payload[reducerPath]
+    }
+  },
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5002",
     prepareHeaders: (headers, { getState }) => {
@@ -104,6 +110,8 @@ export const settingApi = createApi({
     },
   }),
   refetchOnReconnect: true,
+  keepUnusedDataFor:30,
+
   tagTypes: ["Setting"],
   endpoints: (builder) => ({
     updateSetting: builder.mutation({
@@ -133,6 +141,11 @@ export const settingApi = createApi({
 
 export const missionApi = createApi({
   reducerPath: "missionsApi",
+  extractRehydrationInfo(action, { reducerPath }) {
+    if (action.type === REHYDRATE) {
+      return action.payload[reducerPath]
+    }
+  },
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5002",
     prepareHeaders: (headers, { getState }) => {
@@ -149,7 +162,7 @@ export const missionApi = createApi({
   }),
   tagTypes: ["Mission"],
   refetchOnFocus:true,
-
+  keepUnusedDataFor:10,
   endpoints: (builder) => ({
     getMission: builder.query<any[], void>({
       query: (id) => "/get/mission/" + id,
@@ -187,10 +200,17 @@ export const missionApi = createApi({
 
 export const userApi = createApi({
   reducerPath: "userApi",
+  extractRehydrationInfo(action, { reducerPath }) {
+    if (action.type === REHYDRATE) {
+      return action.payload[reducerPath]
+    }
+  },
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5002"
   }),
   refetchOnReconnect: true,
+  keepUnusedDataFor:10,
+
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (initialPost) => ({

@@ -40,7 +40,7 @@ const missionSlice = createSlice({
         },
         stopMission(state: State) {
             state.status = "stop";
-            state.logger = []
+            //state.logger = []
             state.mission = {}
         }
         , fillMission(

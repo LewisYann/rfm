@@ -64,13 +64,13 @@ export default function TableList() {
     const {t} = useTranslation();
     const {data: dataAssign, isFetching3, isError3, isSuccess3, refetch} = useGetMissionsQuery()
 
-    const getAllMission = () => {
-        axiosService.get("/get/all/mission").then(
-            (data) => {
-                setMission(data.data);
-            }
-        )
-    }
+    // const getAllMission = () => {
+    //     axiosService.get("/get/all/mission").then(
+    //         (data) => {
+    //             setMission(data.data);
+    //         }
+    //     )
+    // }
     const listMission = dataAssign?.map((item) => <li key={item.id_mission}>{item.manette}</li>)
     const toggleDrawer = (open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -79,9 +79,9 @@ export default function TableList() {
         setOpen(open);
     };
 
-    useEffect(() => {
-        getAllMission()
-    }, [])
+    // useEffect(() => {
+    //     getAllMission()
+    // }, [])
 
     function handleReplay() {
         dispatch(missionSlice.actions.startMissionReplay())
