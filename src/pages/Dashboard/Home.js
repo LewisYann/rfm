@@ -30,14 +30,20 @@ export default function Dashboard() {
     const [details, setDetails] = useState({});
     const [lastMission, setlastMission] = useState(0);
     const [listMission, setlistMission] = useState([]);
+    let lastMissionTime=0
     const { t } = useTranslation();
     //const { data: dataHours, isLoading, isFetching, isError, isSuccess } = useGetMissionsHoursQuery()
-    const { data: dataAssign,isLoading, isFetching, isError, isSuccess, refetch } = useGetMissionsQuery()
-   // if (isLoading || isFetching) return <Spinner />;
+    const { data: dataAssign, isLoading, isFetching, isError, isSuccess, refetch } = useGetMissionsQuery()
+    // if (isLoading || isFetching) return <Spinner />;
 
-    const nbreHeure = dataAssign?.reduce((p, c) => p + parseFloat(c.heurs_vol), 0).toFixed(3);
-    const nbreMission = dataAssign?.length;
-    const lastMissionTime = parseFloat(dataAssign[nbreMission-1].heurs_vol).toFixed(3);
+    const nbreHeure = (dataAssign || []).reduce((p, c) => p + parseFloat(c.heurs_vol), 0).toFixed(3)
+    const nbreMission = (dataAssign || []).length;
+    if (dataAssign) {
+        lastMissionTime = parseFloat((dataAssign[nbreMission - 1] || {}).heurs_vol).toFixed(3);
+    }
+    else{
+        lastMissionTime = 0;
+    }
     const classes = useStyles();
     useEffect(() => {
         refetch()
