@@ -33,8 +33,6 @@ export default function Dashboard() {
     const { t } = useTranslation();
     //const { data: dataHours, isLoading, isFetching, isError, isSuccess } = useGetMissionsHoursQuery()
     const { data: dataAssign,isLoading, isFetching, isError, isSuccess, refetch } = useGetMissionsQuery()
-
-
    // if (isLoading || isFetching) return <Spinner />;
 
     const nbreHeure = dataAssign?.reduce((p, c) => p + parseFloat(c.heurs_vol), 0).toFixed(3);

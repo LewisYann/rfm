@@ -62,7 +62,7 @@ export default function TableList() {
     const [open, setOpen] = useState(false)
     const dispatch = useDispatch()
     const {t} = useTranslation();
-    const {data: dataAssign, isFetching3, isError3, isSuccess3, refetch} = useGetMissionsQuery()
+    const {data: dataAssign, isFetching, isError, isSuccess, refetch} = useGetMissionsQuery()
 
     // const getAllMission = () => {
     //     axiosService.get("/get/all/mission").then(
@@ -186,12 +186,12 @@ export default function TableList() {
                     <Card>
                         <CardHeader color="primary">
                             <div className="row">
-                                <div classNma="col-md-1">
-                                    <button onClick={()=>handleRefetch()} className="btn btn-secondary"> Reload</button>
-                                </div>
-                                <div className="col-md-9">
+                                <div className="col-md-2">
                                     <h4 className={classes.cardTitleWhite}>{t("missionsList")}</h4>
 
+                                </div>
+                                <div className="col-md-8">
+                                    <button onClick={()=>handleRefetch()} className="btn btn-secondary"> Reload</button>
                                 </div>
                                 <Link to="/create/mission" className="btn btn-primary col-md-2">
                                     {t("missionsbtnNew")}
