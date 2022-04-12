@@ -38,7 +38,7 @@ const middlewareHandler = (getDefaultMiddleware: any) => {
   const middlewareList = [
     ...getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ["persist/PERSIST"],
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
     missionApi.middleware,
@@ -54,7 +54,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => middlewareHandler(getDefaultMiddleware),
 });
 
-export const persistor = persistStore(store);
+export let persistor = persistStore(store);
 
 
 export type persistState = ReturnType<typeof rootReducer>;

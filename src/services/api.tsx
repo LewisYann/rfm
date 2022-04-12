@@ -2,93 +2,6 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { persistState } from "../store";
 import { REHYDRATE } from 'redux-persist'
 
-export const Api = createApi({
-  reducerPath: "missionsApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5002",
-  }),
-  tagTypes: ["Post", "User"],
-  refetchOnReconnect: true,
-  endpoints: (builder) => ({
-    login: builder.mutation({
-      query: (initialPost) => ({
-        url: "/login",
-        method: "POST",
-        // Include the entire post object as the body of the request
-        body: initialPost,
-        credentials: "include",
-      }),
-    }),
-    updateUser: builder.mutation({
-      query: (initialPost) => ({
-        url: "/update/user",
-        method: "POST",
-        // Include the entire post object as the body of the request
-        body: initialPost,
-      }),
-    }),
-    createUser: builder.mutation({
-      query: (initialPost) => ({
-        url: "/create/user",
-        method: "POST",
-        // Include the entire post object as the body of the request
-        body: initialPost,
-      }),
-    }),
-    updateSetting: builder.mutation({
-      query: (initialPost) => ({
-        url: "/update/setting",
-        method: "POST",
-        // Include the entire post object as the body of the request
-        body: initialPost,
-      }),
-    }),
-    createSetting: builder.mutation({
-      query: (initialPost) => ({
-        url: "/create/setting",
-        method: "POST",
-        // Include the entire post object as the body of the request
-        body: initialPost,
-      }),
-    }),
-    deleteSetting: builder.mutation({
-      query: (id) => ({
-        url: "/delete/setting/" + id,
-        method: "DELETE",
-      }),
-    }),
-    getSetting: builder.query<any[], void>({
-      query: (id) => "/get/setting" + id,
-    }),
-    getMission: builder.query<any[], void>({
-      query: (id) => "/get/mission/" + id,
-    }),
-    getMissions: builder.query<any[], void>({
-      query: () => "/get/all/mission",
-    }),
-    getMissionsHours: builder.query<any[], void>({
-      query: () => "/mission/hours",
-    }),
-    getMissionsNombre: builder.query<any[], void>({
-      query: () => "/mission/nombre",
-    }),
-    createMission: builder.mutation({
-      query: (initialPost) => ({
-        url: "/create/mission",
-        method: "POST",
-        // Include the entire post object as the body of the request
-        body: initialPost,
-      }),
-    }),
-    deleteMission: builder.mutation({
-      query: (id) => ({
-        url: "/create/mission" + id,
-        method: "DELETE",
-      }),
-    }),
-  }),
-});
-
 export const settingApi = createApi({
   reducerPath: "settingApi",
   extractRehydrationInfo(action, { reducerPath }) {
@@ -138,7 +51,7 @@ export const settingApi = createApi({
 });
 
 export const missionApi = createApi({
-  reducerPath: "missionsApi",
+  reducerPath: "missionApi",
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === REHYDRATE) {
       return action.payload[reducerPath]
