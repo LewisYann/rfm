@@ -36,10 +36,11 @@ export default function Dashboard() {
     const { data: dataAssign, isLoading, isFetching, isError, isSuccess, refetch } = useGetMissionsQuery()
     // if (isLoading || isFetching) return <Spinner />;
 
-    const nbreHeure = (dataAssign || []).reduce((p, c) => p + parseFloat(c.heurs_vol), 0).toFixed(3)
+    const nbreHeure = (dataAssign || []).reduce((p, c) => p + parseFloat(c.heurs_vol), 0).toFixed(2)
     const nbreMission = (dataAssign || []).length;
-    if (dataAssign) {
-        lastMissionTime = parseFloat((dataAssign[nbreMission - 1] || {}).heurs_vol).toFixed(3);
+    if (dataAssign && dataAssign.length>0) {
+        console.log("dataAssign", dataAssign)
+        lastMissionTime = parseFloat((dataAssign[nbreMission - 1] || {}).heurs_vol).toFixed(2);
     }
     else{
         lastMissionTime = 0;
@@ -125,7 +126,7 @@ export default function Dashboard() {
                                             <Table
                                                 tableHeaderColor="primary"
                                                 tableHead={["#", "Nom", "Description", "Duree (h)", "Date"]}
-                                                tableData={dataAssign?.slice(2)}
+                                                tableData={dataAssign?.slice(0,5)}
                                                 setDetails={setDetails}
                                                 open={open}
                                                 setOpen={setOpen}
