@@ -4,11 +4,6 @@ import { REHYDRATE } from 'redux-persist'
 
 export const settingApi = createApi({
   reducerPath: "settingApi",
-  extractRehydrationInfo(action, { reducerPath }) {
-    if (action.type === REHYDRATE) {
-      return action.payload[reducerPath]
-    }
-  },
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5002",
     prepareHeaders: (headers, { getState }) => {
@@ -52,11 +47,6 @@ export const settingApi = createApi({
 
 export const missionApi = createApi({
   reducerPath: "missionApi",
-  extractRehydrationInfo(action, { reducerPath }) {
-    if (action.type === REHYDRATE) {
-      return action.payload[reducerPath]
-    }
-  },
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5002",
     prepareHeaders: (headers, { getState }) => {
@@ -110,11 +100,6 @@ export const missionApi = createApi({
 
 export const userApi = createApi({
   reducerPath: "userApi",
-  extractRehydrationInfo(action, { reducerPath }) {
-    if (action.type === REHYDRATE) {
-      return action.payload[reducerPath]
-    }
-  },
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5002"
   }),

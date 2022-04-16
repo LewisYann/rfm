@@ -21,15 +21,21 @@ import languageSlice from "./slices/language";
 const rootReducer = combineReducers({
   auth: authSlice.reducer,
   notify: notifySlice.reducer,
-  language:languageSlice.reducer,
-  mission:missionSlice.reducer,
+  language: languageSlice.reducer,
+  mission: missionSlice.reducer,
   [missionApi.reducerPath]: missionApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [settingApi.reducerPath]: settingApi.reducer,
 });
 const persistConfig = {
   key: "rootspersist",
+  version: 1,
   storage: storage,
+  blacklist: [
+    missionApi.reducerPath,
+    userApi.reducerPath,
+    settingApi.reducerPath,
+  ],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -48,7 +54,6 @@ const middlewareHandler = (getDefaultMiddleware: any) => {
   return middlewareList;
 };
 
-
 const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => middlewareHandler(getDefaultMiddleware),
@@ -56,7 +61,6 @@ const store = configureStore({
 
 export let persistor = persistStore(store);
 
-
 export type persistState = ReturnType<typeof rootReducer>;
 
-export default store
+export default store;
