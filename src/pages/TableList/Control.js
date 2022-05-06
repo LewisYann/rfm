@@ -41,8 +41,7 @@ const manette = () => {
     const dispatch = useDispatch()
     const { data: dataAssign, isFetching3, isError3, isSuccess3, refetch } = useGetMissionsQuery()
 
-    console.log(currentMission.mission.logger)
-
+    console.log('test',currentMission.logger)
     const getAllManette = () => {
         axiosService.get("/get/setting").then(
             (data) => {
@@ -96,12 +95,12 @@ const manette = () => {
                                         <ul>
                                             {listManette}
                                             {
-                                                currentMission?.mission?.logger!=undefined && currentMission?.mission?.logger.length() > 0 ? (
+                                                currentMission?.logger!=undefined && currentMission?.logger?.length > 0 ? (
                                                     <>
-                                                        <li>GPS: {currentMission?.mission?.logger[currentMission?.mission?.logger?.length() - 1]?.gps} </li>
-                                                        <li>Hauteur: {currentMission?.mission?.logger[currentMission?.mission?.logger?.length() - 1]?.hauteur}</li>
-                                                        <li>Batterie: {currentMission?.mission?.logger[currentMission?.mission?.logger?.length() - 1]?.batterie}</li>
-                                                        <li>Vitesse: {currentMission?.mission?.logger[currentMission?.mission?.logger?.length() - 1]?.vitesse}</li>
+                                                        <li>GPS: {currentMission?.logger[currentMission?.logger?.length - 1]?.gps} </li>
+                                                        <li>Hauteur: {currentMission?.logger[currentMission?.logger?.length - 1]?.hauteur}</li>
+                                                        <li>Batterie: {currentMission?.logger[currentMission?.logger?.length - 1]?.batterie}</li>
+                                                        <li>Vitesse: {currentMission?.logger[currentMission?.logger?.length - 1]?.vitesse}</li>
                                                     </>
                                                 ) : "Aucune mission en cours"
                                             }
