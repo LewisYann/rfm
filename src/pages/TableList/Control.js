@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import GridItem from "../../components/Grid/GridItem";
 // import GridContainer from "components/Grid/GridContainer.js";
 import Card from "../../components/Card/Card";
@@ -10,15 +10,15 @@ import axios from "axios";
 import Admin from '../../layouts/Admin'
 import axiosService from '../../utils/axios'
 import Joystick from 'react-joystick'
-import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
-import {useTranslation} from "react-i18next";
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { useTranslation } from "react-i18next";
 import "../../translations/i18n";
 import Maps from "./map"
 import Logger from "../../components/logger";
 import socket from "../../store/socketState";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import missionSlice from "../../store/slices/mission";
-import {useGetMissionsQuery} from "../../services/api";
+import { useGetMissionsQuery } from "../../services/api";
 
 const containerStyle = {
     position: 'relative',
@@ -33,15 +33,15 @@ const containerStyle = {
 
 
 const manette = () => {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const currentMission = useSelector((state) => state.mission)
     const statusMission = useSelector((state) => state.mission)
     const [manette, setManette] = useState([])
     const [mission, setMission] = useState([])
-    const dispatch=useDispatch()
-    const {data: dataAssign, isFetching3, isError3, isSuccess3,refetch} = useGetMissionsQuery()
+    const dispatch = useDispatch()
+    const { data: dataAssign, isFetching3, isError3, isSuccess3, refetch } = useGetMissionsQuery()
 
-    console.log(currentMission.mission)
+    console.log(currentMission.mission.logger)
 
     const getAllManette = () => {
         axiosService.get("/get/setting").then(
@@ -82,7 +82,7 @@ const manette = () => {
         <Admin>
             <div className="row">
                 <div className="col-md-8 col-sm-8 col-xs-8">
-                    <Maps/>
+                    <Maps />
                 </div>
                 <div className="col-md-4 col-sm-4 col-xs-4">
                     <div>
@@ -95,10 +95,17 @@ const manette = () => {
                                     <div className="row container-fluid">
                                         <ul>
                                             {listManette}
-                                            <li>GPS:    {currentMission.mission.logger[currentMission.mission.logger.lenght-1].gps}  console.log(currentMission.mission)</li>
-                                            <li>Hauteur:  {currentMission.mission.logger[currentMission.mission.logger.lenght-1].hauteur}</li>
-                                            <li>Batterie:  {currentMission.mission.logger[currentMission.mission.logger.lenght-1].batterie}</li>
-                                            <li>Vitesse:  {currentMission.mission.logger[currentMission.mission.logger.lenght-1].vitesse}</li>
+                                            {
+                                                currentMission?.mission?.logger!=undefined && currentMission?.mission?.logger.length() > 0 ? (
+                                                    <>
+                                                        <li>GPS: {currentMission?.mission?.logger[currentMission?.mission?.logger?.length() - 1]?.gps} </li>
+                                                        <li>Hauteur: {currentMission?.mission?.logger[currentMission?.mission?.logger?.length() - 1]?.hauteur}</li>
+                                                        <li>Batterie: {currentMission?.mission?.logger[currentMission?.mission?.logger?.length() - 1]?.batterie}</li>
+                                                        <li>Vitesse: {currentMission?.mission?.logger[currentMission?.mission?.logger?.length() - 1]?.vitesse}</li>
+                                                    </>
+                                                ) : "Aucune mission en cours"
+                                            }
+
                                         </ul>
                                     </div>
                                 </CardBody>
@@ -113,7 +120,7 @@ const manette = () => {
                                 </CardHeader>
                                 <CardBody>
                                     <div className="row container-fluid">
-                                        <img src={'http://localhost:5002/stream'} className="streaming" alt="stream"/>
+                                        <img src={'http://localhost:5002/stream'} className="streaming" alt="stream" />
                                     </div>
                                 </CardBody>
                             </Card>
@@ -132,33 +139,33 @@ const manette = () => {
                                 <div className="row">
                                     <div className="col-md-6 col-sm-6 col-xs-6">
                                         <center>
-                                            <img src={avatar} alt=""/>
+                                            <img src={avatar} alt="" />
                                         </center>
                                     </div>
                                     <div className="col-md-6 col-sm-6 col-xs-6">
                                         <center>
-                                            <img src={avatar} alt=""/>
+                                            <img src={avatar} alt="" />
                                         </center>
                                     </div>
                                 </div>
                             </div>
                             <div>
-                                <Logger/>
+                                <Logger />
                             </div>
                         </CardBody>
                         <CardFooter>
                             <div className="col-md-2 col-sm-2 col-xs-2">
                                 <center>
                                     <button className="btn btn-primary"
-                                           disabled={statusMission.status==="pending"?false:true}
-                                            onClick={() => handleStart()}>{t("controlStop")}</button>
+                                        disabled={statusMission.status === "pending" ? false : true}
+                                        onClick={() => handleStart()}>{t("controlStop")}</button>
                                 </center>
                             </div>
                             <div className="offset-md-8 col-md-2 offset-sm-8 col-sm-2 offset-xs-8 col-xs-2">
                                 <center>
                                     <button className="btn btn-danger"
-                                            disabled={statusMission.status==="start"?false:true}
-                                            onClick={() => handleStop()}>{t("controlBack")}</button>
+                                        disabled={statusMission.status === "start" ? false : true}
+                                        onClick={() => handleStop()}>{t("controlBack")}</button>
                                 </center>
                             </div>
                         </CardFooter>
