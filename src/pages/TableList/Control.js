@@ -95,10 +95,10 @@ const manette = () => {
                                     <div className="row container-fluid">
                                         <ul>
                                             {listManette}
-                                            <li>GPS: value</li>
-                                            <li>Hauteur: value</li>
-                                            <li>Batterie: value</li>
-                                            <li>Vitesse: value</li>
+                                            <li>GPS:    {currentMission.mission.logger[currentMission.mission.logger.lenght-1].gps}  console.log(currentMission.mission)</li>
+                                            <li>Hauteur:  {currentMission.mission.logger[currentMission.mission.logger.lenght-1].hauteur}</li>
+                                            <li>Batterie:  {currentMission.mission.logger[currentMission.mission.logger.lenght-1].batterie}</li>
+                                            <li>Vitesse:  {currentMission.mission.logger[currentMission.mission.logger.lenght-1].vitesse}</li>
                                         </ul>
                                     </div>
                                 </CardBody>
