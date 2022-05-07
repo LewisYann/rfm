@@ -80,7 +80,7 @@ const manette = () => {
     return (
         <Admin>
             <div className="row">
-                <div className="col-md-8 col-sm-8 col-xs-8">
+                <div className="col-md-8 col-sm-12 col-xs-12">
                     <Maps />
                 </div>
                 <div className="col-md-4 col-sm-4 col-xs-4">
