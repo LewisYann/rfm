@@ -5,7 +5,6 @@ import Card from "../../components/Card/Card";
 import CardHeader from "../../components/Card/CardHeader";
 import CardBody from "../../components/Card/CardBody";
 import CardFooter from "../../components/Card/CardFooter";
-import avatar from "../../assets/img/new_logo.png";
 import axios from "axios";
 import Admin from '../../layouts/Admin'
 import axiosService from '../../utils/axios'
@@ -134,20 +133,6 @@ const manette = () => {
                             <h4>{t("controlCam")}: {currentMission?.mission?.title} </h4>
                         </CardHeader>
                         <CardBody>
-                            <div className="col-md-8 offset-md-2 col-sm-8 offset-sm-2 col-xs-8 offset-xs-2">
-                                <div className="row">
-                                    <div className="col-md-6 col-sm-6 col-xs-6">
-                                        <center>
-                                            <img src={avatar} alt="" />
-                                        </center>
-                                    </div>
-                                    <div className="col-md-6 col-sm-6 col-xs-6">
-                                        <center>
-                                            <img src={avatar} alt="" />
-                                        </center>
-                                    </div>
-                                </div>
-                            </div>
                             <div>
                                 <Logger />
                             </div>

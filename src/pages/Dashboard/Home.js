@@ -125,7 +125,7 @@ export default function Dashboard() {
                                         <div className="mt-5">
                                             <Table
                                                 tableHeaderColor="primary"
-                                                tableHead={["#", "Nom", "Description", "Duree (h)", "Date"]}
+                                                tableHead={["#", "Nom", "Description", "Duree", "Date", "Status", "Option(s)"]}
                                                 tableData={dataAssign?.slice(0,5)}
                                                 setDetails={setDetails}
                                                 open={open}
@@ -143,16 +143,13 @@ export default function Dashboard() {
                                     {details?.id_mission}<br />
                                     {details?.title} <br />
                                     {details?.description} <br />
-                                    {details?.heurs_vol} h<br />
+                                    {details?.heurs_vol} <br />
                                     {details?.created_at} <br />
                                 </Modal.Body>
                             </Modal>
 
                         </GridContainer>
-
-
                     </>
-
             }
 
         </Admin>

@@ -106,103 +106,97 @@ export default function UserProfile() {
                                 e.preventDefault()
                                 createMission()
                             }} className="container-fluid">
-                                <GridContainer xs={8} sm={8} md={12}>
-                                    <GridItem xs={12} sm={12} md={12}>
-                                        <CustomInput
-                                            labelText="Nom"
-                                            id="username"
+                                <GridContainer xs={12} sm={12} md={12}>
+                                    <GridContainer xs={12} sm={12} md={6}>
+                                        <GridItem xs={12} sm={12} md={12}>
+                                            <CustomInput
+                                                labelText="Nom"
+                                                id="nom"
+                                                value={name}
+                                                onchange={(e) => setName(e.target.value)}
+                                                formControlProps={{
+                                                    fullWidth: true,
+                                                }}
+                                            />
+                                        </GridItem>
+                                        <GridItem xs={12} sm={12} md={12}>
+                                            <CustomInput
+                                                labelText="Description"
+                                                id="description"
+                                                value={description}
+                                                onchange={(data) => setDescription(data.target.value)}
 
-                                            value={name}
-                                            onchange={(e) => setName(e.target.value)}
-                                            formControlProps={{
-                                                fullWidth: true,
-                                            }}
-
-                                        />
-                                    </GridItem>
-                                    <GridItem xs={12} sm={12} md={12}>
-                                        <CustomInput
-                                            labelText="Description"
-                                            id="email-address"
-                                            value={description}
-                                            onchange={(data) => setDescription(data.target.value)}
-
-                                            formControlProps={{
-                                                fullWidth: true
-                                            }}
-                                            required
-                                            inputProps={{
-                                                multiline: true,
-                                                rows: 5,
-
-                                            }}
-                                        />
-                                    </GridItem>
-                                    <GridItem xs={12} sm={12} md={12}>
-                                        <label>Model</label>
-                                        <select className="form-control"
-                                                onChange={(data) => setModel(data.target.value)}
+                                                formControlProps={{
+                                                    fullWidth: true
+                                                }}
                                                 required
-                                        >
-                                            <option value="opt1 " key="">
-                                                opt1
-                                            </option>
-                                        </select>
-                                    </GridItem>
-                                    <GridItem xs={12} sm={12} md={12}>
-                                        <label>Parcours</label>
+                                                inputProps={{
+                                                    multiline: true,
+                                                    rows: 5,
 
-                                        <RadioGroup
-                                            row
-                                            aria-labelledby="demo-form-control-label-placement"
-                                            name="position"
-                                            onChange={(data) => setParcours(data.target.value)
-                                            }
-                                            required
-                                        >
-                                            <FormControlLabel
-                                                value="auto"
-                                                control={<Radio/>}
-                                                label="auto"
-                                                labelPlacement="bottom"
+                                                }}
                                             />
-                                            <FormControlLabel
-                                                value="manuel"
-                                                control={<Radio/>}
-                                                label="manuel"
-                                                labelPlacement="bottom"
-                                            />
-                                            <FormControlLabel
-                                                value="circlar"
-                                                control={<Radio/>}
-                                                label="circlar"
-                                                labelPlacement="bottom"
-                                            />
+                                        </GridItem>
+                                        <GridItem xs={12} sm={12} md={12}>
+                                            <label>Model</label>
+                                            <select className="form-control"
+                                                    onChange={(data) => setModel(data.target.value)}
+                                                    required
+                                            >
+                                                <option value="Auto" key="">
+                                                    Automatique
+                                                </option>
+                                                <option value="Manuel " key="">
+                                                    Manuel
+                                                </option>
+                                            </select>
+                                        </GridItem>
+                                    </GridContainer>
+                                    <GridContainer xs={12} sm={12} md={6}>
+                                        <GridItem xs={12} sm={12} md={12}>
+                                            <label>Parcours</label>
 
-
-                                        </RadioGroup>
-                                    </GridItem>
-
-                                    <GridItem xs={12} sm={12} md={12}>
-                                        <label>Surface</label>
-                                        <select className="form-control"
-                                                onChange={(data) => setSurface(data.target.value)}
+                                            <RadioGroup
+                                                row
+                                                aria-labelledby="demo-form-control-label-placement"
+                                                name="position"
+                                                onChange={(data) => setParcours(data.target.value)
+                                                }
                                                 required
-                                        >
-                                            <option value="" key="">
-                                                <img src={avatar} height="100"/> zigzag
-                                            </option>
-                                            <option value="" key="">
-                                                <img src={avatar} height="100"/> diagonal
-                                            </option>
-                                            <option value="" key="">
-                                                <img src={avatar} height="100"/> circlar
-                                            </option>
-                                        </select>
-                                    </GridItem>
+                                            >
+                                                <FormControlLabel
+                                                    value="Auto"
+                                                    control={<Radio/>}
+                                                    label="Auto"
+                                                    labelPlacement="bottom"
+                                                />
+                                                <FormControlLabel
+                                                    value="Manuel"
+                                                    control={<Radio/>}
+                                                    label="Manuel"
+                                                    labelPlacement="bottom"
+                                                />
+                                            </RadioGroup>
+                                        </GridItem>
+
+                                        <GridItem xs={12} sm={12} md={12}>
+                                            <label>Surface // MAP ICI</label>
+                                            <select className="form-control"
+                                                    onChange={(data) => setSurface(data.target.value)}
+                                                    required
+                                            >
+                                                <option value="Auto" key="">
+                                                    <img src={avatar} height="100"/> Auto
+                                                </option>
+                                                <option value="Manuel" key="">
+                                                    <img src={avatar} height="100"/> Manuel
+                                                </option>
+                                            </select>
+                                        </GridItem>
+                                    </GridContainer>
                                 </GridContainer>
 
-                                <GridItem xs={4} sm={4} md={12} className="m-0 p-0 text-center">
+                                <GridItem xs={6} sm={6} md={12} className="m-0 p-0 text-center">
                                     <br/>
                                     <Button color="primary" md={12}
                                             className="col-md-12"
@@ -213,9 +207,6 @@ export default function UserProfile() {
                                 </GridItem>
                             </form>
                         </CardBody>
-                        {/* <CardFooter>
-                <Button color="primary">Update Profile</Button>
-              </CardFooter> */}
                     </Card>
                 </GridItem>
                 {/* <GridItem xs={12} sm={12} md={4}>

@@ -17,9 +17,9 @@ export default function Logger() {
 
     return (
         <div style={{
-            backgroundColor: "grey",
+            backgroundColor: "#efefef",
             padding: 20,
-            height: 350,
+            height: 400,
             overflow: "auto"
         }}
         >
@@ -45,9 +45,9 @@ export function LoggerReplay(props) {
 
     return (
         <div style={{
-            backgroundColor: "grey",
+            backgroundColor: "#efefef",
             padding: 20,
-            height: 350,
+            height: 400,
             overflow: "auto"
         }}
         >

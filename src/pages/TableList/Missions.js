@@ -201,7 +201,7 @@ export default function TableList() {
                         <CardBody>
                             <Table
                                 tableHeaderColor="primary"
-                                tableHead={["#", "Nom", "Description", "Duree (h)", "Date", "Status"]}
+                                tableHead={["#", "Nom", "Description", "Duree", "Date", "Status", "Option(s)"]}
                                 tableData={dataAssign}
                                 setDetails={setDetails}
                                 open={open}
