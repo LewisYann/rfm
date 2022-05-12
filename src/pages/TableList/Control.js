@@ -9,7 +9,7 @@ import axios from "axios";
 import Admin from '../../layouts/Admin'
 import axiosService from '../../utils/axios'
 import Joystick from 'react-joystick'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, useMap, MapConsumer } from "react-leaflet"
 import { useTranslation } from "react-i18next";
 import "../../translations/i18n";
 import Maps from "./map"
@@ -18,7 +18,7 @@ import socket from "../../store/socketState";
 import { useDispatch, useSelector } from "react-redux";
 import missionSlice from "../../store/slices/mission";
 import { useGetMissionsQuery } from "../../services/api";
-
+import RoutingMachine from "../../components/RoutingCore";
 const containerStyle = {
     position: 'relative',
     height: '200px',
@@ -38,9 +38,10 @@ const manette = () => {
     const [manette, setManette] = useState([])
     const [mission, setMission] = useState([])
     const dispatch = useDispatch()
+
     const { data: dataAssign, isFetching3, isError3, isSuccess3, refetch } = useGetMissionsQuery()
 
-    console.log('test',currentMission.logger)
+    console.log('test', currentMission.logger)
     const getAllManette = () => {
         axiosService.get("/get/setting").then(
             (data) => {
@@ -94,7 +95,7 @@ const manette = () => {
                                         <ul>
                                             {/*listManette*/}
                                             {
-                                                currentMission?.logger!=undefined && currentMission?.logger?.length > 0 && currentMission.logger[currentMission?.logger?.length - 1].gps ? (
+                                                currentMission?.logger != undefined && currentMission?.logger?.length > 0 && currentMission.logger[currentMission?.logger?.length - 1].gps ? (
                                                     <>
                                                         <li>GPS: {currentMission?.logger[currentMission?.logger?.length - 1]?.gps} </li>
                                                         <li>Hauteur: {currentMission?.logger[currentMission?.logger?.length - 1]?.hauteur}</li>
