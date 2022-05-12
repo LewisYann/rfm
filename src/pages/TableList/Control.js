@@ -119,7 +119,9 @@ const manette = () => {
                                 </CardHeader>
                                 <CardBody>
                                     <div className="row container-fluid">
-                                        <img src={'http://localhost:5002/stream'} className="streaming" alt="stream" />
+                                        {statusMission.status === "start" ? <img src={'http://127.0.0.1:5002/stream'} className="streaming" alt="stream" /> : 'Caméra non disponible'}
+
+
                                     </div>
                                 </CardBody>
                             </Card>
