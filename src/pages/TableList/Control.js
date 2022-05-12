@@ -92,9 +92,9 @@ const manette = () => {
                                 <CardBody>
                                     <div className="row container-fluid">
                                         <ul>
-                                            {listManette}
+                                            {/*listManette*/}
                                             {
-                                                currentMission?.logger!=undefined && currentMission?.logger?.length > 0 ? (
+                                                currentMission?.logger!=undefined && currentMission?.logger?.length > 0 && currentMission.logger[currentMission?.logger?.length - 1].gps ? (
                                                     <>
                                                         <li>GPS: {currentMission?.logger[currentMission?.logger?.length - 1]?.gps} </li>
                                                         <li>Hauteur: {currentMission?.logger[currentMission?.logger?.length - 1]?.hauteur}</li>
