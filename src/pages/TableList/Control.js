@@ -80,7 +80,7 @@ const manette = () => {
         <Admin>
             <div className="row">
                 <div className="col-md-8 col-sm-12 col-xs-12">
-                    <Maps />
+                    <Maps position={currentMission?.logger[currentMission?.logger?.length - 1]?.gps?.split(" ") || [6.505, 2.4109]} />
                 </div>
                 <div className="col-md-4 col-sm-4 col-xs-4">
                     <div>
