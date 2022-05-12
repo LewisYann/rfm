@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 // @material-ui/core components
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 // import InputLabel from "@material-ui/core/InputLabel";
 // core components
 import GridItem from "../../components/Grid/GridItem";
@@ -18,14 +18,15 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import avatar from "../../assets/img/faces/marc.jpg";
-import {ToastContainer, toast} from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {useNavigate, Navigate} from "react-router";
-import {useTranslation} from "react-i18next";
+import { useNavigate, Navigate } from "react-router";
+import { useTranslation } from "react-i18next";
 import "../../translations/i18n";
-import {useCreateMissionMutation} from '../../services/api';
-import {useDipatch, useDispatch} from "react-redux"
+import { useCreateMissionMutation } from '../../services/api';
+import { useDipatch, useDispatch } from "react-redux"
 import missionSlice from "../../store/slices/mission";
+import { MapsSelect } from "../TableList/map";
 
 const styles = {
     cardCategoryWhite: {
@@ -49,17 +50,18 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 export default function UserProfile() {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const classes = useStyles();
     const [name, setName] = useState("")
     const [model, setModel] = useState("")
+    const [type, setType] = useState("Circle")
     const [description, setDescription] = useState("")
     const [parcour, setParcours] = useState("")
     const [surface, setSurface] = useState("")
     const [isReady, setReady] = useState(false)
     const [hours_vol, setHoursVol] = useState("")
-    const [postMission, {isLoading, isError, error}] = useCreateMissionMutation()
+    const [postMission, { isLoading, isError, error }] = useCreateMissionMutation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -77,16 +79,16 @@ export default function UserProfile() {
         ).then((data) => {
             toast.success("Creaction de la mission reussi")
             setReady(false)
-            dispatch(missionSlice.actions.setMission({mission: data.data}))
-            dispatch(missionSlice.actions.fillMission({mission: data.data}))
-            return navigate("/control", {replace: true})
+            dispatch(missionSlice.actions.setMission({ mission: data.data }))
+            dispatch(missionSlice.actions.fillMission({ mission: data.data }))
+            return navigate("/control", { replace: true })
         })
             .catch((err) => {
                 toast.error("Erreur lors de la creaction de la mission")
                 setReady(false)
                 console.log(err)
 
-                return <Navigate to="/control" replace/>;
+                return <Navigate to="/control" replace />;
             });
 
     }
@@ -96,7 +98,7 @@ export default function UserProfile() {
 
             <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
-                    <ToastContainer/>
+                    <ToastContainer />
                     <Card>
                         <CardHeader color="primary">
                             <h4 className={classes.cardTitleWhite}>{t("newMissionCreate")}</h4>
@@ -140,13 +142,13 @@ export default function UserProfile() {
                                         <GridItem xs={12} sm={12} md={12}>
                                             <label>Model</label>
                                             <select className="form-control"
-                                                    onChange={(data) => setModel(data.target.value)}
-                                                    required
+                                                onChange={(data) => setModel(data.target.value)}
+                                                required
                                             >
-                                                <option value="Auto" key="">
+                                                <option value="Auto" key="Automatique">
                                                     Automatique
                                                 </option>
-                                                <option value="Manuel " key="">
+                                                <option value="Manuel " key="Manuel">
                                                     Manuel
                                                 </option>
                                             </select>
@@ -166,13 +168,13 @@ export default function UserProfile() {
                                             >
                                                 <FormControlLabel
                                                     value="Auto"
-                                                    control={<Radio/>}
+                                                    control={<Radio />}
                                                     label="Auto"
                                                     labelPlacement="bottom"
                                                 />
                                                 <FormControlLabel
                                                     value="Manuel"
-                                                    control={<Radio/>}
+                                                    control={<Radio />}
                                                     label="Manuel"
                                                     labelPlacement="bottom"
                                                 />
@@ -180,29 +182,35 @@ export default function UserProfile() {
                                         </GridItem>
 
                                         <GridItem xs={12} sm={12} md={12}>
-                                            <label>Surface // MAP ICI</label>
-                                            <select className="form-control"
-                                                    onChange={(data) => setSurface(data.target.value)}
+                                            <MapsSelect position={[6.505, 2.4109]} type={type} />
+                                        </GridItem>
+                                        <GridItem xs={12} sm={12} md={12}>
+                                            <br />
+                                            <div>
+                                                <select className="form-control"
+                                                    onChange={(data) => setType(data.target.value)}
                                                     required
-                                            >
-                                                <option value="Auto" key="">
-                                                    <img src={avatar} height="100"/> Auto
-                                                </option>
-                                                <option value="Manuel" key="">
-                                                    <img src={avatar} height="100"/> Manuel
-                                                </option>
-                                            </select>
+                                                >
+                                                    <option value="Polygon" key="1">
+                                                        <img src={avatar} height="100" /> Manuel
+                                                    </option>
+                                                    <option value="Circle" key="2">
+                                                        <img src={avatar} height="100" /> Circle
+                                                    </option>
+                                                </select>
+
+                                            </div>
                                         </GridItem>
                                     </GridContainer>
                                 </GridContainer>
 
                                 <GridItem xs={6} sm={6} md={12} className="m-0 p-0 text-center">
-                                    <br/>
+                                    <br />
                                     <Button color="primary" md={12}
-                                            className="col-md-12"
-                                            loading={isReady}
-                                            type="submit"
-                                        //  onClick={() => createMission()}
+                                        className="col-md-12"
+                                        loading={isReady}
+                                        type="submit"
+                                    //  onClick={() => createMission()}
                                     >{t("newMissionbtnStart")}</Button>
                                 </GridItem>
                             </form>
