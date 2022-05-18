@@ -39,8 +39,7 @@ export default function Dashboard() {
     const nbreHeure = (dataAssign || []).reduce((p, c) => p + parseFloat(c.heurs_vol), 0).toFixed(2)
     const nbreMission = (dataAssign || []).length;
     if (dataAssign && dataAssign.length>0) {
-        console.log("dataAssign", dataAssign)
-        lastMissionTime = parseFloat((dataAssign[nbreMission - 1] || {}).heurs_vol).toFixed(2);
+         lastMissionTime = parseFloat((dataAssign[nbreMission - 1] || {}).heurs_vol).toFixed(2);
     }
     else{
         lastMissionTime = 0;

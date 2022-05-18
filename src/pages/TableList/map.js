@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, useMap, MapConsumer, Marker, Popup, Circle, Polygon } from "react-leaflet"
+import { MapContainer, TileLayer, useMap, MapConsumer, Marker, Popup, Circle, Polygon, Polyline } from "react-leaflet"
 import RoutingMachine from "../../components/RoutingCore"
 import { useRef, useMemo, useState } from "react"
 //const position = [6.505, 2.4109]
@@ -33,6 +33,7 @@ export function MapsSelect({ position, type }) {
     const fillBlueOptions = { fillColor: 'blue' }
     const [positions, setPosition] = useState(position)
     const [polygon, setPolygon] = useState([position])
+    const [polyline, setPolyline] = useState([position])
     const purpleOptions = { color: 'purple' }
     const markerRef = useRef(null)
 
@@ -41,8 +42,17 @@ export function MapsSelect({ position, type }) {
             dragend() {
                 const marker = markerRef.current
                 if (marker != null) {
-                    setPosition(marker.getLatLng())
+
                     setPolygon(oldPolygon => [...oldPolygon, [marker.getLatLng().lat, marker.getLatLng().lng]])
+                    if (type == "Polygon") {
+                        setPosition(marker.getLatLng())
+                    } else if (type == "Line") {
+                        console.log(type)
+
+                        console.log(marker)
+                    }
+                    setPolyline(oldPolyline => [position, [marker.getLatLng().lat, marker.getLatLng().lng]])
+                    setPosition(marker.getLatLng())
                 }
             },
         }),
@@ -62,9 +72,10 @@ export function MapsSelect({ position, type }) {
             {
                 type === "Polygon" ? (
                     <Polygon pathOptions={purpleOptions} positions={polygon} />
-                ) : (type === "Circle" ? (
-                    <Circle center={positions} pathOptions={fillBlueOptions} radius={200} />
-                ) : <Tooltip>Tooltip for CircleMarker</Tooltip>)
+                ) : (type === "Line" ? <Polyline positions={polyline} pathOptions={purpleOptions} /> :
+                    (type === "Circle" ? (
+                        <Circle center={positions} pathOptions={fillBlueOptions} radius={200} />
+                    ) : <Tooltip>Tooltip for CircleMarker</Tooltip>))
             }
             <Marker
                 draggable={true}

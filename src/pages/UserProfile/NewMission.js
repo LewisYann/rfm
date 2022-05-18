@@ -162,20 +162,30 @@ export default function UserProfile() {
                                                 row
                                                 aria-labelledby="demo-form-control-label-placement"
                                                 name="position"
-                                                onChange={(data) => setParcours(data.target.value)
+                                                onChange={(data) => {
+                                                    setType(data.target.value)
+                                                    setParcours(data.target.value)
+                                                    console.log(data.target.value)
+                                                }
                                                 }
                                                 required
                                             >
                                                 <FormControlLabel
-                                                    value="Auto"
+                                                    value="Circle"
                                                     control={<Radio />}
-                                                    label="Auto"
+                                                    label="Circle"
                                                     labelPlacement="bottom"
                                                 />
                                                 <FormControlLabel
-                                                    value="Manuel"
+                                                    value="Polygon"
                                                     control={<Radio />}
-                                                    label="Manuel"
+                                                    label="Parcours"
+                                                    labelPlacement="bottom"
+                                                />
+                                                <FormControlLabel
+                                                    value="Line"
+                                                    control={<Radio />}
+                                                    label="Line"
                                                     labelPlacement="bottom"
                                                 />
                                             </RadioGroup>
@@ -186,20 +196,7 @@ export default function UserProfile() {
                                         </GridItem>
                                         <GridItem xs={12} sm={12} md={12}>
                                             <br />
-                                            <div>
-                                                <select className="form-control"
-                                                    onChange={(data) => setType(data.target.value)}
-                                                    required
-                                                >
-                                                    <option value="Polygon" key="1">
-                                                        <img src={avatar} height="100" /> Manuel
-                                                    </option>
-                                                    <option value="Circle" key="2">
-                                                        <img src={avatar} height="100" /> Circle
-                                                    </option>
-                                                </select>
-
-                                            </div>
+                                        
                                         </GridItem>
                                     </GridContainer>
                                 </GridContainer>
@@ -210,7 +207,7 @@ export default function UserProfile() {
                                         className="col-md-12"
                                         loading={isReady}
                                         type="submit"
-                                     //   onClick={() => createMission()}
+                                    //   onClick={() => createMission()}
                                     >{t("newMissionbtnStart")}</Button>
                                 </GridItem>
                             </form>
