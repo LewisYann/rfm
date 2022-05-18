@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { persistState } from "../store";
 import { REHYDRATE } from 'redux-persist'
+import missionSlice from "../store/slices/mission";
 
 export const settingApi = createApi({
   reducerPath: "settingApi",
@@ -17,7 +18,7 @@ export const settingApi = createApi({
       return headers;
     },
   }),
-  keepUnusedDataFor:30,
+  keepUnusedDataFor: 30,
   tagTypes: ["Setting"],
   endpoints: (builder) => ({
     updateSetting: builder.mutation({
@@ -26,7 +27,7 @@ export const settingApi = createApi({
         method: "POST",
         // Include the entire post object as the body of the request
         body: initialPost,
-       }),
+      }),
       invalidatesTags: ["Setting"],
     }),
     createSetting: builder.mutation({
@@ -35,7 +36,7 @@ export const settingApi = createApi({
         method: "POST",
         // Include the entire post object as the body of the request
         body: initialPost,
-       }),
+      }),
       invalidatesTags: ["Setting"],
     }),
     getSetting: builder.query<any[], void>({
@@ -59,10 +60,10 @@ export const missionApi = createApi({
       }
       return headers;
     },
-    
+
   }),
   tagTypes: ["Mission"],
-  keepUnusedDataFor:10,
+  keepUnusedDataFor: 10,
   endpoints: (builder) => ({
     getMission: builder.query<any[], void>({
       query: (id) => "/get/mission/" + id,
@@ -87,6 +88,17 @@ export const missionApi = createApi({
         body: initialPost,
       }),
       invalidatesTags: ["Mission"],
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        // `onStart` side-effect
+        try {
+          dispatch(
+            missionSlice.actions.clearLogger()
+          );
+        } catch (err) {
+          // `onError` side-effect
+          console.log("error", err);
+        }
+      },
     }),
     deleteMission: builder.mutation({
       query: (id) => ({
@@ -104,7 +116,7 @@ export const userApi = createApi({
     baseUrl: "http://localhost:5002"
   }),
   refetchOnReconnect: true,
-  keepUnusedDataFor:10,
+  keepUnusedDataFor: 10,
 
   endpoints: (builder) => ({
     login: builder.mutation({

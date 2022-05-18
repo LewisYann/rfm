@@ -30,6 +30,9 @@ const missionSlice = createSlice({
             state.status = "pending"
             state.mission = action.payload.mission;
         },
+        clearLogger(state: State) {
+            state.logger = []
+        },
         startMission(state: State) {
             state.status = "start";
             state.logger = []

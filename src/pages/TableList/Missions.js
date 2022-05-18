@@ -1,6 +1,6 @@
 import React from "react";
 // @material-ui/core components
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 // core components
 import GridItem from "../../components/Grid/GridItem";
 import GridContainer from "../../components/Grid/GridContainer";
@@ -9,20 +9,20 @@ import Card from "../../components/Card/Card";
 import CardHeader from "../../components/Card/CardHeader";
 import CardBody from "../../components/Card/CardBody";
 import CardFooter from "../../components/Card/CardFooter";
-import {Link} from "react-router-dom";
-import {useState, useEffect} from "react";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Admin from '../../layouts/Admin'
 import axiosService from '../../utils/axios'
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import "../../translations/i18n";
 import Drawer from '@mui/material/Drawer';
-import {useGetMissionsQuery} from "../../services/api";
-import {Modal} from "react-bootstrap";
-import {LoggerReplay} from "../../components/logger";
+import { useGetMissionsQuery } from "../../services/api";
+import { Modal } from "react-bootstrap";
+import { LoggerReplay } from "../../components/logger";
 import socket from "../../store/socketState";
 import missionSlice from "../../store/slices/mission";
-import {useDispatch} from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import Maps from "./map";
 const styles = {
     cardCategoryWhite: {
         "&,& a,& a:hover,& a:focus": {
@@ -61,8 +61,8 @@ export default function TableList() {
     const [details, setDetails] = useState({})
     const [open, setOpen] = useState(false)
     const dispatch = useDispatch()
-    const {t} = useTranslation();
-    const {data: dataAssign, isFetching, isError, isSuccess, refetch} = useGetMissionsQuery()
+    const { t } = useTranslation();
+    const { data: dataAssign, isFetching, isError, isSuccess, refetch } = useGetMissionsQuery()
 
     // const getAllMission = () => {
     //     axiosService.get("/get/all/mission").then(
@@ -71,6 +71,8 @@ export default function TableList() {
     //         }
     //     )
     // }
+    const currentMission = useSelector((state) => state.mission)
+
     const listMission = dataAssign?.map((item) => <li key={item.id_mission}>{item.manette}</li>)
     const toggleDrawer = (open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -128,7 +130,7 @@ export default function TableList() {
                             </Card>
 
                             <button className="btn btn-primary col-md-12"
-                                    onClick={() =>handleReplay()}>Rejouer la mission
+                                onClick={() => handleReplay()}>Rejouer la mission
                             </button>
 
                         </div>
@@ -140,12 +142,15 @@ export default function TableList() {
                                             Carte
                                         </CardHeader>
                                         <CardBody>
-                                            Carte
+                                            <div className="col-md-8 col-sm-12 col-xs-12">
+                                                
+                                                <Maps position={[6.505, 2.4109]} />
+                                            </div>
                                         </CardBody>
                                     </Card>
 
                                 </div>
-                                <div className="col-md-6" style={{height: 150}}>
+                                <div className="col-md-6" style={{ height: 150 }}>
                                     <Card>
                                         <CardHeader color="info">
                                             Camera
@@ -165,7 +170,7 @@ export default function TableList() {
                                         <h4>Logger </h4>
                                     </CardHeader>
                                     <CardBody>
-                                        <LoggerReplay details={details}/>
+                                        <LoggerReplay details={details} />
                                     </CardBody>
                                     <CardFooter>
 
@@ -191,7 +196,7 @@ export default function TableList() {
 
                                 </div>
                                 <div className="col-md-8">
-                                    <button onClick={()=>handleRefetch()} className="btn btn-secondary"> Reload</button>
+                                    <button onClick={() => handleRefetch()} className="btn btn-secondary"> Reload</button>
                                 </div>
                                 <Link to="/create/mission" className="btn btn-primary col-md-2">
                                     {t("missionsbtnNew")}
