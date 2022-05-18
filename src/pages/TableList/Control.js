@@ -41,7 +41,7 @@ const manette = () => {
 
     const { data: dataAssign, isFetching3, isError3, isSuccess3, refetch } = useGetMissionsQuery()
 
-    console.log('test', currentMission.logger)
+    console.log('test', currentMission.status)
     const getAllManette = () => {
         axiosService.get("/get/setting").then(
             (data) => {
@@ -102,7 +102,7 @@ const manette = () => {
                                                         <li>Batterie: {currentMission?.logger[currentMission?.logger?.length - 1]?.batterie}</li>
                                                         <li>Vitesse: {currentMission?.logger[currentMission?.logger?.length - 1]?.vitesse}</li>
                                                     </>
-                                                ) : "Aucune mission en cours"
+                                                ) :currentMission.status==="pending"?"En attente de demarrage de la mission":"Aucune mission en cours"
                                             }
 
                                         </ul>
@@ -119,7 +119,7 @@ const manette = () => {
                                 </CardHeader>
                                 <CardBody>
                                     <div className="row container-fluid">
-                                        {statusMission.status === "start" ? <img src={'http://127.0.0.1:5002/stream'} className="streaming" alt="stream" /> : 'Caméra non disponible'}
+                                        {statusMission.status === "start" ?<img src={'http://127.0.0.1:5002/stream'} className="streaming" alt="stream" /> : statusMission.status === "pending" ?"En attente de demarrage de la mission":'Caméra non disponible'}
                                     </div>
                                 </CardBody>
                             </Card>
