@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // import InputLabel from "@material-ui/core/InputLabel";
@@ -27,6 +27,7 @@ import { useCreateMissionMutation } from '../../services/api';
 import { useDipatch, useDispatch } from "react-redux"
 import missionSlice from "../../store/slices/mission";
 import { MapsSelect } from "../TableList/map";
+import { SignalCellularNoSimOutlined } from "@material-ui/icons";
 
 const styles = {
     cardCategoryWhite: {
@@ -51,7 +52,8 @@ const useStyles = makeStyles(styles);
 
 export default function UserProfile() {
     const { t } = useTranslation();
-
+    const markerRef = useRef(null)
+    const markerRefTwo = useRef(null)
     const classes = useStyles();
     const [name, setName] = useState("")
     const [model, setModel] = useState("")
@@ -65,6 +67,8 @@ export default function UserProfile() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+
+
     function createMission() {
         setReady(true)
         postMission(
@@ -73,7 +77,7 @@ export default function UserProfile() {
                 mode: model,
                 description: description,
                 parcour: parcour,
-                surface: surface,
+                surface: [[markerRef.current?.getLatLng().lat, markerRef.current?.getLatLng().lng],[markerRefTwo.current?.getLatLng().lat, markerRefTwo.current?.getLatLng().lng]],
                 heurs_vol: 0
             }
         ).then((data) => {
@@ -93,6 +97,14 @@ export default function UserProfile() {
 
     }
 
+    useEffect(
+        () => {
+            console.log("markerRef", markerRef.current?.getLatLng())
+            console.log("markerRefTwo", markerRefTwo.current?.getLatLng())
+            setHoursVol([[markerRef.current?.getLatLng().lat, markerRef.current?.getLatLng().lng], [markerRefTwo.current?.getLatLng().lat, markerRefTwo.current?.getLatLng().lng]])
+            console.log(hours_vol)
+        }, [markerRef, markerRefTwo]	
+    )
     return (
         <Admin>
 
@@ -192,11 +204,11 @@ export default function UserProfile() {
                                         </GridItem>
 
                                         <GridItem xs={12} sm={12} md={12}>
-                                            <MapsSelect position={[6.505, 2.4109]} type={type} />
+                                            <MapsSelect markerRef={markerRef} markerRefTwo={markerRefTwo} position={[6.505, 2.4109]} type={type} />
                                         </GridItem>
                                         <GridItem xs={12} sm={12} md={12}>
                                             <br />
-                                        
+
                                         </GridItem>
                                     </GridContainer>
                                 </GridContainer>

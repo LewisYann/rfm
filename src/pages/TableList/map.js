@@ -29,31 +29,34 @@ export default function Maps({ position }) {
         </MapContainer>
     )
 }
-export function MapsSelect({ position, type }) {
+export function MapsSelect({ position, type,markerRef, markerRefTwo }) {
     const fillBlueOptions = { fillColor: 'blue' }
     const [positions, setPosition] = useState(position)
+    const [positionsTwo, setPositionTwo] = useState(position)
     const [polygon, setPolygon] = useState([position])
     const [polyline, setPolyline] = useState([position])
     const purpleOptions = { color: 'purple' }
-    const markerRef = useRef(null)
+
 
     const eventHandlers = useMemo(
         () => ({
             dragend() {
                 const marker = markerRef.current
+                const markerTwo = markerRefTwo.current
                 if (marker != null) {
 
-                    setPolygon(oldPolygon => [...oldPolygon, [marker.getLatLng().lat, marker.getLatLng().lng]])
-                    if (type == "Polygon") {
-                        setPosition(marker.getLatLng())
-                    } else if (type == "Line") {
-                        console.log(type)
-
-                        console.log(marker)
-                    }
-                    setPolyline(oldPolyline => [position, [marker.getLatLng().lat, marker.getLatLng().lng]])
-                    setPosition(marker.getLatLng())
+                    setPolygon(oldPolygon => [...oldPolygon, [markerRef.current.getLatLng().lat, markerRef.current.getLatLng().lng]])
+       
+                    setPolyline(oldPolygon => [ [markerRef.current.getLatLng().lat, markerRef.current.getLatLng().lng]])
+                    setPosition(markerRef.current.getLatLng())
+                    console.log(polygon)
                 }
+                if (markerTwo != null) {
+                    setPolyline(oldPolygon => [...oldPolygon, [markerRefTwo.current.getLatLng().lat, markerRefTwo.current.getLatLng().lng]])
+                    setPositionTwo(markerRefTwo.current.getLatLng())
+                    console.log(markerRefTwo.current.getLatLng())
+                }
+
             },
         }),
         [],
@@ -86,6 +89,19 @@ export function MapsSelect({ position, type }) {
                     Marker is draggable
                 </Popup>
             </Marker>
+            {
+                type === "Line" ? (
+                    <Marker
+                        draggable={true}
+                        eventHandlers={eventHandlers}
+                        position={positionsTwo}
+                        ref={markerRefTwo}>
+                        <Popup minWidth={90}>
+                            Marker is draggable
+                        </Popup>
+                    </Marker>) : null
+
+            }
         </MapContainer>
     )
 }
