@@ -135,6 +135,7 @@ export default function TableList() {
 
                         </div>
                         <div className="col-md-9">
+                            
                             <div className="row">
                                 <div className="col-md-6">
                                     <Card>
@@ -143,8 +144,8 @@ export default function TableList() {
                                         </CardHeader>
                                         <CardBody>
                                             <div className="col-md-8 col-sm-12 col-xs-12">
-                                                
-                                                <Maps position={[6.505, 2.4109]} />
+
+                                                <Maps position={currentMission?.loggerReplay[currentMission?.loggerReplay?.length - 1]?.gps?.split(" ") || [6.505, 2.4109]} />
                                             </div>
                                         </CardBody>
                                     </Card>
