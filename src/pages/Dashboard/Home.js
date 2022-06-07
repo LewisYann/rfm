@@ -139,7 +139,7 @@ export default function Dashboard() {
                                     <Modal.Title>Mission {details?.title}</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
-                                    {details?.id_mission}<br />
+                                    {details?.id_mission?.toUpperCase()}<br />
                                     {details?.title} <br />
                                     {details?.description} <br />
                                     {details?.heurs_vol} <br />

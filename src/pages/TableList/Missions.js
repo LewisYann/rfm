@@ -73,7 +73,7 @@ export default function TableList() {
     // }
     const currentMission = useSelector((state) => state.mission)
 
-    const listMission = dataAssign?.map((item) => <li key={item.id_mission}>{item.manette}</li>)
+    const listMission = dataAssign?.map((item) => <li key={item?.id_mission?.toUpperCase()}>{item?.manette}</li>)
     const toggleDrawer = (open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
@@ -112,7 +112,7 @@ export default function TableList() {
                                 </CardHeader>
                                 <CardBody>
                                     <div>
-                                        <h7>Reference: {details?.id_mission} </h7>
+                                        <h7>Reference: {details?.id_mission?.toUpperCase()} </h7>
                                     </div>
                                     <div>
                                         <h7>Title: {details?.title} </h7>

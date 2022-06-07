@@ -20,7 +20,7 @@ export default function CustomTable(props) {
     const tableContent = tableData?.map(
         (item) =>
             <TableRow key={item?.id_mission}>
-                <TableCell className={classes.tableCell}> {item?.id_mission} </TableCell>
+                <TableCell className={classes.tableCell}> {item?.id_mission?.toUpperCase()} </TableCell>
                 <TableCell className={classes.tableCell}> {item?.title} </TableCell>
                 <TableCell className={classes.tableCell}> {item?.description} </TableCell>
                 <TableCell className={classes.tableCell}> {item?.heurs_vol} s </TableCell>
