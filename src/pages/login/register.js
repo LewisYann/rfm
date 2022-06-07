@@ -24,9 +24,7 @@ export default function Register() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        console.log(event)
         const data = new FormData(event.currentTarget);
-        console.log(data);
         setReady(true)
         axios.post("http://localhost:5002/create/user", {
             login: data.get('email'),
@@ -48,13 +46,11 @@ export default function Register() {
                     toast.error("Essayer avec une autre adress mail identifiant")
                 }
                 else {
-                    console.log(data);
                     toast.error("Inscription reussi")
                     return navigation("/")
                 }
             }
         ).catch((err) => {
-            console.log(err)
             toast.error("Une erreur s'est produite")
             setReady(false)
 

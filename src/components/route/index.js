@@ -5,7 +5,6 @@ import { Navigate } from "react-router-dom";
 
 export default function AuthRoute({ children }) {
     const token = store.getState().auth.token;
-    console.log(token)
     if (!token) {
         // Redirect them to the /login page, but save the current location they were
         // trying to go to when they were redirected. This allows us to send them

@@ -11,7 +11,6 @@ const config = {
 const url = `https://api.mapbox.com/styles/v1/${config.ACCOUNT}/ckz5gtvsh000m15lcoumls96r/tiles/256/{z}/{x}/{y}@2x?access_token=${config.TOKEN}`
 
 export default function Maps({ position }) {
-    console.log("position", position)
     return (
         <MapContainer
             center={position}
@@ -49,12 +48,10 @@ export function MapsSelect({ position, type,markerRef, markerRefTwo }) {
        
                     setPolyline(oldPolygon => [ [markerRef.current.getLatLng().lat, markerRef.current.getLatLng().lng]])
                     setPosition(markerRef.current.getLatLng())
-                    console.log(polygon)
                 }
                 if (markerTwo != null) {
                     setPolyline(oldPolygon => [...oldPolygon, [markerRefTwo.current.getLatLng().lat, markerRefTwo.current.getLatLng().lng]])
                     setPositionTwo(markerRefTwo.current.getLatLng())
-                    console.log(markerRefTwo.current.getLatLng())
                 }
 
             },

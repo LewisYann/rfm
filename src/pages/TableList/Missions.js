@@ -63,35 +63,12 @@ export default function TableList() {
     const dispatch = useDispatch()
     const { t } = useTranslation();
     const { data: dataAssign, isFetching, isError, isSuccess, refetch } = useGetMissionsQuery()
-
-    // const getAllMission = () => {
-    //     axiosService.get("/get/all/mission").then(
-    //         (data) => {
-    //             setMission(data.data);
-    //         }
-    //     )
-    // }
     const currentMission = useSelector((state) => state.mission)
-
-    const listMission = dataAssign?.map((item) => <li key={item?.id_mission?.toUpperCase()}>{item?.manette}</li>)
-    const toggleDrawer = (open) => (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
-        }
-        setOpen(open);
-    };
-
-    // useEffect(() => {
-    //     getAllMission()
-    // }, [])
-
     function handleReplay() {
         dispatch(missionSlice.actions.startMissionReplay())
-        console.log("emission")
         socket.emit('logger/replay_log', details);
     }
     function handleRefetch() {
-        console.log("refetch")
         refetch()
     }
 
@@ -135,7 +112,7 @@ export default function TableList() {
 
                         </div>
                         <div className="col-md-9">
-                            
+
                             <div className="row">
                                 <div className="col-md-6">
                                     <Card>

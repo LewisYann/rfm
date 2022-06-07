@@ -35,13 +35,10 @@ const manette = () => {
     const { t } = useTranslation();
     const currentMission = useSelector((state) => state.mission)
     const statusMission = useSelector((state) => state.mission)
-    const [manette, setManette] = useState([])
-    const [mission, setMission] = useState([])
     const dispatch = useDispatch()
 
     const { data: dataAssign, isFetching3, isError3, isSuccess3, refetch } = useGetMissionsQuery()
 
-    console.log('test', currentMission.status)
     const getAllManette = () => {
         axiosService.get("/get/setting").then(
             (data) => {
@@ -59,19 +56,16 @@ const manette = () => {
     function handleStart() {
         dispatch(missionSlice.actions.fillMission(currentMission.mission))
         dispatch(missionSlice.actions.startMission())
-        console.log("emission")
         refetch()
         socket.emit('logger/start_mission', currentMission.mission);
     }
 
     function handleStop() {
         dispatch(missionSlice.actions.stopMission())
-        console.log("emission")
         refetch()
         socket.emit('logger/stop_mission', currentMission.mission);
     }
 
-    const listManette = manette.map((item) => <li key={item.id}>{item.manette}</li>)
     useEffect(() => {
         getAllManette()
     }, [])

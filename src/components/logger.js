@@ -8,10 +8,8 @@ export default function Logger() {
     const [log, setLog] = React.useState([])
     const currentMission = useSelector((state) => state.mission)
     const dipatch = useDispatch()
-    console.log(currentMission.logger)
 
     socket.on("log/" + currentMission?.mission?.id_mission, (data) => {
-        console.log(data)
         dipatch(missionSlice.actions.fillLogger({data: data}))
     })
 
@@ -37,10 +35,8 @@ export function LoggerReplay(props) {
     const currentMission = useSelector((state) => state.mission)
     const dipatch = useDispatch()
     let details = ""
-    console.log(currentMission?.loggerReplay)
     socket.on("log/replay/" + props.details?.id_mission, (data) => {
         dipatch(missionSlice.actions.fillLoggerReplay({data: data}))
-        console.log(data)
     })
 
     return (

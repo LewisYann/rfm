@@ -26,7 +26,6 @@ const missionSlice = createSlice({
             state: State,
             action: PayloadAction<{ mission: any }>
         ) {
-            console.log(action.payload.mission)
             state.status = "pending"
             state.mission = action.payload.mission;
         },
@@ -57,7 +56,6 @@ const missionSlice = createSlice({
             action: PayloadAction<{ data: any }>
         ) {
             if(state.logger.filter((data:any)=>data.info===action.payload.data.info).length>0){
-                console.log("duplicated")
             }
             else{
                 state.logger.push(action.payload.data)
@@ -68,7 +66,6 @@ const missionSlice = createSlice({
             action: PayloadAction<{ data: any }>
         ) {
             if(state.loggerReplay.filter((data:any)=>data.info===action.payload.data.info).length>0){
-                console.log("duplicated")
             }
             else{
                 state.loggerReplay.push(action.payload.data)

@@ -36,7 +36,6 @@ export default function AdminNavbarLinks() {
     () => {
       socket.emit("get/notification", { idUser: store.getState().auth.account.account.idUser });
       socket.on("notification", (data) => setNotification(data.notification))
-      console.log(notification)
     }, []
   )
 

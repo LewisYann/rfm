@@ -12,7 +12,6 @@ export const settingApi = createApi({
         auth: { token: token },
       } = getState() as persistState;
       if (token) {
-        console.log(token);
         headers.set("authorization", `Bearer ${token}`);
       }
       return headers;
@@ -55,7 +54,6 @@ export const missionApi = createApi({
         auth: { token: token },
       } = getState() as persistState;
       if (token) {
-        console.log(token);
         headers.set("authorization", `Bearer ${token}`);
       }
       return headers;
@@ -69,7 +67,7 @@ export const missionApi = createApi({
       query: (id) => "/get/mission/" + id,
     }),
     getMissions: builder.query<any[], void>({
-      query: () => "/get/all/mission",
+      query: () =>  "/get/all/mission",
       providesTags: ["Mission"],
     }),
     getMissionsHours: builder.query<any[], void>({
@@ -96,7 +94,6 @@ export const missionApi = createApi({
           );
         } catch (err) {
           // `onError` side-effect
-          console.log("error", err);
         }
       },
     }),

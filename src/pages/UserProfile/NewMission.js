@@ -90,7 +90,6 @@ export default function UserProfile() {
             .catch((err) => {
                 toast.error("Erreur lors de la creaction de la mission")
                 setReady(false)
-                console.log(err)
 
                 return <Navigate to="/control" replace />;
             });
@@ -99,10 +98,7 @@ export default function UserProfile() {
 
     useEffect(
         () => {
-            console.log("markerRef", markerRef.current?.getLatLng())
-            console.log("markerRefTwo", markerRefTwo.current?.getLatLng())
-            setHoursVol([[markerRef.current?.getLatLng().lat, markerRef.current?.getLatLng().lng], [markerRefTwo.current?.getLatLng().lat, markerRefTwo.current?.getLatLng().lng]])
-            console.log(hours_vol)
+             setHoursVol([[markerRef.current?.getLatLng().lat, markerRef.current?.getLatLng().lng], [markerRefTwo.current?.getLatLng().lat, markerRefTwo.current?.getLatLng().lng]])
         }, [markerRef, markerRefTwo]	
     )
     return (
@@ -177,7 +173,6 @@ export default function UserProfile() {
                                                 onChange={(data) => {
                                                     setType(data.target.value)
                                                     setParcours(data.target.value)
-                                                    console.log(data.target.value)
                                                 }
                                                 }
                                                 required

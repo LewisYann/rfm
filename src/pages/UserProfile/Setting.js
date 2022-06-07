@@ -48,11 +48,9 @@ const Setting = () => {
     ).then((data) => {
       getSetting()
       toast.success("Configuration reussi")
-      console.log(data)
     })
       .catch((err) => {
         toast.error("Erreur lors de la configuration")
-        console.log(err)
       });
     
   }

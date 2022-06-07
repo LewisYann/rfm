@@ -56,7 +56,7 @@ export default function Login() {
       }
   
   
-  
+   
     }*/
     
 
@@ -64,10 +64,7 @@ export default function Login() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('login'),
-      password: data.get('password'),
-    });
+
     setReady(true)
     try {
       await postLogin({
@@ -76,12 +73,10 @@ export default function Login() {
       }).unwrap()
         .then(
           (data) => {
-            console.log(data)
             if (data.statu === 404 || isError) {
               toast.error("Erreur de connexion , verifer vos identifiant")
             }
             else {
-              console.log(data)
               dispatch(authSlice.actions.setAuthTokens({ token: data.token, refreshToken: data.token }));
               dispatch(authSlice.actions.setAccount({ account: data.account }));
               localStorage.setItem('user', JSON.stringify(data.data))

@@ -48,7 +48,6 @@ const useStyles = makeStyles(styles);
 export default function UserProfile() {
   const dispatch = useDispatch()
   const account = store.getState().auth
-  console.log(account)
   const [username, setUsername] = React.useState(account.account.account.people[0]?.username)
   const [name, setName] = React.useState(account.account.account.people[0]?.name)
   const [surname, setSurname] = React.useState(account.account.account.people[0]?.surname)

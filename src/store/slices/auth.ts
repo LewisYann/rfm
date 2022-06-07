@@ -20,7 +20,6 @@ const authSlice = createSlice({
       state.token = action.payload.token;
      },
     setAccount(state: State, action: PayloadAction<{}>) {
-      console.log("action "+action.payload)
       state.account = action.payload;
     },
     setLogout(state: State) {
