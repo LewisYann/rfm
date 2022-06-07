@@ -10,7 +10,7 @@ export const TRANSLATIONS_EN = {
     sideBarProfil:"Profil",
     sideBarLogout:"Logout",
     dashbordMissions:"Missions",
-    dashbordTotalHours:"Total Hours",
+    dashbordTotalHours:"Total Seconds",
     dashbordLastMission:"Last mission",
     dashbordTimeLastMission:"Last mission time",
     controlController:"Controller",

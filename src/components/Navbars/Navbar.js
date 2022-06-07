@@ -62,8 +62,8 @@ export default function Header(props) {
             width:"10%"
           }}
         >
-          <option value="en">English</option>
-          <option value="fr">Francais</option>
+          <option value="en">Francais</option>
+          <option value="fr">English</option>
         </select>
         
         <Button

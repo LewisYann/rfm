@@ -23,7 +23,7 @@ export default function CustomTable(props) {
                 <TableCell className={classes.tableCell}> {item?.id_mission} </TableCell>
                 <TableCell className={classes.tableCell}> {item?.title} </TableCell>
                 <TableCell className={classes.tableCell}> {item?.description} </TableCell>
-                <TableCell className={classes.tableCell}> {item?.heurs_vol} h </TableCell>
+                <TableCell className={classes.tableCell}> {item?.heurs_vol} s </TableCell>
                 <TableCell className={classes.tableCell}> {item?.created_at} </TableCell>
                 <TableCell
                     className={classes.tableCell}> {item?.started_at === null ? "En attente" : item?.ended_at === null ? "En cours" : "Terminer"} </TableCell>
