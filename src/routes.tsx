@@ -13,58 +13,108 @@ import { AddBox, Gamepad, Settings } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
 
 
-const dashboardRoutes = [
-  {
-    path: "/dashboard",
-    name: "Home",
-    rtlName: "لوحة القيادة",
-    icon: Dashboard,
-    component: HomePage,
-    layout: "",
-  },
-  {
-    path: "/control",
-    name: "Controls",
-    rtlName: "لوحة القيادة",
-    icon: Gamepad,
-    component: Control,
-    layout: "",
-  },
-  {
-    path: "/missions",
-    name: "Missions",
-    rtlName: "قائمة الجدول",
-    icon: "content_paste",
-    component: Missions,
-    layout: "",
-  },
-  {
-    path: "/create/mission",
-    name: "New Mission",
-    rtlName: "لوحة القيادة",
-    icon: AddBox,
-    component: NewMission,
-    layout: "",
-  },
-  {
-    path: "/settings",
-    name: "Settings",
-    rtlName: "لوحة القيادة",
-    icon: Settings,
-    component: Setting,
-    layout: "",
-  },
-  {
-    path: "/profil",
-    name: "Profil",
-    rtlName: "ملف تعريفي للمستخدم",
-    icon: Person,
-    component: UserProfile,
-    layout: "",
-  }
-
-
-];
+const dashboardRoutes = {
+  "en": [
+    {
+      path: "/dashboard",
+      name: "Home",
+      rtlName: "لوحة القيادة",
+      icon: Dashboard,
+      component: HomePage,
+      layout: "",
+    },
+    {
+      path: "/control",
+      name: "Controls",
+      rtlName: "لوحة القيادة",
+      icon: Gamepad,
+      component: Control,
+      layout: "",
+    },
+    {
+      path: "/missions",
+      name: "Missions",
+      rtlName: "قائمة الجدول",
+      icon: "content_paste",
+      component: Missions,
+      layout: "",
+    },
+    {
+      path: "/create/mission",
+      name: "New Mission",
+      rtlName: "لوحة القيادة",
+      icon: AddBox,
+      component: NewMission,
+      layout: "",
+    },
+    {
+      path: "/settings",
+      name: "Settings",
+      rtlName: "لوحة القيادة",
+      icon: Settings,
+      component: Setting,
+      layout: "",
+    },
+    {
+      path: "/profil",
+      name: "Profil",
+      rtlName: "ملف تعريفي للمستخدم",
+      icon: Person,
+      component: UserProfile,
+      layout: "",
+    }
+  ],
+  "fr": [
+    {
+      path: "/dashboard",
+      name: "Accueil",
+      rtlName: "لوحة القيادة",
+      icon: Dashboard,
+      component: HomePage,
+      layout: "",
+    },
+    {
+      path: "/control",
+      name: "Contrôles",
+      rtlName: "لوحة القيادة",
+      icon: Gamepad,
+      component: Control,
+      layout: "",
+    },
+    {
+      path: "/missions",
+      name: "Missions",
+      rtlName: "قائمة الجدول",
+      icon: "content_paste",
+      component: Missions,
+      layout: "",
+    },
+    {
+      path: "/create/mission",
+      name: "Nouvelle Mission",
+      rtlName: "لوحة القيادة",
+      icon: AddBox,
+      component: NewMission,
+      layout: "",
+    },
+    {
+      path: "/settings",
+      name: "Paramètres",
+      rtlName: "لوحة القيادة",
+      icon: Settings,
+      component: Setting,
+      layout: "",
+    },
+    {
+      path: "/profil",
+      name: "Profil",
+      rtlName: "ملف تعريفي للمستخدم",
+      icon: Person,
+      component: UserProfile,
+      layout: "",
+    }
+  ]
+}
 
 const TranslateRoutes = () => {
   const { t } = useTranslation();

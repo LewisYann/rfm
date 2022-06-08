@@ -13,6 +13,7 @@ import styles from "../assets/jss/material-dashboard-react/layouts/adminStyle";
 import logo from "../assets/img/reactlogo.png";
 import bgImage from "../assets/img/sidebar-2.jpg";
 import { useSelector } from "react-redux";
+import i18n from "i18next";
 
 
 let ps;
@@ -43,7 +44,7 @@ export default function Admin(props) {
   };
   // initialize and destroy the PerfectScrollbar plugin
   React.useEffect(() => {
-   
+
     if (auth.account == null) {
       return navigate("/");
 
@@ -69,18 +70,17 @@ export default function Admin(props) {
       window.removeEventListener("resize", resizeFunction);
     };
   }, [mainPanel]);
-
+  console.log("language", i18n.language)
   return (
     <div className={classes.wrapper}>
       <Sidebar
-        routes={routes}
+        routes={routes[i18n.language]}
         logoText={"RFM"}
         logo={logo}
         handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen}
         color={color}
         image={image}
-
       />
       <div className={classes.mainPanel} ref={mainPanel}>
         <Navbar
